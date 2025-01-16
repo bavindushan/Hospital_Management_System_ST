@@ -1,15 +1,25 @@
 package controller;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import model.Admin;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginFormController implements Initializable {
@@ -33,6 +43,7 @@ public class LoginFormController implements Initializable {
         userList.add("Admin");
         userList.add("Receptionist");
         userList.add("Doctor");
+        userList.add("Staff");
         userList.add("Patient");
 
         cmbUserTypes.setItems(userList);
@@ -42,9 +53,17 @@ public class LoginFormController implements Initializable {
         switch (cmbUserTypes.getValue().toString()) {
             case "Admin":
                 System.out.println("Admin");
+                try {
+                    searchAdmin();
+                } catch (SQLException | IOException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             case "Receptionist":
                 System.out.println("Receptionist");
+                break;
+            case "Staff":
+                System.out.println("Staff");
                 break;
             case "Doctor":
                 System.out.println("Doctor");
@@ -55,5 +74,28 @@ public class LoginFormController implements Initializable {
             default:
                 System.out.println("Unknown user type");
         }
+    }
+    private void searchAdmin() throws SQLException, IOException {
+        System.out.println("searchAdmin Method call");
+        String SQL = "SELECT * FROM admin WHERE email="+"'"+txtEmail.getText()+"'";
+        Connection connection = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+        if (resultSet.next()){
+            System.out.println("search method if statement 1 work");
+            Admin admin = new Admin(resultSet.getString(2),
+                                    resultSet.getString(3),
+                                    resultSet.getString(4)
+            );
+            //password validation process
+            if (admin.getAdminPassword().equals(txtPassword.getText())){
+                System.out.println("search method if statement 2 work");
+                Stage stage = new Stage();
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/AdminDashBoard.fxml"))));
+                stage.show();
+            }else new Alert(Alert.AlertType.ERROR, "Incorrect Password!").show();
+        }else new Alert(Alert.AlertType.ERROR, "User Not Found!").show();
+    }
+    private void searchReceptionist(){
+        System.out.println("searchAdmin Method call");
     }
 }
