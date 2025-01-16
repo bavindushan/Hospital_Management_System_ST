@@ -13,4 +13,6 @@ public class Staff {
     private String staffName;
     private String staffRole;
     private String staffAvailability;
+    private String staffEmail;
+    private String staffPassword;
 }
