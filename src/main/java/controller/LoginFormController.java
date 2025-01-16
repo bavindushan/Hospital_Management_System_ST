@@ -14,6 +14,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Admin;
+import model.Doctor;
+import model.Patient;
 import model.Staff;
 
 import java.io.IOException;
@@ -57,7 +59,7 @@ public class LoginFormController implements Initializable {
                 try {
                     searchAdmin();
                 } catch (SQLException | IOException e) {
-                    System.out.println(e.getMessage());
+                    System.out.println("An error occurred: " + e.getMessage());
                 }
                 break;
             case "Receptionist":
@@ -65,7 +67,8 @@ public class LoginFormController implements Initializable {
                 try {
                     searchReceptionist();
                 } catch (SQLException | IOException e) {
-                    System.out.println(e.getMessage());
+                    System.err.println("An error occurred: " + e.getMessage());
+                    //e.printStackTrace(); //  For detailed debugging
                 }
                 break;
             case "Staff":
@@ -73,14 +76,24 @@ public class LoginFormController implements Initializable {
                 try {
                     searchStaff();
                 } catch (SQLException | IOException e) {
-                    throw new RuntimeException(e);
+                    System.err.println("An error occurred: " + e.getMessage());
                 }
                 break;
             case "Doctor":
                 System.out.println("Doctor");
+                try {
+                    searchDoctor();
+                } catch (SQLException | IOException e) {
+                    System.out.println("An Error occurred: "+e.getMessage());
+                }
                 break;
             case "Patient":
                 System.out.println("Patient");
+                try {
+                    searchPatient();
+                } catch (SQLException | IOException e) {
+                    System.out.println("An Error occurred: "+e.getMessage());
+                }
                 break;
             default:
                 System.out.println("Unknown user type");
@@ -124,8 +137,8 @@ public class LoginFormController implements Initializable {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ReceptionistDashBoard.fxml"))));
                 stage.show();
-            }else new Alert(Alert.AlertType.ERROR,"Incorrect Password!");
-        }else new Alert(Alert.AlertType.ERROR,"Receptionist not available!");
+            }else new Alert(Alert.AlertType.ERROR,"Incorrect Password!").show();
+        }else new Alert(Alert.AlertType.ERROR,"Receptionist not available!").show();
     }
     private void searchStaff() throws SQLException, IOException {
         String SQL = "SELECT * FROM staff WHERE email="+"'"+txtEmail.getText()+"'";
@@ -139,11 +152,51 @@ public class LoginFormController implements Initializable {
                     resultSet.getString(6)
             );
             if (staff.getStaffPassword().equals(txtPassword.getText())){
-                new Alert(Alert.AlertType.CONFIRMATION,"Login successful!");
+                new Alert(Alert.AlertType.INFORMATION,"Login successful!").show();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/StaffDashBoard.fxml"))));
                 stage.show();
-            }else new Alert(Alert.AlertType.ERROR,"Incorrect Password!");
-        }else new Alert(Alert.AlertType.ERROR,"Staff member not available!");
+            }else new Alert(Alert.AlertType.ERROR,"Incorrect Password!").show();
+        }else new Alert(Alert.AlertType.ERROR,"Staff member not available!").show();
+    }
+    private void searchDoctor() throws SQLException, IOException {
+        String SQL = " SELECT * FROM doctor WHERE email="+"'"+txtEmail.getText()+"'";
+        Connection connection = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+        if(resultSet.next()){
+            Doctor doctor = new Doctor(resultSet.getString(2),
+                                        resultSet.getString(3),
+                                        resultSet.getString(4),
+                                        resultSet.getString(5),
+                                        resultSet.getString(6),
+                                        resultSet.getString(7),
+                                        resultSet.getString(8)
+            );
+            if(doctor.getDoctorPassword().equals(txtPassword.getText())){
+                Stage stage = new Stage();
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/DoctorDasBoard.fxml"))));
+                stage.show();
+            }else new Alert(Alert.AlertType.ERROR,"Incorrect Password!").show();
+        }else new Alert(Alert.AlertType.ERROR,"Doctor not found!").show();
+    }
+    private void searchPatient() throws SQLException, IOException {
+        String SQL = "SELECT * FROM patient WHERE email="+"'"+txtEmail.getText()+"'";
+        Connection connection = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+        if(resultSet.next()){
+            Patient patient = new Patient(resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    resultSet.getString(8)
+            );
+            if(patient.getPatientPassword().equals(txtPassword.getText())){
+                Stage stage = new Stage();
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/PatientDashBoard.fxml"))));
+                stage.show();
+            }else new Alert(Alert.AlertType.ERROR,"Invalid Password!").show();
+        }else new Alert(Alert.AlertType.ERROR,"Patient not Found!").show();
     }
 }

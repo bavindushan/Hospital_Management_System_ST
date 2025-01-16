@@ -41,7 +41,7 @@
   -fx-padding: 1 10; /* Padding inside the button */
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); /* Drop shadow effect */
   -fx-cursor: hand; /* Change cursor to pointer on hover */
-  -fx-alignment: right;
+  -fx-alignment: CENTER_RIGHT;
 }
 
 /* Hover Effect */
