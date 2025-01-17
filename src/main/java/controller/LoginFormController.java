@@ -146,10 +146,10 @@ public class LoginFormController implements Initializable {
         ResultSet resultSet = connection.createStatement().executeQuery(SQL);
         if (resultSet.next()){
             Staff staff = new Staff(resultSet.getString(2),
-                    resultSet.getString(3),
-                    resultSet.getString(4),
-                    resultSet.getString(5),
-                    resultSet.getString(6)
+                                    resultSet.getString(3),
+                                    resultSet.getString(4),
+                                    resultSet.getString(5),
+                                    resultSet.getString(6)
             );
             if (staff.getStaffPassword().equals(txtPassword.getText())){
                 new Alert(Alert.AlertType.INFORMATION,"Login successful!").show();
@@ -185,12 +185,12 @@ public class LoginFormController implements Initializable {
         ResultSet resultSet = connection.createStatement().executeQuery(SQL);
         if(resultSet.next()){
             Patient patient = new Patient(resultSet.getString(2),
-                    resultSet.getString(3),
-                    resultSet.getString(4),
-                    resultSet.getString(5),
-                    resultSet.getString(6),
-                    resultSet.getString(7),
-                    resultSet.getString(8)
+                                            resultSet.getString(3),
+                                            resultSet.getString(4),
+                                            resultSet.getString(5),
+                                            resultSet.getString(6),
+                                            resultSet.getString(7),
+                                            resultSet.getString(8)
             );
             if(patient.getPatientPassword().equals(txtPassword.getText())){
                 Stage stage = new Stage();

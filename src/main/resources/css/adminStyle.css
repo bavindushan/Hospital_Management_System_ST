@@ -1,0 +1,86 @@
+/* Root Styling */
+.root {
+  -fx-background-color: linear-gradient(to bottom right, rgba(0, 128, 0, 0.5), rgba(255, 255, 255, 0.5));
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
+}
+
+/* Glass Panel Styling */
+.glass-panel {
+  -fx-background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+  -fx-border-color: rgba(0, 255, 0, 0.25); /* Light green border */
+  -fx-border-width: 2; /* Border thickness */
+  -fx-border-radius: 20; /* Rounded corners for the panel */
+  -fx-background-radius: 20; /* Matching background radius */
+  -fx-padding: 20; /* Padding inside the panel */
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0.25, 0, 4); /* Subtle drop shadow */
+}
+
+/* Title Text */
+.title-text {
+  -fx-font-size: 24px; /* Large text */
+  -fx-font-weight: bold; /* Bold text */
+  -fx-text-fill: white; /* White text */
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0.2, 1, 1); /* Slight text shadow for readability */
+}
+
+/* Subtitle Text */
+.subtitle-text {
+  -fx-font-size: 16px;
+  -fx-text-fill: rgba(255, 255, 255, 0.8); /* Softer white */
+  -fx-font-style: italic; /* Italicized text */
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 2, 0.2, 0, 1);
+}
+
+/* MenuBar Styling */
+.menu-bar {
+  -fx-background-color: rgba(255, 255, 255, 0.2); /* Glassy white background */
+  -fx-border-color: rgba(0, 255, 0, 0.25); /* Light green border */
+  -fx-border-width: 2; /* Border thickness */
+  -fx-border-radius: 10; /* Rounded corners for the MenuBar */
+  -fx-background-radius: 10; /* Match border radius */
+  -fx-padding: 5; /* Padding around the MenuBar */
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 2); /* Subtle shadow for depth */
+}
+
+/* MenuBar Styling */
+.menu-bar {
+  -fx-background-color: rgba(255, 255, 255, 0.2); /* Glassy white background */
+  -fx-text-fill: white; /* White text on hover */
+  -fx-border-color: #0a2912; /* Dark green border */
+  -fx-border-width: 2; /* Border thickness */
+  -fx-border-radius: 10; /* Rounded corners for the MenuBar */
+  -fx-background-radius: 10; /* Match border radius */
+  -fx-padding: 5; /* Padding around the MenuBar */
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 2); /* Subtle shadow for depth */
+}
+
+/* Menu Styling */
+.menu {
+  -fx-text-fill: #243d24; /* Deep green menu text */
+  -fx-font-size: 16px; /* Font size for menu items */
+  -fx-font-weight: bold; /* Bold text */
+  -fx-padding: 5 10; /* Padding around menu text */
+  -fx-background-radius: 10; /* Rounded background for hover effect */
+}
+
+.menu:hover {
+  -fx-background-color: rgba(10, 41, 18, 0.3); /* Slightly transparent dark green hover */
+  -fx-text-fill: white; /* White text on hover */
+}
+
+/* MenuItem Styling */
+.menu-item {
+  -fx-text-fill: #243d24; /* Deep green text */
+  -fx-font-size: 14px; /* Slightly smaller font for dropdown items */
+  -fx-padding: 5 10; /* Padding around dropdown text */
+}
+
+.menu-bar:hover {
+  -fx-background-color: rgba(10, 41, 18, 0.3); /* Slightly transparent dark green hover */
+  -fx-text-fill: black; /* White text on hover */
+  -fx-border-color: #0a2912; /* Add border on hover */
+  -fx-border-width: 1; /* Thin border for hover effect */
+  -fx-border-radius: 5; /* Rounded corners for hover */
+}
+

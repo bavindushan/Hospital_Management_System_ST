@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.Admin.AdminFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="464.0" prefWidth="733.0" styleClass="root" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminDashBoardFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6da373" height="464.0" opacity="0.17" stroke="#090909" strokeType="INSIDE" strokeWidth="2.0" styleClass="menu" width="226.0" />
+      <Label layoutX="5.0" layoutY="18.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Admin Dash Board" />
+      <Button layoutX="13.0" layoutY="107.0" mnemonicParsing="false" onAction="#btnPatientManagementOnAction" prefHeight="41.0" prefWidth="195.0" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="Patient Management">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="13.0" layoutY="166.0" mnemonicParsing="false" onAction="#btnDoctorManagementOnAction" prefHeight="41.0" prefWidth="195.0" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="Doctor Management">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="13.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnResourcesmanagementOnAction" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="Resources Management">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="13.0" layoutY="351.0" mnemonicParsing="false" onAction="#btnReportAndAnalyticsOnAction" prefHeight="41.0" prefWidth="195.0" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="Reports &amp; Analytics">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Line endX="100.0" layoutX="113.0" layoutY="73.0" startX="-100.0" />
+      <AnchorPane fx:id="ancpAdminDashBoard" layoutX="226.0" layoutY="-2.0" prefHeight="464.0" prefWidth="507.0" />
+      <Button layoutX="13.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnAdminManagementOnAction" prefHeight="41.0" prefWidth="195.0" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="Admin Management">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
