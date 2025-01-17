@@ -83,4 +83,87 @@
   -fx-border-width: 1; /* Thin border for hover effect */
   -fx-border-radius: 5; /* Rounded corners for hover */
 }
+/* Text Box Styling */
+.text-box {
+  -fx-background-color: rgba(255, 255, 255, 0.2); /* Glassy white background */
+  -fx-border-color: #114f11; /* Dark green border */
+  -fx-border-width: 1; /* Border thickness */
+  -fx-border-radius: 2; /* Rounded corners */
+  -fx-background-radius: 5; /* Match border radius */
+  -fx-padding: 3; /* Internal padding */
+  -fx-text-fill: #243d24; /* Deep green text color */
+  -fx-font-size: 14px; /* Font size for text */
+  -fx-font-weight: normal; /* Regular font weight */
+  -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0.5, 0, 0); /* Subtle inner shadow */
+}
+
+/* Hover Effect */
+.text-box:hover {
+  -fx-border-color: #2d5230; /* Lighter green border on hover */
+  -fx-background-color: rgba(255, 255, 255, 0.3); /* Slightly lighter glassy background */
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.3, 0, 2); /* Subtle drop shadow */
+}
+
+/* Focus Effect */
+.text-box:focused {
+  -fx-border-color: #43a047; /* Bright green border on focus */
+  -fx-background-color: rgba(255, 255, 255, 0.4); /* Lighter glassy background on focus */
+  -fx-effect: dropshadow(gaussian, rgba(67, 160, 71, 0.5), 8, 0.3, 0, 2); /* Green shadow effect */
+}
+
+/* General Button Styling */
+.button {
+  -fx-background-color: rgba(255, 255, 255, 0.2); /* Glassy white background */
+  -fx-border-width: 1; /* Border thickness */
+  -fx-border-radius: 8; /* Rounded corners */
+  -fx-background-radius: 8; /* Match border radius */
+  -fx-text-fill: #243d24; /* Deep green text color for consistency */
+  -fx-font-size: 13px; /* Font size */
+  -fx-font-weight: bold; /* Bold text for visibility */
+  -fx-padding: 8 16; /* Internal padding for button text */
+  -fx-cursor: hand; /* Change cursor to pointer on hover */
+}
+
+/* ADD Button - Green Border */
+.button-add {
+  -fx-border-color: #43a047; /* Bright green border */
+
+}
+
+.button-add:hover {
+  -fx-border-color: #66bb6a; /* Lighter green on hover */
+  -fx-background-color: #66bb6a;
+}
+
+/* DELETE Button - Red Border */
+.button-delete {
+  -fx-border-color: #e53935; /* Bright red border */
+}
+
+.button-delete:hover {
+  -fx-border-color: #ef5350; /* Lighter red on hover */
+  -fx-background-color: #ef5350;
+}
+
+/* UPDATE Button - Blue Border */
+.button-update {
+  -fx-border-color: #1e88e5; /* Bright blue border */
+}
+
+.button-update:hover {
+  -fx-border-color: #42a5f5; /* Lighter blue on hover */
+  -fx-background-color: #42a5f5;
+}
+
+/* SEARCH Button - Yellow Border */
+.button-search {
+  -fx-border-color: #fdd835; /* Bright yellow border */
+}
+
+.button-search:hover {
+  -fx-border-color: #ffee58; /* Lighter yellow on hover */
+  -fx-background-color: #ffee58;
+}
+
+
 

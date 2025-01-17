@@ -7,7 +7,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="464.0" prefWidth="733.0" styleClass="root" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminDashBoardFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6da373" height="464.0" opacity="0.17" stroke="#090909" strokeType="INSIDE" strokeWidth="2.0" styleClass="menu" width="226.0" />
@@ -22,7 +21,7 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <Button layoutX="13.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnResourcesmanagementOnAction" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="Resources Management">
+      <Button layoutX="13.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnResourcesmanagementOnAction" prefHeight="38.0" prefWidth="195.0" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="Resources Management">
          <font>
             <Font size="17.0" />
          </font>
