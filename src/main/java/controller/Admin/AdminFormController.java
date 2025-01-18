@@ -56,7 +56,7 @@ public class AdminFormController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            boolean b = adminController.addAdmin(new Admin(txtId.getText(),txtPassword.getText(), txtName.getText(), txtEmail.getText()));
+            boolean b = adminController.addAdmin(new Admin(genarateAdminID(),txtPassword.getText(), txtName.getText(), txtEmail.getText()));
             
             if (b)  new Alert(Alert.AlertType.CONFIRMATION, "Admin added successful!!");
             else new Alert(Alert.AlertType.ERROR, "Admin not add!!");
@@ -67,6 +67,13 @@ public class AdminFormController implements Initializable {
     }
     private String genarateAdminID(){
         String lastAdminID = adminController.getLastAdminID();
+        if (lastAdminID==null){
+            return "A001";
+        }
+        int numericPart = Integer.parseInt(lastAdminID.substring(1));
+        int newNumericPart = numericPart + 1;
+
+        return String.format("A%03d",newNumericPart);
     }
 
     @FXML
