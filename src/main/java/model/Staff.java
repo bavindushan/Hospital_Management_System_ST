@@ -10,6 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Staff {
+    private String staffID;
     private String staffName;
     private String staffRole;
     private String staffAvailability;

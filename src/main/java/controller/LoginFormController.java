@@ -106,9 +106,11 @@ public class LoginFormController implements Initializable {
         ResultSet resultSet = connection.createStatement().executeQuery(SQL);
         if (resultSet.next()){
             System.out.println("searchAdmin method if statement 1 work");
-            Admin admin = new Admin(resultSet.getString(2),
-                                    resultSet.getString(3),
-                                    resultSet.getString(4)
+            Admin admin = new Admin(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4)
             );
             //password validation process
             if (admin.getAdminPassword().equals(txtPassword.getText())){
@@ -127,11 +129,13 @@ public class LoginFormController implements Initializable {
         if (resultSet.next()){
             System.out.println("searchReceptionist method if statement 1 work");
 
-            Staff staff = new Staff(resultSet.getString(2),
-                                    resultSet.getString(3),
-                                    resultSet.getString(4),
-                                    resultSet.getString(5),
-                                    resultSet.getString(6)
+            Staff staff = new Staff(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6)
             );
             if (staff.getStaffPassword().equals(txtPassword.getText())){
                 Stage stage = new Stage();
@@ -145,11 +149,13 @@ public class LoginFormController implements Initializable {
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery(SQL);
         if (resultSet.next()){
-            Staff staff = new Staff(resultSet.getString(2),
-                                    resultSet.getString(3),
-                                    resultSet.getString(4),
-                                    resultSet.getString(5),
-                                    resultSet.getString(6)
+            Staff staff = new Staff(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6)
             );
             if (staff.getStaffPassword().equals(txtPassword.getText())){
                 new Alert(Alert.AlertType.INFORMATION,"Login successful!").show();
@@ -164,13 +170,15 @@ public class LoginFormController implements Initializable {
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery(SQL);
         if(resultSet.next()){
-            Doctor doctor = new Doctor(resultSet.getString(2),
-                                        resultSet.getString(3),
-                                        resultSet.getString(4),
-                                        resultSet.getString(5),
-                                        resultSet.getString(6),
-                                        resultSet.getString(7),
-                                        resultSet.getString(8)
+            Doctor doctor = new Doctor(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    resultSet.getString(8)
             );
             if(doctor.getDoctorPassword().equals(txtPassword.getText())){
                 Stage stage = new Stage();
@@ -184,13 +192,15 @@ public class LoginFormController implements Initializable {
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery(SQL);
         if(resultSet.next()){
-            Patient patient = new Patient(resultSet.getString(2),
-                                            resultSet.getString(3),
-                                            resultSet.getString(4),
-                                            resultSet.getString(5),
-                                            resultSet.getString(6),
-                                            resultSet.getString(7),
-                                            resultSet.getString(8)
+            Patient patient = new Patient(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    resultSet.getString(8)
             );
             if(patient.getPatientPassword().equals(txtPassword.getText())){
                 Stage stage = new Stage();

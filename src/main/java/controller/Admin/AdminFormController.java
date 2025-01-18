@@ -56,13 +56,17 @@ public class AdminFormController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            boolean b = adminController.addAdmin(new Admin(txtPassword.getText(), txtName.getText(), txtEmail.getText()));
+            boolean b = adminController.addAdmin(new Admin(txtId.getText(),txtPassword.getText(), txtName.getText(), txtEmail.getText()));
+            
+            if (b)  new Alert(Alert.AlertType.CONFIRMATION, "Admin added successful!!");
+            else new Alert(Alert.AlertType.ERROR, "Admin not add!!");
 
-            Alert alert = b? new Alert(Alert.AlertType.CONFIRMATION, "Admin added successful!!") :
-                             new Alert(Alert.AlertType.ERROR, "Admin not add!!");
         } catch (SQLException e) {
             System.out.println("An Error Occur!!"+e.getMessage());
         }
+    }
+    private String genarateAdminID(){
+        String lastAdminID = adminController.getLastAdminID();
     }
 
     @FXML

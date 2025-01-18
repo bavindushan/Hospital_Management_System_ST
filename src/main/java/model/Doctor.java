@@ -10,6 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Doctor {
+    private String doctorID;
     private String doctorName;
     private String doctorSpecialty;
     private String doctorTelNo;
