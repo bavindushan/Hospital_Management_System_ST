@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Admin;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -48,6 +49,7 @@ public class AdminFormController implements Initializable {
 
     AdminController adminController;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         adminController = new AdminController();
@@ -75,7 +77,21 @@ public class AdminFormController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            boolean b = adminController.addAdmin(new Admin(genarateAdminID(),txtPassword.getText(), txtName.getText(), txtEmail.getText()));
+            //validation
+            if (txtId.getText().isEmpty() || txtPassword.getText().isEmpty() ||
+                    txtName.getText().isEmpty() || txtEmail.getText().isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "Please fill in all fields.").show();
+                return;
+            }
+
+            //password encryption
+
+            String key = "#E&Cr!Pt$";
+            BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+            basicTextEncryptor.setPassword(key);
+            String encryptPassword = basicTextEncryptor.encrypt(txtPassword.getText());
+
+            boolean b = adminController.addAdmin(new Admin(genarateAdminID(),encryptPassword, txtName.getText(), txtEmail.getText()));
             
             if (b)  new Alert(Alert.AlertType.INFORMATION, "Admin added successful!!").show();
             else new Alert(Alert.AlertType.ERROR, "Admin not add!!").show();
@@ -106,24 +122,42 @@ public class AdminFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
+            //password decrypt
+            String key = "#E&Cr!Pt$";
+            BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+            basicTextEncryptor.setPassword(key);
+
             Admin admin = adminController.searchAdmin(txtEmail.getText());
             txtId.setText(admin.getAdminID());
             txtEmail.setText(admin.getAdminEmail());
             txtName.setText(admin.getAdminName());
-            txtPassword.setText(admin.getAdminPassword());
+            txtPassword.setText(basicTextEncryptor.decrypt(admin.getAdminPassword()));
             new Alert(Alert.AlertType.INFORMATION,"Admin found!").show();
 
             loadTable();
 
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,"An error occur "+e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR,"Admin not available!! "+e.getMessage()).show();
         }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         try {
-            boolean b = adminController.updateAdmin(new Admin(txtId.getText(), txtEmail.getText(), txtName.getText(), txtPassword.getText()));
+
+            if (txtId.getText().isEmpty() || txtPassword.getText().isEmpty() ||
+                    txtName.getText().isEmpty() || txtEmail.getText().isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "Please fill in all fields.").show();
+                return;
+            }
+
+            //password encrypt
+            String key = "#E&Cr!Pt$";
+            BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+            basicTextEncryptor.setPassword(key);
+            String encryptedPassword = basicTextEncryptor.encrypt(txtPassword.getText());
+
+            boolean b = adminController.updateAdmin(new Admin(txtId.getText(),encryptedPassword, txtName.getText(), txtEmail.getText()));
             if (b) new Alert(Alert.AlertType.INFORMATION,"Admin update successful!").show();
             else new Alert(Alert.AlertType.ERROR, "Admin not update!").show();
 

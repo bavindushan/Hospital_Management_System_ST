@@ -17,6 +17,7 @@ import model.Admin;
 import model.Doctor;
 import model.Patient;
 import model.Staff;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -67,7 +68,7 @@ public class LoginFormController implements Initializable {
                 try {
                     searchReceptionist();
                 } catch (SQLException | IOException e) {
-                    System.err.println("An error occurred: " + e.getMessage());
+                    System.out.println("An error occurred: " + e.getMessage());
                     //e.printStackTrace(); //  For detailed debugging
                 }
                 break;
@@ -76,7 +77,7 @@ public class LoginFormController implements Initializable {
                 try {
                     searchStaff();
                 } catch (SQLException | IOException e) {
-                    System.err.println("An error occurred: " + e.getMessage());
+                    System.out.println("An error occurred: " + e.getMessage());
                 }
                 break;
             case "Doctor":
@@ -113,7 +114,14 @@ public class LoginFormController implements Initializable {
                     resultSet.getString(4)
             );
             //password validation process
-            if (admin.getAdminPassword().equals(txtPassword.getText())){
+
+            //password encrypt
+            String key = "#E&Cr!Pt$";
+            BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+            basicTextEncryptor.setPassword(key);
+            String decryptedPassword = basicTextEncryptor.decrypt(admin.getAdminPassword());
+
+            if (decryptedPassword.equals(txtPassword.getText())){
                 System.out.println("search method if statement 2 work");
                 Stage stage = new Stage();
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/AdminDashBoard.fxml"))));
