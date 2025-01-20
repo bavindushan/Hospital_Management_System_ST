@@ -65,6 +65,12 @@ public class AdminFormController implements Initializable {
 
         return String.format("A%03d",newNumericPart);
     }
+    private void reloadForm(){
+        txtId.setText(genarateAdminID());
+        txtEmail.setText("");
+        txtName.setText("");
+        txtPassword.setText("");
+    }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
@@ -75,6 +81,7 @@ public class AdminFormController implements Initializable {
             else new Alert(Alert.AlertType.ERROR, "Admin not add!!").show();
 
             loadTable();
+            reloadForm();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "An error occurred: " + e.getMessage()).show();
@@ -85,13 +92,14 @@ public class AdminFormController implements Initializable {
     void btnDeleteOnAction(ActionEvent event) {
         try {
             boolean b = adminController.deleteAdmin(txtEmail.getText());
-            if (b) new Alert(Alert.AlertType.INFORMATION,"Admin deleted!");
-            else new Alert(Alert.AlertType.ERROR,"Admin not delete!");
+            if (b) new Alert(Alert.AlertType.INFORMATION,"Admin deleted!").show();
+            else new Alert(Alert.AlertType.ERROR,"Admin not delete!").show();
 
             loadTable();
+            reloadForm();
 
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,"An Error occur "+e.getMessage());
+            new Alert(Alert.AlertType.ERROR,"An Error occur "+e.getMessage()).show();
         }
     }
 
@@ -103,12 +111,12 @@ public class AdminFormController implements Initializable {
             txtEmail.setText(admin.getAdminEmail());
             txtName.setText(admin.getAdminName());
             txtPassword.setText(admin.getAdminPassword());
-            new Alert(Alert.AlertType.INFORMATION,"Admin found!");
+            new Alert(Alert.AlertType.INFORMATION,"Admin found!").show();
 
             loadTable();
 
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,"An error occur "+e.getMessage());
+            new Alert(Alert.AlertType.ERROR,"An error occur "+e.getMessage()).show();
         }
     }
 
@@ -116,20 +124,21 @@ public class AdminFormController implements Initializable {
     void btnUpdateOnAction(ActionEvent event) {
         try {
             boolean b = adminController.updateAdmin(new Admin(txtId.getText(), txtEmail.getText(), txtName.getText(), txtPassword.getText()));
-            if (b) new Alert(Alert.AlertType.INFORMATION,"Admin update successful!");
-            else new Alert(Alert.AlertType.ERROR, "Admin not update!");
+            if (b) new Alert(Alert.AlertType.INFORMATION,"Admin update successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Admin not update!").show();
 
             loadTable();
+            reloadForm();
 
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,"An error occur "+e.getMessage());
+            new Alert(Alert.AlertType.ERROR,"An error occur "+e.getMessage()).show();
         }
     }
     private void loadTable(){
-        clmID.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
-        clmName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        clmEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        clmPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
+        clmID.setCellValueFactory(new PropertyValueFactory<>("adminID"));
+        clmPassword.setCellValueFactory(new PropertyValueFactory<>("adminPassword"));
+        clmName.setCellValueFactory(new PropertyValueFactory<>("adminName"));
+        clmEmail.setCellValueFactory(new PropertyValueFactory<>("adminEmail"));
 
         ObservableList<Admin> adminObservbleList = FXCollections.observableArrayList();
         List<Admin> adminList = adminController.getAllAdmin();
