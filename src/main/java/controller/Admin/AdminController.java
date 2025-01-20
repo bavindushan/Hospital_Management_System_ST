@@ -88,15 +88,6 @@ public class AdminController implements AdminServices{
         return adminArrayList;
     }
 
-    public ObservableList<Object> getAllAdminIds(){
-        List<Admin> allAdmin = getAllAdmin();
-        ObservableList<Object> adminIdObsavableList = FXCollections.observableArrayList();
-
-        allAdmin.forEach(admin -> adminIdObsavableList.add(admin.getAdminID()));
-
-        return adminIdObsavableList;
-    }
-
     public String getLastAdminID(){
         List<Admin> adminList = getAllAdmin();
 

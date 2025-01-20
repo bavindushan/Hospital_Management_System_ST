@@ -10,12 +10,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Doctor {
-    private String doctorID;
-    private String doctorName;
-    private String doctorSpecialty;
-    private String doctorTelNo;
-    private String doctorQualifications;
-    private String doctorAvailability;
-    private String doctorEmail;
-    private String doctorPassword;
+    private String id;
+    private String name;
+    private String specialty;
+    private String telNo;
+    private String qualifications;
+    private String availability;
+    private String email;
+    private String password;
 }
