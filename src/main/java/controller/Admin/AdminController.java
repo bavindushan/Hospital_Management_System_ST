@@ -12,7 +12,7 @@ import java.util.List;
 public class AdminController implements AdminServices{
     @Override
     public boolean addAdmin(Admin admin) throws SQLException {
-        String SQL = "INSERT INTO admin (password,name,email) VALUES (?,?,?)";
+        String SQL = "INSERT INTO admin (admin_id,password,name,email) VALUES (?,?,?,?)";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
@@ -29,7 +29,7 @@ public class AdminController implements AdminServices{
     public Admin searchAdmin(String email) throws SQLException {
 
         Connection connection = DBConnection.getInstance().getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM  admin WHERE id=" + "'" + email + "'");
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM  admin WHERE email=" + "'" + email + "'");
         resultSet.next();
         return new Admin(
                 resultSet.getString(1),
@@ -40,13 +40,29 @@ public class AdminController implements AdminServices{
     }
 
     @Override
-    public boolean updateAdmin(String password, String name, String email) {
-        return false;
+    public boolean updateAdmin(Admin admin) throws SQLException {
+        String SQL = "UPDATE admin SET password = ?, name = ?, email = ? WHERE admin_id = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+        //Set new values
+        preparedStatement.setString(1,admin.getAdminPassword());
+        preparedStatement.setString(2,admin.getAdminName());
+        preparedStatement.setString(3,admin.getAdminEmail());
+        preparedStatement.setString(4,admin.getAdminID());//search condition
+        int affectedRows = preparedStatement.executeUpdate();
+        return affectedRows > 0;
     }
 
     @Override
-    public boolean deleteAdmin(String email) {
-        return false;
+    public boolean deleteAdmin(String email) throws SQLException {
+        String SQL = "DELETE FROM admin WHERE  email = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+        preparedStatement.setString(1,email);
+        int affectedRows = preparedStatement.executeUpdate();
+        return affectedRows > 0;
     }
 
     @Override

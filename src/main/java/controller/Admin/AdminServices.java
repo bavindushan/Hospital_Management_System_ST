@@ -8,7 +8,7 @@ import java.util.List;
 public interface AdminServices {
     boolean addAdmin(Admin admin) throws SQLException;
     Admin searchAdmin(String email) throws SQLException;
-    boolean updateAdmin(String password,String name,String email);
-    boolean deleteAdmin(String email);
+    boolean updateAdmin(Admin admin) throws SQLException;
+    boolean deleteAdmin(String email) throws SQLException;
     List<Admin> getAllAdmin();
 }
