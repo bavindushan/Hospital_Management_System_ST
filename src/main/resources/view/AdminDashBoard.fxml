@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="464.0" prefWidth="733.0" styleClass="root" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminDashBoardFormController">
+<AnchorPane prefHeight="464.0" prefWidth="733.0" styleClass="root" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboards.AdminDashBoardFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6da373" height="464.0" opacity="0.17" stroke="#090909" strokeType="INSIDE" strokeWidth="2.0" styleClass="menu" width="226.0" />
       <Label layoutX="5.0" layoutY="18.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Admin Dash Board" />
