@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Doctor;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -151,7 +152,44 @@ public class DoctorFormController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        // Validate input fields
+        if (txtId.getText().isEmpty() ||
+                txtName.getText().isEmpty() ||
+                cmbSpeciality.getValue() == null ||
+                txtTelNo.getText().isEmpty() ||
+                cmbQualification.getValue() == null ||
+                txtEmail.getText().isEmpty()) {
 
+            new Alert(Alert.AlertType.WARNING, "Please fill in all fields before submitting.").show();
+            return;
+        }
+
+        try {
+            //password encryption
+            String key = "@#$%^&*()+";
+            BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+            basicTextEncryptor.setPassword(key);
+            String encryptedPassword = basicTextEncryptor.encrypt(txtPassword.getText());
+
+            boolean isAdded = doctorController.addDoctor(new Doctor(
+                    txtId.getText(),
+                    txtName.getText(),
+                    cmbSpeciality.getValue().toString(),
+                    txtTelNo.getText(),
+                    cmbQualification.getValue().toString(),
+                    cbAvilability.isSelected() ? "Available" : "Not-available",
+                    txtEmail.getText(),
+                    encryptedPassword
+            ));
+
+            if ((isAdded)) {
+                new Alert(Alert.AlertType.INFORMATION, "Doctor Added Successfully!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Unsuccessfull!").show();
+            }
+        } catch (SQLException e) {
+            System.out.println("an error occurd! "+e.getMessage());
+        }
     }
 
     @FXML
