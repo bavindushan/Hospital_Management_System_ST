@@ -8,39 +8,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="464.0" prefWidth="507.0" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Admin.AdminFormController">
+<AnchorPane prefHeight="474.0" prefWidth="684.0" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Admin.AdminFormController">
    <children>
-      <TextField fx:id="txtId" editable="false" layoutX="69.0" layoutY="90.0" promptText="ID" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+      <TextField fx:id="txtId" editable="false" layoutX="135.0" layoutY="90.0" promptText="ID" styleClass="text-box" stylesheets="@../css/adminStyle.css">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextField>
-      <Label layoutX="144.0" layoutY="14.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Admin Managment" />
-      <TextField fx:id="txtPassword" layoutX="271.0" layoutY="133.0" promptText="Password" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+      <Label layoutX="210.0" layoutY="14.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Admin Managment" />
+      <TextField fx:id="txtPassword" layoutX="337.0" layoutY="133.0" promptText="Password" styleClass="text-box" stylesheets="@../css/adminStyle.css">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtName" layoutX="70.0" layoutY="133.0" promptText="Name" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+      <TextField fx:id="txtName" layoutX="136.0" layoutY="133.0" promptText="Name" styleClass="text-box" stylesheets="@../css/adminStyle.css">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtEmail" layoutX="271.0" layoutY="90.0" promptText="Email" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+      <TextField fx:id="txtEmail" layoutX="337.0" layoutY="90.0" promptText="Email" styleClass="text-box" stylesheets="@../css/adminStyle.css">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextField>
-      <Button layoutX="74.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="75.0" styleClass="button-delete" stylesheets="@../css/adminStyle.css" text="Delete" />
-      <Button layoutX="176.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="button-update" stylesheets="@../css/adminStyle.css" text="Update" />
-      <Button layoutX="279.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
-      <Button layoutX="378.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="36.0" prefWidth="75.0" styleClass="button-add" stylesheets="@../css/adminStyle.css" text="Add" />
-      <TableView fx:id="tblAdminTable" layoutY="264.0" prefHeight="200.0" prefWidth="507.0">
+      <Button layoutX="140.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="75.0" styleClass="button-delete" stylesheets="@../css/adminStyle.css" text="Delete" />
+      <Button layoutX="242.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="button-update" stylesheets="@../css/adminStyle.css" text="Update" />
+      <Button layoutX="345.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
+      <Button layoutX="444.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="36.0" prefWidth="75.0" styleClass="button-add" stylesheets="@../css/adminStyle.css" text="Add" />
+      <TableView fx:id="tblAdminTable" layoutX="8.0" layoutY="260.0" prefHeight="209.0" prefWidth="668.0">
         <columns>
-          <TableColumn fx:id="clmID" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="clmName" prefWidth="136.66665649414062" text="Name" />
-            <TableColumn fx:id="clmEmail" prefWidth="153.3333740234375" text="Email" />
-            <TableColumn fx:id="clmPassword" prefWidth="140.00006103515625" text="Password" />
+          <TableColumn fx:id="clmID" prefWidth="117.33334636688232" text="ID" />
+          <TableColumn fx:id="clmName" prefWidth="180.66666412353516" text="Name" />
+            <TableColumn fx:id="clmEmail" prefWidth="197.33331298828125" text="Email" />
+            <TableColumn fx:id="clmPassword" prefWidth="171.99996948242188" text="Password" />
         </columns>
       </TableView>
    </children>

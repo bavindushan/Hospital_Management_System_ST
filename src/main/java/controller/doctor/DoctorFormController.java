@@ -10,17 +10,38 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.Doctor;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DoctorFormController implements Initializable {
 
     @FXML
-    private CheckBox cbAvilability;
+    public TableColumn clmQualification;
 
     @FXML
-    private TableColumn clmEmail;
+    public TableColumn clmPassword;
+
+    @FXML
+    public TableColumn clmAvailability;
+
+    @FXML
+    public TableColumn clmEmail;
+
+    @FXML
+    public TableColumn clmSpeciality;
+
+    @FXML
+    public TableColumn clmTel;
+
+    @FXML
+    private CheckBox cbAvilability;
+
 
     @FXML
     private TableColumn clmID;
@@ -28,8 +49,6 @@ public class DoctorFormController implements Initializable {
     @FXML
     private TableColumn clmName;
 
-    @FXML
-    private TableColumn clmPassword;
 
     @FXML
     private ComboBox cmbQualification;
@@ -83,7 +102,30 @@ public class DoctorFormController implements Initializable {
         cmbQualification.setItems(qualificationList);
     }
     private void loadTable(){
+        clmID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clmName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clmSpeciality.setCellValueFactory(new PropertyValueFactory<>("specialty"));
+        clmTel.setCellValueFactory(new PropertyValueFactory<>("telNo"));
+        clmQualification.setCellValueFactory(new PropertyValueFactory<>("qualifications"));
+        clmAvailability.setCellValueFactory(new PropertyValueFactory<>("availability"));
+        clmEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        clmPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
 
+
+        ObservableList<Doctor> observableList = FXCollections.observableArrayList();
+        try {
+            List<Doctor> doctorList = doctorController.getAll();
+            doctorList.forEach(doctor -> {
+                observableList.add(doctor);
+            });
+            tblAdminTable.setItems(observableList);
+        } catch (SQLException e) {
+            System.out.println("An error occur! "+ e.getMessage());
+        }
+    }
+
+    private void resetTextxBox(){
+        //
     }
 
     @FXML
