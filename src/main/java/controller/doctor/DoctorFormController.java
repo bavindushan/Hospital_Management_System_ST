@@ -78,6 +78,7 @@ public class DoctorFormController implements Initializable {
         loadQualifications();
         doctorController = new DoctorController();
         loadTable();
+        txtId.setText(genarateDoctorID());
     }
     private void loadSpeciality(){
         ObservableList<String> specialityList = FXCollections.observableArrayList();
@@ -120,19 +121,32 @@ public class DoctorFormController implements Initializable {
         }
     }
 
-    private String genarateDoctorID() throws SQLException {
-        String lastID = doctorController.getLastID();
+    private String genarateDoctorID(){
+        try {
+            String lastID = doctorController.getLastID();
 
-        if (lastID==null) return "D001";
+            if (lastID == null) return "D001";
 
-        int numericPart = Integer.parseInt(lastID.substring(1));
-        int newNumber = numericPart+1;
+            int numericPart = Integer.parseInt(lastID.substring(1));
+            int newNumber = numericPart + 1;
 
-        return String.format("D%03d",newNumber);
+            return String.format("D%03d", newNumber);
+
+        } catch (SQLException e) {
+            System.err.println("Error generating Doctor ID: " + e.getMessage());
+            return "D001"; // Return default ID in case of an error
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing Doctor ID: " + e.getMessage());
+            return "D001"; // Return default ID if parsing fails
+        }
     }
 
     private void resetTextxBox(){
-        //======================================
+        txtId.setText(genarateDoctorID());
+        txtEmail.setText("");
+        txtName.setText("");
+        txtTelNo.setText("");
+        txtPassword.setText("");
     }
 
     @FXML
