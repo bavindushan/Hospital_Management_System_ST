@@ -188,7 +188,7 @@ public class LoginFormController implements Initializable {
                     resultSet.getString(7),
                     resultSet.getString(8)
             );
-            if(doctor.getDoctorPassword().equals(txtPassword.getText())){
+            if(doctor.getPassword().equals(txtPassword.getText())){
                 Stage stage = new Stage();
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/DoctorDasBoard.fxml"))));
                 stage.show();
