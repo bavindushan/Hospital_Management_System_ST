@@ -5,11 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Doctor;
 
@@ -124,8 +120,19 @@ public class DoctorFormController implements Initializable {
         }
     }
 
+    private String genarateDoctorID() throws SQLException {
+        String lastID = doctorController.getLastID();
+
+        if (lastID==null) return "D001";
+
+        int numericPart = Integer.parseInt(lastID.substring(1));
+        int newNumber = numericPart+1;
+
+        return String.format("D%03d",newNumber);
+    }
+
     private void resetTextxBox(){
-        //
+        //======================================
     }
 
     @FXML
