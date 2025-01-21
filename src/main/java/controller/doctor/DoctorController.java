@@ -17,7 +17,7 @@ public class DoctorController implements DoctorServices{
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
         preparedStatement.setString(1, doctor.getId());
-        preparedStatement.setString(2, doctor.getName());
+        preparedStatement.setString(2, "Dr."+doctor.getName());
         preparedStatement.setString(3, doctor.getSpecialty());
         preparedStatement.setString(4, doctor.getTelNo());
         preparedStatement.setString(5, doctor.getQualifications());
