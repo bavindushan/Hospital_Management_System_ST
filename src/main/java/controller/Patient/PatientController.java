@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PatientController implements PatientServices {
@@ -63,17 +64,43 @@ public class PatientController implements PatientServices {
     }
 
     @Override
-    public boolean deletePatient(String TelNo) {
-        return false;
+    public boolean deletePatient(String TelNo) throws SQLException {
+        String SQL = "DELETE FROM patient WHERE contact_number = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+        preparedStatement.setString(1,TelNo);
+        int affectedrows = preparedStatement.executeUpdate();
+        return affectedrows>0;
     }
 
     @Override
-    public List<Patient> getAll() {
-        return List.of();
+    public List<Patient> getAll() throws SQLException {
+        ArrayList<Patient> patientsList = new ArrayList<>();
+
+        Connection connection = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM patient");
+
+        while(resultSet.next()){
+            Patient patient = new Patient(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6)
+            );
+            patientsList.add(patient);
+        }
+        return patientsList;
     }
 
     @Override
-    public String getLastID() {
-        return "";
+    public String getLastID() throws SQLException {
+        List<Patient> all = getAll();
+
+        if (all.isEmpty()) return null;
+        Patient lastPatient = all.get(all.size()-1);
+        return lastPatient.getID();
     }
 }

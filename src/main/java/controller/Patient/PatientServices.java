@@ -9,7 +9,7 @@ public interface PatientServices {
     boolean addPatient(Patient patient) throws SQLException;
     Patient searchPatient(String TelNo) throws SQLException;
     boolean updatePatient(Patient patient) throws SQLException;
-    boolean deletePatient(String TelNo);
-    List<Patient> getAll();
-    String getLastID();
+    boolean deletePatient(String TelNo) throws SQLException;
+    List<Patient> getAll() throws SQLException;
+    String getLastID() throws SQLException;
 }
