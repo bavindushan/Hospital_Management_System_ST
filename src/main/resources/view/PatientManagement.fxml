@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="474.0" prefWidth="684.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Patient.PatientFormController">
+   <children>
+      <TextField fx:id="txtId" editable="false" layoutX="130.0" layoutY="91.0" prefHeight="24.0" prefWidth="75.0" promptText="ID" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="256.0" layoutY="25.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Patient Managment" />
+      <TextField fx:id="txtTelNo" layoutX="280.0" layoutY="140.0" prefHeight="24.0" prefWidth="142.0" promptText="TelNo." styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtName" layoutX="254.0" layoutY="91.0" promptText="Name" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtAge" layoutX="475.0" layoutY="91.0" prefHeight="24.0" prefWidth="106.0" promptText="Age" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <Button layoutX="186.0" layoutY="210.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="75.0" styleClass="button-delete" stylesheets="@../css/adminStyle.css" text="Delete" />
+      <Button layoutX="288.0" layoutY="210.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="button-update" stylesheets="@../css/adminStyle.css" text="Update" />
+      <Button layoutX="391.0" layoutY="210.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
+      <Button layoutX="490.0" layoutY="210.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="36.0" prefWidth="75.0" styleClass="button-add" stylesheets="@../css/adminStyle.css" text="Add" />
+      <TableView fx:id="tblPatientTable" layoutY="284.0" prefHeight="200.0" prefWidth="684.0">
+         <columns>
+            <TableColumn fx:id="clmID" prefWidth="60.66665518283844" text="ID" />
+            <TableColumn fx:id="clmName" prefWidth="129.99999618530273" text="Name" />
+            <TableColumn fx:id="clmAge" prefWidth="94.00004577636719" text="Age" />
+            <TableColumn fx:id="clmGender" prefWidth="113.99993896484375" text="Gender" />
+            <TableColumn fx:id="clmTel" prefWidth="136.66665649414062" text="TelNo." />
+            <TableColumn fx:id="clmMedicalHistory" prefWidth="148.0" text="Medical History" />
+         </columns>
+      </TableView>
+      <ComboBox fx:id="cmbMedicalHistory" layoutX="453.0" layoutY="139.0" prefHeight="27.0" prefWidth="129.0" promptText="Medical Histrory" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <ComboBox fx:id="cmbGender" layoutX="128.0" layoutY="139.0" prefHeight="27.0" prefWidth="96.0" promptText="Gender" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+   </children>
+</AnchorPane>
