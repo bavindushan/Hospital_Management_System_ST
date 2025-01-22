@@ -45,8 +45,21 @@ public class PatientController implements PatientServices {
     }
 
     @Override
-    public boolean updatePatient(Patient patient) {
-        return false;
+    public boolean updatePatient(Patient patient) throws SQLException {
+        String SQL = "UPDATE patient SET name=?,age=?,gender=?,contact_number=?,medical_history=? WHERE patient_id = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+        preparedStatement.setString(1, patient.getName());
+        preparedStatement.setString(2, patient.getAge());
+        preparedStatement.setString(3, patient.getGender());
+        preparedStatement.setString(4, patient.getTelNo());
+        preparedStatement.setString(5, patient.getMedicalHistory());
+
+        preparedStatement.setString(6, patient.getID());
+
+        int affectedrows = preparedStatement.executeUpdate();
+        return affectedrows>0;
     }
 
     @Override

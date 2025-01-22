@@ -8,7 +8,7 @@ import java.util.List;
 public interface PatientServices {
     boolean addPatient(Patient patient) throws SQLException;
     Patient searchPatient(String TelNo) throws SQLException;
-    boolean updatePatient(Patient patient);
+    boolean updatePatient(Patient patient) throws SQLException;
     boolean deletePatient(String TelNo);
     List<Patient> getAll();
     String getLastID();
