@@ -5,12 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import model.Patient;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class PatientFormController implements Initializable {
@@ -61,6 +60,11 @@ public class PatientFormController implements Initializable {
         patientController = new PatientController();
         loadGender();
         loadMedicalHistory();
+        loadTable();
+        txtId.setText(genaratePatientId());
+    }
+    private void loadTable(){
+
     }
     private void loadGender(){
         ObservableList<String> observableList = FXCollections.observableArrayList();
@@ -86,10 +90,60 @@ public class PatientFormController implements Initializable {
         cmbMedicalHistory.setItems(observableList);
 
     }
+    private String genaratePatientId(){
+        try {
+            String lastID = patientController.getLastID();
+            if (lastID==null) return "P001";
+
+            int numericPart = Integer.parseInt(lastID.substring(1));
+            int newNumber = numericPart + 1;
+
+            return String.format("P%03d",newNumber);
+
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            return "P001";
+        }
+    }
+
+    private void reloadTextBox(){
+        txtId.setText(genaratePatientId());
+        txtName.setText("");
+        txtAge.setText("");
+        txtTelNo.setText("");
+        loadGender();
+        loadMedicalHistory();
+        loadTable();
+    }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        try {
 
+            if (txtId.getText().isEmpty()||txtName.getText().isEmpty()||txtAge.getText().isEmpty()||cmbGender.getValue().toString().isEmpty()||txtTelNo.getText().isEmpty()){
+                new Alert(Alert.AlertType.WARNING,"Please fill all fields.").show();
+                return;
+            }
+
+            boolean isAdd = patientController.addPatient(new Patient(
+                    txtId.getText(),
+                    txtName.getText(),
+                    txtAge.getText(),
+                    cmbGender.getValue().toString(),
+                    txtTelNo.getText(),
+                    cmbMedicalHistory.getValue().toString())
+            );
+
+            if (isAdd) new Alert(Alert.AlertType.INFORMATION,"Patient added successful!").show();
+            else new Alert(Alert.AlertType.ERROR,"Unsuccessful!");
+
+            loadTable();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
