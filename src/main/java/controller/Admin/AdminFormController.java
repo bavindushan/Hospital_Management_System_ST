@@ -181,4 +181,9 @@ public class AdminFormController implements Initializable {
         });
         tblAdminTable.setItems(adminObservbleList);
     }
+
+    public void btnReloadOnAction(ActionEvent actionEvent) {
+        loadTable();
+        reloadForm();
+    }
 }

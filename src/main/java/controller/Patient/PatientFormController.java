@@ -202,13 +202,42 @@ public class PatientFormController implements Initializable {
         } catch (SQLException e) {
             System.out.println("An error occur!"+e.getMessage());
             new Alert(Alert.AlertType.ERROR,"Patient Not Found!").show();
+            loadTable();
+            reloadTextBox();
         }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        if (txtId.getText().isEmpty()||txtName.getText().isEmpty()||txtAge.getText().isEmpty()||
+                cmbGender.getValue()==null||txtTelNo.getText().isEmpty()){
+            new Alert(Alert.AlertType.WARNING,"Please fill all fields.").show();
+            return;
+        }
 
+        try {
+            boolean isUpdate = patientController.updatePatient(new Patient(
+                    txtId.getText(),
+                    txtName.getText(),
+                    txtAge.getText(),
+                    cmbGender.getValue().toString(),
+                    txtTelNo.getText(),
+                    cmbMedicalHistory.getValue().toString()
+            ));
+
+            if (isUpdate) new Alert(Alert.AlertType.INFORMATION,"Updated!");
+            else new Alert(Alert.AlertType.ERROR,"Not Update!");
+
+            loadTable();
+            reloadTextBox();
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
     }
 
-
+    public void btnReloadOnAction(ActionEvent actionEvent) {
+        loadTable();
+        reloadTextBox();
+    }
 }

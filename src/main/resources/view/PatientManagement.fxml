@@ -6,9 +6,10 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="474.0" prefWidth="684.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Patient.PatientFormController">
    <children>
@@ -49,5 +50,14 @@
       </TableView>
       <ComboBox fx:id="cmbMedicalHistory" layoutX="453.0" layoutY="139.0" prefHeight="27.0" prefWidth="129.0" promptText="Medical Histrory" styleClass="combo-box" stylesheets="@../css/doctor.css" />
       <ComboBox fx:id="cmbGender" layoutX="128.0" layoutY="139.0" prefHeight="27.0" prefWidth="96.0" promptText="Gender" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <Button layoutX="611.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnReloadOnAction" prefHeight="27.0" prefWidth="41.0" styleClass="button-update" stylesheets="@../css/doctor.css">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+               <image>
+                  <Image url="@../img/loop-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

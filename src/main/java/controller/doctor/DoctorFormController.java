@@ -289,7 +289,7 @@ public class DoctorFormController implements Initializable {
                     cmbSpeciality.getValue().toString(),
                     txtTelNo.getText(),
                     cmbQualification.getValue().toString(),
-                    cbAvilability.isSelected() ? "Available" : "Not-available",
+                    cbAvilability.isSelected() ? "Yes" : "No",
                     txtEmail.getText(),
                     encryptedPassword
             ));
@@ -303,5 +303,10 @@ public class DoctorFormController implements Initializable {
         } catch (SQLException e) {
             System.out.println("an error occurd! "+e.getMessage());
         }
+    }
+
+    public void btnReloadOnAction(ActionEvent actionEvent) {
+        loadTable();
+        resetTextxBox();
     }
 }
