@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Patient;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PatientFormController implements Initializable {
@@ -65,6 +67,25 @@ public class PatientFormController implements Initializable {
     }
     private void loadTable(){
 
+        try {
+            clmID.setCellValueFactory(new PropertyValueFactory<>("ID"));
+            clmName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+            clmAge.setCellValueFactory(new PropertyValueFactory<>("Age"));
+            clmGender.setCellValueFactory(new PropertyValueFactory<>("Gender"));
+            clmTel.setCellValueFactory(new PropertyValueFactory<>("TelNo"));
+            clmMedicalHistory.setCellValueFactory(new PropertyValueFactory<>("MedicalHistory"));
+
+            ObservableList<Patient> observableList = FXCollections.observableArrayList();
+            List<Patient> patientList = patientController.getAll();
+
+            patientList.forEach(patient -> {
+                observableList.add(patient);
+            });
+            tblPatientTable.setItems(observableList);
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
     }
     private void loadGender(){
         ObservableList<String> observableList = FXCollections.observableArrayList();
