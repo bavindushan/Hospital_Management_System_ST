@@ -170,7 +170,17 @@ public class PatientFormController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        try {
+            boolean isDelete = patientController.deletePatient(txtTelNo.getText());
+            if (isDelete) new Alert(Alert.AlertType.INFORMATION,"Successful!");
+            else new Alert(Alert.AlertType.ERROR,"Unsuccessful!");
 
+            loadTable();
+            reloadTextBox();
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
     }
 
     @FXML
