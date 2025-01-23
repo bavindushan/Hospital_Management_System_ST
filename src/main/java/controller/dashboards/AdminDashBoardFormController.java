@@ -40,7 +40,7 @@ public class AdminDashBoardFormController {
 
     @FXML
     void btnPatientManagementOnAction(ActionEvent event) throws IOException {
-        URL resource = this.getClass().getResource("view/PatientManagement.fxml");
+        URL resource = this.getClass().getResource("/view/PatientManagement.fxml");
         assert resource != null;
         Parent load = FXMLLoader.load(resource);
 

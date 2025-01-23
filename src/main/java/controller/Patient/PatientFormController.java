@@ -1,5 +1,7 @@
 package controller.Patient;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,8 +54,36 @@ public class PatientFormController implements Initializable {
     @FXML
     private TextField txtTelNo;
 
+    PatientController patientController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        patientController = new PatientController();
+        loadGender();
+        loadMedicalHistory();
+    }
+    private void loadGender(){
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.add("Male");
+        observableList.add("Female");
+        observableList.add("Other");
+
+        cmbGender.setItems(observableList);
+    }
+    private void loadMedicalHistory(){
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.add("Cardiovascular Diseases");
+        observableList.add("Respiratory Conditions");
+        observableList.add("Metabolic Disorders");
+        observableList.add("Neurological Disorders ");
+        observableList.add("Mental Health Conditions");
+        observableList.add("Autoimmune and Inflammatory Diseases");
+        observableList.add("Infectious Diseases");
+        observableList.add("Gastrointestinal Disorders");
+        observableList.add("Cancer");
+        observableList.add("Chronic Pain and Musculoskeletal Disorders");
+
+        cmbMedicalHistory.setItems(observableList);
 
     }
 

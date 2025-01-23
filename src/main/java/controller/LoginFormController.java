@@ -196,25 +196,25 @@ public class LoginFormController implements Initializable {
         }else new Alert(Alert.AlertType.ERROR,"Doctor not found!").show();
     }
     private void searchPatient() throws SQLException, IOException {
-        String SQL = "SELECT * FROM patient WHERE email="+"'"+txtEmail.getText()+"'";
-        Connection connection = DBConnection.getInstance().getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery(SQL);
-        if(resultSet.next()){
-            Patient patient = new Patient(
-                    resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getString(3),
-                    resultSet.getString(4),
-                    resultSet.getString(5),
-                    resultSet.getString(6),
-                    resultSet.getString(7),
-                    resultSet.getString(8)
-            );
-            if(patient.getPatientPassword().equals(txtPassword.getText())){
-                Stage stage = new Stage();
-                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/PatientDashBoard.fxml"))));
-                stage.show();
-            }else new Alert(Alert.AlertType.ERROR,"Invalid Password!").show();
-        }else new Alert(Alert.AlertType.ERROR,"Patient not Found!").show();
+//        String SQL = "SELECT * FROM patient WHERE email="+"'"+txtEmail.getText()+"'";
+//        Connection connection = DBConnection.getInstance().getConnection();
+//        ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+//        if(resultSet.next()){
+//            Patient patient = new Patient(
+//                    resultSet.getString(1),
+//                    resultSet.getString(2),
+//                    resultSet.getString(3),
+//                    resultSet.getString(4),
+//                    resultSet.getString(5),
+//                    resultSet.getString(6),
+//                    resultSet.getString(7),
+//                    resultSet.getString(8)
+//            );
+//            if(patient.getPatientPassword().equals(txtPassword.getText())){
+//                Stage stage = new Stage();
+//                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/PatientDashBoard.fxml"))));
+//                stage.show();
+//            }else new Alert(Alert.AlertType.ERROR,"Invalid Password!").show();
+//        }else new Alert(Alert.AlertType.ERROR,"Patient not Found!").show();
     }
 }
