@@ -185,7 +185,24 @@ public class PatientFormController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        try {
+            Patient patient = patientController.searchPatient(txtTelNo.getText());
 
+            txtId.setText(patient.getID());
+            txtName.setText(patient.getName());
+            txtAge.setText(patient.getAge());
+            cmbGender.setItems(FXCollections.observableArrayList(patient.getGender()));
+            txtTelNo.setText(patient.getTelNo());
+            cmbMedicalHistory.setItems(FXCollections.observableArrayList(patient.getMedicalHistory()));
+
+            tblPatientTable.setItems(FXCollections.observableArrayList(patient));//set table
+
+            new Alert(Alert.AlertType.INFORMATION,"Patient Found!").show();
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR,"Patient Not Found!").show();
+        }
     }
 
     @FXML
