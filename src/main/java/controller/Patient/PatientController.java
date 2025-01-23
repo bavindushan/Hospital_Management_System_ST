@@ -14,7 +14,7 @@ public class PatientController implements PatientServices {
 
     @Override
     public boolean addPatient(Patient patient) throws SQLException {
-        String SQL = "INSERT INTO patient (patient_id,,name,age,gender,contact_number,medical_history) VALUES (?,?,?,?,?,?)";
+        String SQL = "INSERT INTO patient (patient_id,name,age,gender,contact_number,medical_history) VALUES (?,?,?,?,?,?)";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 

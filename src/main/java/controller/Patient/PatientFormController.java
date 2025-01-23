@@ -78,9 +78,8 @@ public class PatientFormController implements Initializable {
             ObservableList<Patient> observableList = FXCollections.observableArrayList();
             List<Patient> patientList = patientController.getAll();
 
-            patientList.forEach(patient -> {
-                observableList.add(patient);
-            });
+            patientList.forEach(patient -> observableList.add(patient));
+
             tblPatientTable.setItems(observableList);
 
         } catch (SQLException e) {
@@ -142,7 +141,8 @@ public class PatientFormController implements Initializable {
     void btnAddOnAction(ActionEvent event) {
         try {
 
-            if (txtId.getText().isEmpty()||txtName.getText().isEmpty()||txtAge.getText().isEmpty()||cmbGender.getValue().toString().isEmpty()||txtTelNo.getText().isEmpty()){
+            if (txtId.getText().isEmpty()||txtName.getText().isEmpty()||txtAge.getText().isEmpty()||
+                    cmbGender.getValue().toString().isEmpty()||txtTelNo.getText().isEmpty()){
                 new Alert(Alert.AlertType.WARNING,"Please fill all fields.").show();
                 return;
             }
@@ -160,6 +160,7 @@ public class PatientFormController implements Initializable {
             else new Alert(Alert.AlertType.ERROR,"Unsuccessful!");
 
             loadTable();
+            reloadTextBox();
 
 
         } catch (SQLException e) {
