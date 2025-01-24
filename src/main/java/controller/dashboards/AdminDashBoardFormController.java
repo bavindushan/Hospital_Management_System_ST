@@ -55,8 +55,13 @@ public class AdminDashBoardFormController {
     }
 
     @FXML
-    void btnResourcesmanagementOnAction(ActionEvent event) {
+    void btnResourcesmanagementOnAction(ActionEvent event) throws IOException {
+        URL resource = this.getClass().getResource("/view/RoomManagement.fxml");
+        assert resource != null;
+        Parent load = FXMLLoader.load(resource);
 
+        ancpAdminDashBoard.getChildren().clear();
+        ancpAdminDashBoard.getChildren().add(load);
     }
 
     public void btnSchedulesmanagementOnAction(ActionEvent actionEvent) {

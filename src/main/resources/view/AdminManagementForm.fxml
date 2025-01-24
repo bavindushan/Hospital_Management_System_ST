@@ -37,12 +37,12 @@
       <Button layoutX="242.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="button-update" stylesheets="@../css/adminStyle.css" text="Update" />
       <Button layoutX="345.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
       <Button layoutX="444.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="36.0" prefWidth="75.0" styleClass="button-add" stylesheets="@../css/adminStyle.css" text="Add" />
-      <TableView fx:id="tblAdminTable" layoutX="8.0" layoutY="260.0" prefHeight="209.0" prefWidth="668.0">
+      <TableView fx:id="tblAdminTable" layoutX="-1.0" layoutY="260.0" prefHeight="209.0" prefWidth="684.0">
         <columns>
           <TableColumn fx:id="clmID" prefWidth="117.33334636688232" text="ID" />
           <TableColumn fx:id="clmName" prefWidth="180.66666412353516" text="Name" />
             <TableColumn fx:id="clmEmail" prefWidth="197.33331298828125" text="Email" />
-            <TableColumn fx:id="clmPassword" prefWidth="171.99996948242188" text="Password" />
+            <TableColumn fx:id="clmPassword" prefWidth="185.33328247070312" text="Password" />
         </columns>
       </TableView>
       <Button layoutX="586.0" layoutY="208.0" mnemonicParsing="false" onAction="#btnReloadOnAction" prefHeight="27.0" prefWidth="41.0" styleClass="button-update" stylesheets="@../css/doctor.css">
