@@ -21,6 +21,7 @@ public class RoomController implements RoomServices{
         preparedStatement.setString(5, room.getBedsCount());
 
         int affctedRows = preparedStatement.executeUpdate();
+        updateBedsCount(room.getType(), -1);
         return affctedRows>0;
     }
 
@@ -42,13 +43,14 @@ public class RoomController implements RoomServices{
     }
 
     @Override
-    public boolean deleteRom(String id) throws SQLException {
+    public boolean deleteRom(String id,String roomType) throws SQLException {
         String SQL = "DELETE FROM roommanagement WHERE room_id=?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
         preparedStatement.setString(1,id);
         int affectedrows = preparedStatement.executeUpdate();
+        updateBedsCount(roomType,1);
         return affectedrows>0;
     }
 
@@ -98,5 +100,33 @@ public class RoomController implements RoomServices{
         if (list.isEmpty()) return null;
         Room room = list.get(list.size() - 1);
         return room.getId();
+    }
+
+    public int availableBedCount(String roomType) throws SQLException {
+        String SQL = "SELECT * FROM RoomStatistics WHERE room_type=?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+        preparedStatement.setString(1,roomType);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) return resultSet.getInt("available_beds");
+        return 0;
+    }
+    private void updateBedsCount(String roomType,int number){
+        String SQL = "UPDATE RoomStatistics SET available_beds = available_beds + ? WHERE room_type=?";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setInt(1,number);
+            preparedStatement.setString(2,roomType);
+            int affectedrows = preparedStatement.executeUpdate();
+
+            if (affectedrows > 0 ) System.out.println("Beds count updated successfully for room type: " + roomType);
+            else System.out.println("No rows update!! " + roomType);
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!!"+e.getMessage());
+        }
     }
 }

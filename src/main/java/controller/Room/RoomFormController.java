@@ -61,10 +61,7 @@ public class RoomFormController implements Initializable {
         loadRoomTypes();
         txtId.setText(genarateID());
     }
-//    private void resetForm(){
-//        loadTable();
-//        loadPatientID();
-//        loadRoomTypes();
+//    private int availableBedCount(){
 //
 //    }
     private String genarateID(){
