@@ -114,7 +114,7 @@ public class RoomFormController implements Initializable {
             clmRoomId.setCellValueFactory(new PropertyValueFactory<>("id"));
             clmPatientID.setCellValueFactory(new PropertyValueFactory<>("patientId"));
             clmRoomType.setCellValueFactory(new PropertyValueFactory<>("type"));
-            clmAvilableBeds.setCellValueFactory(new PropertyValueFactory<>("availableBeds"));
+
             clmBedCount.setCellValueFactory(new PropertyValueFactory<>("bedsCount"));
 
             List<Room> list = roomController.getAll();
@@ -135,7 +135,7 @@ public class RoomFormController implements Initializable {
                     genarateID(),
                     cmbPatientID.getValue().toString(),
                     cmbRoomType.getValue().toString(),
-                    txtAvilableBedsCount.getText(),
+
                     txtBedsCount.getText()
 
             ));

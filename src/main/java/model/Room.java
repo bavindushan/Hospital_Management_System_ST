@@ -11,6 +11,5 @@ public class Room {
     private String id;
     private String patientId;
     private String type;
-    private String availableBeds;
     private String bedsCount;
 }

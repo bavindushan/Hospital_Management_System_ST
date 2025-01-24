@@ -10,36 +10,37 @@ import java.util.List;
 public class RoomController implements RoomServices{
     @Override
     public boolean addRoom(Room room) throws SQLException {
-        String SQL = "INSERT INTO roommanagement (room_id,patient_id,room_type,available_beds,beds_count) VALUES (?,?,?,?,?)";
+        // Insert a new room into roommanagement
+        String SQL = "INSERT INTO roommanagement (room_id, patient_id, room_type) VALUES (?, ?, ?)";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
-        preparedStatement.setString(1,room.getId());
-        preparedStatement.setString(2, room.getPatientId());
-        preparedStatement.setString(3, room.getType());
-        preparedStatement.setString(4, room.getAvailableBeds());
-        preparedStatement.setString(5, room.getBedsCount());
+        preparedStatement.setString(1, room.getId());        // room_id
+        preparedStatement.setString(2, room.getPatientId()); // patient_id
+        preparedStatement.setString(3, room.getType());      // room_type
 
-        int affctedRows = preparedStatement.executeUpdate();
-        updateBedsCount(room.getType(), -1);
-        return affctedRows>0;
+        int affectedRows = preparedStatement.executeUpdate();
+
+        if (affectedRows > 0) {
+            updateBedsCount(room.getType(), -1);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean updateRoom(Room room) throws SQLException {
 
-        String SQL = "UPDATE roommanagement SET room_id=?,patient_id=?,room_type=?,available_beds=?,beds_count=?";
+        String SQL = "UPDATE roommanagement SET patient_id = ?, room_type = ? WHERE room_id = ?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
-        preparedStatement.setString(1,room.getId());
-        preparedStatement.setString(2, room.getPatientId());
-        preparedStatement.setString(3, room.getType());
-        preparedStatement.setString(4, room.getAvailableBeds());
-        preparedStatement.setString(5, room.getBedsCount());
+        preparedStatement.setString(1, room.getPatientId()); // Update patient_id
+        preparedStatement.setString(2, room.getType());      // Update room_type
+        preparedStatement.setString(3, room.getId());        // Identify the room by room_id
 
-        int affctedRows = preparedStatement.executeUpdate();
-        return affctedRows>0;
+        int affectedRows = preparedStatement.executeUpdate();
+        return affectedRows>0;
     }
 
     @Override
@@ -67,8 +68,7 @@ public class RoomController implements RoomServices{
                 resultSet.getString(1),
                 resultSet.getString(2),
                 resultSet.getString(3),
-                resultSet.getString(4),
-                resultSet.getString(5)
+                resultSet.getString(4)
         );
     }
 
@@ -85,8 +85,7 @@ public class RoomController implements RoomServices{
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
-                    resultSet.getString(4),
-                    resultSet.getString(5)
+                    resultSet.getString(4)
             );
 
             list.add(room);
