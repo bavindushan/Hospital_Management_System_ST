@@ -60,10 +60,16 @@ public class RoomFormController implements Initializable {
         loadPatientID();
         loadRoomTypes();
         txtId.setText(genarateID());
+        txtAvilableBedsCount.setText(availableBedCount(cmbRoomType.getValue().toString()));
     }
-//    private int availableBedCount(){
-//
-//    }
+    private String availableBedCount(String roomType){
+        try {
+            return String.valueOf(roomController.availableBedCount(roomType));
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            return "0";
+        }
+    }
     private String genarateID(){
         try {
             String lastId = roomController.lastID();
