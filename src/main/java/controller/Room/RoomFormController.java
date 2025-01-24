@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Patient;
 import model.Room;
@@ -62,6 +59,28 @@ public class RoomFormController implements Initializable {
         loadTable();
         loadPatientID();
         loadRoomTypes();
+        txtId.setText(genarateID());
+    }
+//    private void resetForm(){
+//        loadTable();
+//        loadPatientID();
+//        loadRoomTypes();
+//
+//    }
+    private String genarateID(){
+        try {
+            String lastId = roomController.lastID();
+            if (lastId == null) return "RM001";
+
+            int numericPart = Integer.parseInt(lastId.substring(2));
+            int newNumwericPart = numericPart+1;
+
+            return String.format("RM%03d",newNumwericPart);
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            return "RM001";
+        }
     }
     private void loadRoomTypes(){
         ObservableList<String> observableList = FXCollections.observableArrayList();
@@ -108,7 +127,26 @@ public class RoomFormController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        try {
+            boolean isAdd = roomController.addRoom(new Room(
+                    genarateID(),
+                    cmbPatientID.getValue().toString(),
+                    cmbRoomType.getValue().toString(),
+                    txtAvilableBedsCount.getText(),
+                    txtBedsCount.getText()
 
+            ));
+
+            if (isAdd) new Alert(Alert.AlertType.INFORMATION,"Successful!");
+            else new Alert(Alert.AlertType.ERROR,"Unsuccessful!");
+
+            loadTable();
+
+
+        } catch (SQLException e) {
+            System.out.println("An error occur ! "+e.getMessage());
+            new Alert(Alert.AlertType.ERROR,"Unsuccessful!");
+        }
     }
 
     @FXML
