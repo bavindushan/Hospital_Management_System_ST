@@ -3,13 +3,14 @@ package model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Room {
-    private String id;
-    private String patientId;
+@ToString
+public class roomStatic {
     private String type;
-    private String bedsCount;
+    private Integer totalBeds;
+    private Integer AvailableBeds;
 }

@@ -1,7 +1,7 @@
 package controller.Room;
 
 import db.DBConnection;
-import model.Room;
+import model.assignRoom;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,35 +9,35 @@ import java.util.List;
 
 public class RoomController implements RoomServices{
     @Override
-    public boolean addRoom(Room room) throws SQLException {
+    public boolean addRoom(assignRoom assignRoom) throws SQLException {
         // Insert a new room into roommanagement
         String SQL = "INSERT INTO roommanagement (room_id, patient_id, room_type) VALUES (?, ?, ?)";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
-        preparedStatement.setString(1, room.getId());        // room_id
-        preparedStatement.setString(2, room.getPatientId()); // patient_id
-        preparedStatement.setString(3, room.getType());      // room_type
+        preparedStatement.setString(1, assignRoom.getId());        // room_id
+        preparedStatement.setString(2, assignRoom.getPatientId()); // patient_id
+        preparedStatement.setString(3, assignRoom.getType());      // room_type
 
         int affectedRows = preparedStatement.executeUpdate();
 
         if (affectedRows > 0) {
-            updateBedsCount(room.getType(), -1);
+            updateBedsCount(assignRoom.getType(), -1);
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean updateRoom(Room room) throws SQLException {
+    public boolean updateRoom(assignRoom assignRoom) throws SQLException {
 
         String SQL = "UPDATE roommanagement SET patient_id = ?, room_type = ? WHERE room_id = ?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
-        preparedStatement.setString(1, room.getPatientId()); // Update patient_id
-        preparedStatement.setString(2, room.getType());      // Update room_type
-        preparedStatement.setString(3, room.getId());        // Identify the room by room_id
+        preparedStatement.setString(1, assignRoom.getPatientId()); // Update patient_id
+        preparedStatement.setString(2, assignRoom.getType());      // Update room_type
+        preparedStatement.setString(3, assignRoom.getId());        // Identify the room by room_id
 
         int affectedRows = preparedStatement.executeUpdate();
         return affectedRows>0;
@@ -56,7 +56,7 @@ public class RoomController implements RoomServices{
     }
 
     @Override
-    public Room searchRom(String id) throws SQLException {
+    public assignRoom searchRom(String id) throws SQLException {
         String SQL = "SELECT * FROM roommanagement WHERE room_id=?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
@@ -64,41 +64,39 @@ public class RoomController implements RoomServices{
         preparedStatement.setString(1,id);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        return new Room(
+        return new assignRoom(
                 resultSet.getString(1),
                 resultSet.getString(2),
-                resultSet.getString(3),
-                resultSet.getString(4)
+                resultSet.getString(3)
         );
     }
 
     @Override
-    public List<Room> getAll() throws SQLException {
-        ArrayList<Room> list = new ArrayList<>();
+    public List<assignRoom> getAll() throws SQLException {
+        ArrayList<assignRoom> list = new ArrayList<>();
 
         String SQL = "SELECT * FROM roommanagement";
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery(SQL);
 
         while(resultSet.next()){
-            Room room = new Room(
+            assignRoom assignRoom = new assignRoom(
                     resultSet.getString(1),
                     resultSet.getString(2),
-                    resultSet.getString(3),
-                    resultSet.getString(4)
+                    resultSet.getString(3)
             );
 
-            list.add(room);
+            list.add(assignRoom);
         }
         return list;
     }
 
     @Override
     public String lastID() throws SQLException {
-        List<Room> list = getAll();
+        List<assignRoom> list = getAll();
         if (list.isEmpty()) return null;
-        Room room = list.get(list.size() - 1);
-        return room.getId();
+        assignRoom assignRoom = list.get(list.size() - 1);
+        return assignRoom.getId();
     }
 
     public int availableBedCount(String roomType) throws SQLException {

@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Patient;
-import model.Room;
+import model.assignRoom;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -60,11 +60,17 @@ public class RoomFormController implements Initializable {
         loadPatientID();
         loadRoomTypes();
         txtId.setText(genarateID());
-        txtAvilableBedsCount.setText(availableBedCount(cmbRoomType.getValue().toString()));
+        txtAvilableBedsCount.setText("0");
+
+        //add event listner to catch cmb box data
+        cmbRoomType.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue!=null) txtAvilableBedsCount.setText(availableBedCount(newValue.toString()));
+        });
     }
     private String availableBedCount(String roomType){
         try {
-            return String.valueOf(roomController.availableBedCount(roomType));
+            if (roomType!=null) return String.valueOf(roomController.availableBedCount(roomType));
+            else return "0";
         } catch (SQLException e) {
             System.out.println("An error occur!"+e.getMessage());
             return "0";
@@ -115,12 +121,10 @@ public class RoomFormController implements Initializable {
             clmPatientID.setCellValueFactory(new PropertyValueFactory<>("patientId"));
             clmRoomType.setCellValueFactory(new PropertyValueFactory<>("type"));
 
-            clmBedCount.setCellValueFactory(new PropertyValueFactory<>("bedsCount"));
+            List<assignRoom> list = roomController.getAll();
+            ObservableList<assignRoom> observableList = FXCollections.observableArrayList();
 
-            List<Room> list = roomController.getAll();
-            ObservableList<Room> observableList = FXCollections.observableArrayList();
-
-            list.forEach(room -> observableList.add(room));
+            list.forEach(assignRoom -> observableList.add(assignRoom));
             tblRoomTable.setItems(observableList);
 
         } catch (SQLException e) {
@@ -131,13 +135,10 @@ public class RoomFormController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            boolean isAdd = roomController.addRoom(new Room(
+            boolean isAdd = roomController.addRoom(new assignRoom(
                     genarateID(),
                     cmbPatientID.getValue().toString(),
-                    cmbRoomType.getValue().toString(),
-
-                    txtBedsCount.getText()
-
+                    cmbRoomType.getValue().toString()
             ));
 
             if (isAdd) new Alert(Alert.AlertType.INFORMATION,"Successful!");
@@ -147,6 +148,7 @@ public class RoomFormController implements Initializable {
 
 
         } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "This patient already Admitted!").show();
             System.out.println("An error occur ! "+e.getMessage());
             new Alert(Alert.AlertType.ERROR,"Unsuccessful!");
         }

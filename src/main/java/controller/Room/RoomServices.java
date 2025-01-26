@@ -1,15 +1,15 @@
 package controller.Room;
 
-import model.Room;
+import model.assignRoom;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public interface RoomServices {
-    boolean addRoom(Room room) throws SQLException;
-    boolean updateRoom(Room room) throws SQLException;
+    boolean addRoom(assignRoom assignRoom) throws SQLException;
+    boolean updateRoom(assignRoom assignRoom) throws SQLException;
     boolean deleteRom(String id,String roomType) throws SQLException;
-    Room searchRom(String id) throws SQLException;
-    List<Room> getAll() throws SQLException;
+    assignRoom searchRom(String id) throws SQLException;
+    List<assignRoom> getAll() throws SQLException;
     String lastID() throws SQLException;
 }
