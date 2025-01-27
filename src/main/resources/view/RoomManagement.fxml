@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Room.RoomFormController">
    <children>
-      <TextField fx:id="txtId" editable="false" layoutX="147.0" layoutY="95.0" prefHeight="24.0" prefWidth="150.0" promptText="room_id" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+      <TextField fx:id="txtId" layoutX="147.0" layoutY="95.0" prefHeight="24.0" prefWidth="150.0" promptText="room_id" styleClass="text-box" stylesheets="@../css/adminStyle.css">
          <font>
             <Font name="Arial" size="12.0" />
          </font>

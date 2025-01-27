@@ -65,6 +65,7 @@ public class RoomFormController implements Initializable {
         //add event listner to catch cmb box data
         cmbRoomType.valueProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue!=null) txtAvilableBedsCount.setText(availableBedCount(newValue.toString()));
+            if (availableBedCount(newValue.toString()).equals("0")) new Alert(Alert.AlertType.ERROR,"Beds not available!").show();
         });
     }
     private String availableBedCount(String roomType){
@@ -152,26 +153,68 @@ public class RoomFormController implements Initializable {
             System.out.println("An error occur ! "+e.getMessage());
             new Alert(Alert.AlertType.ERROR,"Unsuccessful!");
         }
+        reloadForm();
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-
+        try {
+            cmbRoomType.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+                if (oldValue==null) new Alert(Alert.AlertType.ERROR, "Please select room type!").show();
+            });
+            boolean isDelete = roomController.deleteRom(txtId.getText(), cmbRoomType.getValue().toString());
+            if (isDelete) new Alert(Alert.AlertType.INFORMATION,"Delete successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
+        reloadForm();
     }
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
-
+        reloadForm();
+    }
+    private void reloadForm(){
+        txtId.setText(genarateID());
+        loadTable();
+        loadRoomTypes();
+        loadPatientID();
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        try {
+            assignRoom assignRoom = roomController.searchRom(txtId.getText());
+            //set values for texts boxes
+            txtId.setText(assignRoom.getId());
+            cmbPatientID.setItems(FXCollections.observableArrayList(assignRoom.getPatientId()));
+            cmbRoomType.setItems(FXCollections.observableArrayList(assignRoom.getType()));
 
+            txtAvilableBedsCount.setText("");
+
+            //set data to table
+            tblRoomTable.setItems(FXCollections.observableArrayList(assignRoom));
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-
+        try {
+            boolean isUpdate = roomController.updateRoom(new assignRoom(
+                    txtId.getText(),
+                    cmbPatientID.getValue().toString(),
+                    cmbRoomType.getValue().toString()
+            ));
+            if (isUpdate) new Alert(Alert.AlertType.INFORMATION, "Update successful!").show();
+            else new Alert(Alert.AlertType.ERROR,"Update unsuccessful!").show();
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
+        reloadForm();
     }
 
 

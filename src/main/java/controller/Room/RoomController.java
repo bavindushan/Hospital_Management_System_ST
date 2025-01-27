@@ -85,7 +85,7 @@ public class RoomController implements RoomServices{
                     resultSet.getString(2),
                     resultSet.getString(3)
             );
-
+            
             list.add(assignRoom);
         }
         return list;
