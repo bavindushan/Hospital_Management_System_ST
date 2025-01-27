@@ -11,7 +11,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Doctor;
+import model.Schedule;
 import model.Staff;
 
 import java.net.URL;
@@ -55,6 +57,40 @@ public class ScheduleFormController implements Initializable {
         scheduleServices = new ScheduleController();
         loadDoctorId();
         loadStaffId();
+        loadScheduleList();
+        txtId.setText(genarateID());
+        loadTable();
+    }
+    private void loadTable(){
+
+        clmscheduleID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clmDoctorID.setCellValueFactory(new PropertyValueFactory<>("doctorID"));
+        clmStaffID.setCellValueFactory(new PropertyValueFactory<>("staffID"));
+        clmScheduleDetails.setCellValueFactory(new PropertyValueFactory<>("scheduleDetails"));
+
+        List<Schedule> all = scheduleServices.getAll();
+        ObservableList<Schedule> observableList = FXCollections.observableArrayList();
+
+        all.forEach(schedule -> observableList.add(schedule));
+        tblScheduleManagemenet.setItems(observableList);
+    }
+    private String genarateID(){
+        String lastID = scheduleServices.getLastID();
+        if (lastID==null) return "S001";
+
+        int numericPart = Integer.parseInt(lastID.substring(1));
+        int newIDNumber = numericPart + 1;
+        return String.format("S%03d",newIDNumber);
+    }
+    private void loadScheduleList(){
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.add("Morning Shift: 9 AM to 1 PM");
+        observableList.add("Afternoon Shift: 1 PM to 5 PM");
+        observableList.add("Evening Shift: 5 PM to 9 PM");
+        observableList.add("Night Shift: 9 PM to 1 AM");
+        observableList.add("Flexible Hours");
+
+        cmbSchedulesList.setItems(observableList);
     }
     private void loadStaffId(){
         StaffController staffController = new StaffController();
