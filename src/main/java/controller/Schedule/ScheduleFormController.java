@@ -7,10 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Doctor;
 import model.Schedule;
@@ -50,11 +47,11 @@ public class ScheduleFormController implements Initializable {
     @FXML
     private TextField txtId;
 
-    ScheduleServices scheduleServices;
+    ScheduleController scheduleController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        scheduleServices = new ScheduleController();
+        scheduleController = new ScheduleController();
         loadDoctorId();
         loadStaffId();
         loadScheduleList();
@@ -68,14 +65,14 @@ public class ScheduleFormController implements Initializable {
         clmStaffID.setCellValueFactory(new PropertyValueFactory<>("staffID"));
         clmScheduleDetails.setCellValueFactory(new PropertyValueFactory<>("scheduleDetails"));
 
-        List<Schedule> all = scheduleServices.getAll();
+        List<Schedule> all = scheduleController.getAll();
         ObservableList<Schedule> observableList = FXCollections.observableArrayList();
 
         all.forEach(schedule -> observableList.add(schedule));
         tblScheduleManagemenet.setItems(observableList);
     }
     private String genarateID(){
-        String lastID = scheduleServices.getLastID();
+        String lastID = scheduleController.getLastID();
         if (lastID==null) return "S001";
 
         int numericPart = Integer.parseInt(lastID.substring(1));
@@ -117,7 +114,19 @@ public class ScheduleFormController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        try {
+            boolean isAdded = scheduleController.assignSchedule(new Schedule(
+                    txtId.getText(),
+                    cmbDoctorID.getValue().toString(),
+                    cmbStaffID.getValue().toString(),
+                    cmbSchedulesList.getValue().toString()
+            ));
+            if (isAdded) new Alert(Alert.AlertType.INFORMATION, "Added Successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
 
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
     }
 
     @FXML
