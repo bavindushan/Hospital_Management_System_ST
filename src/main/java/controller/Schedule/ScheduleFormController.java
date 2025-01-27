@@ -127,21 +127,51 @@ public class ScheduleFormController implements Initializable {
         } catch (SQLException e) {
             System.out.println("An error occur!"+e.getMessage());
         }
+        reloadForm();
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        try {
+            boolean isDelete = scheduleController.deleteSchedule(txtId.getText());
+            if (isDelete) new Alert(Alert.AlertType.INFORMATION,"Deleted!").show();
+            else new Alert(Alert.AlertType.ERROR,"Not delete!").show();
 
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
+        reloadForm();
     }
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
-
+        reloadForm();
+    }
+    private void reloadForm(){
+        loadTable();
+        loadDoctorId();
+        loadStaffId();
+        loadScheduleList();
+        txtId.setText(genarateID());
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        try {
+            Schedule schedule = scheduleController.searchSchedule(txtId.getText());
+            //set form
+            txtId.setText(schedule.getId());
+            cmbDoctorID.setItems(FXCollections.observableArrayList(schedule.getDoctorID()));
+            cmbStaffID.setItems(FXCollections.observableArrayList(schedule.getStaffID()));
+            cmbDoctorID.setItems(FXCollections.observableArrayList(schedule.getDoctorID()));
+            cmbSchedulesList.setItems(FXCollections.observableArrayList(schedule.getScheduleDetails()));
 
+            //set Table
+            tblScheduleManagemenet.setItems(FXCollections.observableArrayList(schedule));
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
     }
 
     @FXML
