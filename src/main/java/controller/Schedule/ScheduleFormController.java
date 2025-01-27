@@ -10,28 +10,28 @@ import javafx.scene.control.TextField;
 public class ScheduleFormController {
 
     @FXML
-    private TableColumn<?, ?> clmDoctorID;
+    private TableColumn clmDoctorID;
 
     @FXML
-    private TableColumn<?, ?> clmScheduleDetails;
+    private TableColumn clmScheduleDetails;
 
     @FXML
-    private TableColumn<?, ?> clmStaffID;
+    private TableColumn clmStaffID;
 
     @FXML
-    private TableColumn<?, ?> clmscheduleID;
+    private TableColumn clmscheduleID;
 
     @FXML
-    private ComboBox<?> cmbDoctorID;
+    private ComboBox cmbDoctorID;
 
     @FXML
-    private ComboBox<?> cmbSchedulesList;
+    private ComboBox cmbSchedulesList;
 
     @FXML
-    private ComboBox<?> cmbStaffID;
+    private ComboBox cmbStaffID;
 
     @FXML
-    private TableView<?> tblScheduleManagemenet;
+    private TableView tblScheduleManagemenet;
 
     @FXML
     private TextField txtId;
