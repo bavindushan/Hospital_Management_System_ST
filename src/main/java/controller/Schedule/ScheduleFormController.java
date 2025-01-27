@@ -116,7 +116,7 @@ public class ScheduleFormController implements Initializable {
     void btnAddOnAction(ActionEvent event) {
         try {
             boolean isAdded = scheduleController.assignSchedule(new Schedule(
-                    txtId.getText(),
+                    genarateID(),
                     cmbDoctorID.getValue().toString(),
                     cmbStaffID.getValue().toString(),
                     cmbSchedulesList.getValue().toString()
@@ -176,7 +176,19 @@ public class ScheduleFormController implements Initializable {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        try {
+            boolean isUpdate = scheduleController.updateSchedule(new Schedule(
+                    txtId.getText(),
+                    cmbDoctorID.getValue().toString(),
+                    cmbStaffID.getValue().toString(),
+                    cmbSchedulesList.getValue().toString()
+            ));
+            if (isUpdate) new Alert(Alert.AlertType.INFORMATION, "Update Successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
 
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
     }
 
 
