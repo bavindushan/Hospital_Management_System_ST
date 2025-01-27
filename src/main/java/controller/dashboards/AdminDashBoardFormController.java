@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.FloatBuffer;
 
 public class AdminDashBoardFormController {
 
@@ -64,7 +65,12 @@ public class AdminDashBoardFormController {
         ancpAdminDashBoard.getChildren().add(load);
     }
 
-    public void btnSchedulesmanagementOnAction(ActionEvent actionEvent) {
+    public void btnSchedulesmanagementOnAction(ActionEvent actionEvent) throws IOException {
+        URL resource = this.getClass().getResource("/view/ScheduleManagemenet.fxml");
+        assert resource != null;
+        Parent load = FXMLLoader.load(resource);
 
+        ancpAdminDashBoard.getChildren().clear();
+        ancpAdminDashBoard.getChildren().add(load);
     }
 }
