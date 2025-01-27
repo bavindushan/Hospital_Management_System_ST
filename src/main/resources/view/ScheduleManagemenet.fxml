@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="474.0" prefWidth="684.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Schedule.ScheduleFormController">
+   <children>
+      <TextField fx:id="txtId" layoutX="80.0" layoutY="83.0" prefHeight="24.0" prefWidth="150.0" promptText="schedule_id" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="226.0" layoutY="12.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Schedule Managment" />
+      <Button layoutX="147.0" layoutY="193.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="75.0" styleClass="button-delete" stylesheets="@../css/adminStyle.css" text="Delete" />
+      <Button layoutX="249.0" layoutY="193.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="button-update" stylesheets="@../css/adminStyle.css" text="Update" />
+      <Button layoutX="352.0" layoutY="193.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
+      <Button layoutX="451.0" layoutY="193.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="36.0" prefWidth="75.0" styleClass="button-add" stylesheets="@../css/adminStyle.css" text="Add" />
+      <ComboBox fx:id="cmbDoctorID" layoutX="263.0" layoutY="82.0" prefWidth="150.0" promptText="doctor_id" />
+      <ComboBox fx:id="cmbStaffID" layoutX="438.0" layoutY="81.0" prefWidth="150.0" promptText="staff_id" />
+      <Button layoutX="613.0" layoutY="208.0" mnemonicParsing="false" onAction="#btnReloadOnAction" prefHeight="27.0" prefWidth="41.0" styleClass="button-update" stylesheets="@../css/doctor.css">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+               <image>
+                  <Image url="@../img/loop-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TableView fx:id="tblScheduleManagemenet" layoutY="260.0" prefHeight="215.0" prefWidth="684.0">
+        <columns>
+          <TableColumn fx:id="clmscheduleID" prefWidth="88.6666589975357" text="Schedule_ID" />
+          <TableColumn fx:id="clmDoctorID" prefWidth="115.99999237060547" text="Doctor_ID" />
+            <TableColumn fx:id="clmStaffID" prefWidth="109.33335876464844" text="Staff_ID" />
+            <TableColumn fx:id="clmScheduleDetails" prefWidth="369.9999694824219" text="Schedule_Details" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="cmbSchedulesList" layoutX="100.0" layoutY="128.0" prefHeight="27.0" prefWidth="458.0" promptText="schedule_details" />
+   </children>
+</AnchorPane>
