@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.Appointment.AppointmentFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="474.0" prefWidth="684.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Appointment.AppointmentFormController">
+   <children>
+      <TextField fx:id="txtId" editable="false" layoutX="120.0" layoutY="91.0" prefHeight="24.0" prefWidth="93.0" promptText="ID" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <Button layoutX="176.0" layoutY="220.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="75.0" styleClass="button-delete" stylesheets="@../css/adminStyle.css" text="Delete" />
+      <Button layoutX="278.0" layoutY="220.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="button-update" stylesheets="@../css/adminStyle.css" text="Update" />
+      <Button layoutX="381.0" layoutY="220.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
+      <Button layoutX="480.0" layoutY="220.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="36.0" prefWidth="75.0" styleClass="button-add" stylesheets="@../css/adminStyle.css" text="Add" />
+      <TableView fx:id="tblAppointmentTable" layoutX="-1.0" layoutY="284.0" prefHeight="200.0" prefWidth="684.0">
+         <columns>
+            <TableColumn fx:id="clmID" prefWidth="61.333311676979065" text="ID" />
+            <TableColumn fx:id="clmPatientID" prefWidth="111.99996566772461" text="patient_id" />
+            <TableColumn fx:id="clmDoctorID" prefWidth="137.33335876464844" text="doctor_id" />
+            <TableColumn fx:id="clmDate" prefWidth="153.3333740234375" text="date" />
+            <TableColumn fx:id="clmTime" prefWidth="110.66659545898438" text="time" />
+            <TableColumn fx:id="clmStatus" prefWidth="110.0" text="status" />
+         </columns>
+      </TableView>
+      <ComboBox fx:id="cmbPatientID" layoutX="254.0" layoutY="89.0" prefHeight="27.0" prefWidth="120.0" promptText="patient ID" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <ComboBox fx:id="cmbDoctorID" layoutX="413.0" layoutY="89.0" prefHeight="27.0" prefWidth="129.0" promptText="Doctor ID" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <Button layoutX="603.0" layoutY="234.0" mnemonicParsing="false" onAction="#btnReloadOnAction" prefHeight="27.0" prefWidth="41.0" styleClass="button-update" stylesheets="@../css/doctor.css">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+               <image>
+                  <Image url="@../img/loop-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <DatePicker fx:id="dtpDate" layoutX="89.0" layoutY="146.0" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <ComboBox fx:id="cmbTime" layoutX="289.0" layoutY="146.0" prefHeight="27.0" prefWidth="120.0" promptText="Time" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <ComboBox fx:id="cmbStatus" layoutX="451.0" layoutY="146.0" prefHeight="27.0" prefWidth="120.0" promptText="status" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <Label layoutX="200.0" layoutY="16.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Appointments Managment" />
+   </children>
 </AnchorPane>
