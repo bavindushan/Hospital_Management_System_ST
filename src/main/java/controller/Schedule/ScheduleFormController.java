@@ -190,6 +190,4 @@ public class ScheduleFormController implements Initializable {
             System.out.println("An error occur!"+e.getMessage());
         }
     }
-
-
 }
