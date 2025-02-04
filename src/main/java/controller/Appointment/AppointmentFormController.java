@@ -1,5 +1,6 @@
 package controller.Appointment;
 
+import controller.Patient.PatientController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,8 +11,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.Patient;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AppointmentFormController implements Initializable {
@@ -58,6 +62,7 @@ public class AppointmentFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadTime();
+        loadPatientsID();
     }
     private void loadTime(){
         ObservableList<String> observableList = FXCollections.observableArrayList();
@@ -71,6 +76,19 @@ public class AppointmentFormController implements Initializable {
         observableList.add("17:00:00 ");
         observableList.add("18:00:00 ");
         cmbTime.setItems(observableList);
+    }
+    private void loadPatientsID(){
+        PatientController patientController = new PatientController();
+        try {
+            List<Patient> patientList = patientController.getAll();
+            ObservableList<String> obsPatientsID = FXCollections.observableArrayList();
+
+            patientList.forEach(patient -> obsPatientsID.add(patient.getID()));
+            cmbPatientID.setItems(obsPatientsID);
+
+        } catch (SQLException e) {
+            System.out.println("An error occurd!"+e.getMessage());
+        }
     }
 
     @FXML

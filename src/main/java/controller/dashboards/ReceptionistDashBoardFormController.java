@@ -16,7 +16,7 @@ public class ReceptionistDashBoardFormController {
 
     @FXML
     void btnAppointmentsOnAction(ActionEvent event) throws IOException {
-        URL resource = this.getClass().getResource("view/AppointmenetsManager.fxml");
+        URL resource = this.getClass().getResource("/view/AppointmenetsManager.fxml");
 
         assert resource != null;
         Parent load = FXMLLoader.load(resource);
