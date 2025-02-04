@@ -12,6 +12,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.Appointment;
 import model.Doctor;
 import model.Patient;
 
@@ -70,6 +72,7 @@ public class AppointmentFormController implements Initializable {
         loadDoctorsID();
         loadStatus();
         txtId.setText(genarateID());
+        loadTable();
     }
     private String genarateID(){
         String lastID = appointmentController.getLastID();
@@ -78,6 +81,21 @@ public class AppointmentFormController implements Initializable {
         int numericPart = Integer.parseInt(lastID.substring(2));
         int newNumber = numericPart+1;
         return String.format("AP%03d",newNumber);
+    }
+    private void loadTable(){
+
+        clmID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clmPatientID.setCellValueFactory(new PropertyValueFactory<>("patientID"));
+        clmDoctorID.setCellValueFactory(new PropertyValueFactory<>("doctorID"));
+        clmDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        clmTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        clmStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        List<Appointment> all = appointmentController.getAll();
+        ObservableList<Appointment> observableList = FXCollections.observableArrayList();
+
+        all.forEach(appointment -> observableList.add(appointment));
+        tblAppointmentTable.setItems(observableList);
     }
     private void loadTime(){
         ObservableList<String> observableList = FXCollections.observableArrayList();
