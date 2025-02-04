@@ -60,13 +60,24 @@ public class AppointmentFormController implements Initializable {
 
     @FXML
     private TextField txtId;
+    private AppointmentController appointmentController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        appointmentController = new AppointmentController();
         loadTime();
         loadPatientsID();
         loadDoctorsID();
         loadStatus();
+        txtId.setText(genarateID());
+    }
+    private String genarateID(){
+        String lastID = appointmentController.getLastID();
+        if (lastID==null) return "AP000";
+
+        int numericPart = Integer.parseInt(lastID.substring(2));
+        int newNumber = numericPart+1;
+        return String.format("AP%03d",newNumber);
     }
     private void loadTime(){
         ObservableList<String> observableList = FXCollections.observableArrayList();
