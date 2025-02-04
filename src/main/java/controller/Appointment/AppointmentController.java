@@ -78,7 +78,28 @@ public class AppointmentController implements AppointmentServices{
     }
 
     @Override
-    public boolean deleteAppointment(String ID) {
+    public boolean deleteAppointment(String ID,String doctorID) throws SQLException {
+        String SQL = "DELETE FROM appointments WHERE appointment_id = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(SQL)){
+            preparedStatement.setString(1,ID);
+
+            boolean affectedrows = preparedStatement.executeUpdate()>0;
+            if (affectedrows){
+                boolean isDoctorupdate = new DoctorController().updateDoctorAvailability(doctorID, "Notavailable");
+                if (isDoctorupdate){
+                    connection.commit();
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            connection.rollback();
+            System.out.println("An error occur!"+e.getMessage());
+        }finally {
+            connection.setAutoCommit(true);
+        }
         return false;
     }
 
