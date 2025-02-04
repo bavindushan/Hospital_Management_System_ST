@@ -66,6 +66,7 @@ public class AppointmentFormController implements Initializable {
         loadTime();
         loadPatientsID();
         loadDoctorsID();
+        loadStatus();
     }
     private void loadTime(){
         ObservableList<String> observableList = FXCollections.observableArrayList();
@@ -105,6 +106,13 @@ public class AppointmentFormController implements Initializable {
         } catch (SQLException e) {
             System.out.println("An error occur!"+e.getMessage());
         }
+    }
+    private void loadStatus(){
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.add("Scheduled");
+        observableList.add("Cancelled");
+        observableList.add("Completed");
+        cmbStatus.setItems(observableList);
     }
 
     @FXML
