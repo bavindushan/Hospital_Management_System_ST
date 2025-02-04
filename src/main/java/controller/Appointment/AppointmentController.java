@@ -104,7 +104,24 @@ public class AppointmentController implements AppointmentServices{
     }
 
     @Override
-    public Appointment searchAppointment(String ID) {
+    public Appointment searchAppointment(String ID) throws SQLException {
+        String SQL = "SELECT * FROM appointments WHERE appointment_id = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        preparedStatement.setString(1,ID);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()){
+
+            return new Appointment(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getDate(4).toLocalDate(),
+                    resultSet.getString(5),
+                    resultSet.getString(6)
+            );
+        }
         return null;
     }
 
