@@ -1,6 +1,7 @@
 package controller.Appointment;
 
 import controller.Patient.PatientController;
+import controller.doctor.DoctorController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.Doctor;
 import model.Patient;
 
 import java.net.URL;
@@ -63,6 +65,7 @@ public class AppointmentFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadTime();
         loadPatientsID();
+        loadDoctorsID();
     }
     private void loadTime(){
         ObservableList<String> observableList = FXCollections.observableArrayList();
@@ -88,6 +91,19 @@ public class AppointmentFormController implements Initializable {
 
         } catch (SQLException e) {
             System.out.println("An error occurd!"+e.getMessage());
+        }
+    }
+    private void loadDoctorsID(){
+        DoctorController doctorController = new DoctorController();
+        try {
+            List<Doctor> doctorList = doctorController.getAll();
+            ObservableList<String> obsDoctorID = FXCollections.observableArrayList();
+
+            doctorList.forEach(doctor -> obsDoctorID.add(doctor.getId()));
+            cmbDoctorID.setItems(obsDoctorID);
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
         }
     }
 
