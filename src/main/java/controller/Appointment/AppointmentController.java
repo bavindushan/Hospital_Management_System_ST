@@ -155,6 +155,8 @@ public class AppointmentController implements AppointmentServices{
 
     @Override
     public String getLastID() {
-        return "";
+        List<Appointment> all = getAll();
+        Appointment appointment = all.get(all.size());
+        return appointment.getId();
     }
 }
