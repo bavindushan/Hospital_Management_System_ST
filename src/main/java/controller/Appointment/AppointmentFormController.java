@@ -1,5 +1,7 @@
 package controller.Appointment;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,7 +57,20 @@ public class AppointmentFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        loadTime();
+    }
+    private void loadTime(){
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.add("10:00:00 ");
+        observableList.add("11:00:00 ");
+        observableList.add("12:00:00 ");
+        observableList.add("13:00:00 ");
+        observableList.add("14:00:00 ");
+        observableList.add("15:00:00 ");
+        observableList.add("16:00:00 ");
+        observableList.add("17:00:00 ");
+        observableList.add("18:00:00 ");
+        cmbTime.setItems(observableList);
     }
 
     @FXML
