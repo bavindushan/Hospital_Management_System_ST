@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import model.Appointment;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 
 public class AppointmentController implements AppointmentServices{
@@ -63,8 +64,17 @@ public class AppointmentController implements AppointmentServices{
     }
 
     @Override
-    public boolean UpdateAppointment(Appointment appointment) {
-        return false;
+    public boolean UpdateAppointment(String id,LocalDate date,String time,String status) throws SQLException {
+        String SQL = "UPDATE appointments SET appointment_date=?,time=?,status=? WHERE appointment_id=? ";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        preparedStatement.setDate(1,Date.valueOf(date));
+        preparedStatement.setString(2,time);
+        preparedStatement.setString(3,status);
+        preparedStatement.setString(4,id);
+
+        int affectedrows = preparedStatement.executeUpdate();
+        return affectedrows>0;
     }
 
     @Override
