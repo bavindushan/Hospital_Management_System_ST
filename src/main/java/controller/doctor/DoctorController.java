@@ -66,6 +66,16 @@ public class DoctorController implements DoctorServices{
 
     }
 
+    public boolean updateDoctorAvailability(String id,String availability) throws SQLException {
+        String SQL = "UPDATE doctor SET availability = ? WHERE doctor_id = ?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        preparedStatement.setString(1,availability);
+        preparedStatement.setString(2,id);
+        int affectedrows = preparedStatement.executeUpdate();
+        return affectedrows>0;
+    }
+
     @Override
     public boolean deleteDoctor(String email) throws SQLException {
         String SQL = "DELETE FROM doctor WHERE  email = ?";
