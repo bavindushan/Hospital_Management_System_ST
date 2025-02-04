@@ -7,6 +7,7 @@ import model.Appointment;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentController implements AppointmentServices{
@@ -127,7 +128,29 @@ public class AppointmentController implements AppointmentServices{
 
     @Override
     public List<Appointment> getAll() {
-        return List.of();
+        List<Appointment> list = new ArrayList<>();
+        String SQL = "SELECT * FROM appointments";
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+
+            while(resultSet.next()){
+                Appointment appointment = new Appointment(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getDate(4).toLocalDate(),
+                        resultSet.getString(5),
+                        resultSet.getString(6)
+                );
+                list.add(appointment);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
+        return null;
     }
 
     @Override
