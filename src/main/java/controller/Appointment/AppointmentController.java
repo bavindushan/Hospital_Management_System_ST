@@ -112,13 +112,15 @@ public class AppointmentController implements AppointmentServices{
         preparedStatement.setString(1,ID);
         ResultSet resultSet = preparedStatement.executeQuery();
 
+
         if (resultSet.next()){
+            java.sql.Date sqlDate = resultSet.getDate(4);
 
             return new Appointment(
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
-                    resultSet.getDate(4).toLocalDate(),
+                    sqlDate != null ? sqlDate.toLocalDate() : null,
                     resultSet.getString(5),
                     resultSet.getString(6)
             );

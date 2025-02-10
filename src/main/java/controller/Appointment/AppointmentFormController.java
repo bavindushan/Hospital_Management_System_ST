@@ -15,6 +15,7 @@ import model.Patient;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -205,6 +206,30 @@ public class AppointmentFormController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        try {
+            Appointment appointment = appointmentController.searchAppointment(txtId.getText());
+            if (appointment!=null){
+                new Alert(Alert.AlertType.INFORMATION, "Appointment Found!").show();
+
+                //set data to text box
+                txtId.setText(appointment.getId());
+                cmbPatientID.setValue(appointment.getPatientID());
+                cmbDoctorID.setValue(appointment.getDoctorID());
+                cmbTime.setValue(appointment.getTime());
+                cmbStatus.setValue(appointment.getStatus());
+
+                if (appointment.getDate() != null) {
+                    dtpDate.setValue(LocalDate.ofEpochDay(appointment.getDate().toEpochDay()));
+                } else {
+                    dtpDate.setValue(null);
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+        }
+
         reloadForm();
     }
 
