@@ -64,6 +64,7 @@ public class BillingAndPaymentFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         billingAndPaymentController = new BillingAndPaymentController();
         loadTable();
+        txtId.setText(genarateID());
     }
     private void loadTable(){
 
@@ -79,6 +80,15 @@ public class BillingAndPaymentFormController implements Initializable {
 
         all.forEach(paymentBill -> observableList.add(paymentBill));
         tblBillsandPayment.setItems(observableList);
+    }
+    private String genarateID(){
+        String lastId = billingAndPaymentController.getLastId();
+        if (lastId==null) return "B001";
+
+        int numericPart = Integer.parseInt(lastId.substring(1));
+        int newnumber = numericPart+1;
+
+        return String.format("B%03d",newnumber);
     }
 
     @FXML
