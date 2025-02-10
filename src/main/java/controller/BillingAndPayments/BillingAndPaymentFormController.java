@@ -6,11 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Patient;
 import model.PaymentBill;
@@ -127,7 +123,23 @@ public class BillingAndPaymentFormController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        try {
+            boolean isAdded = billingAndPaymentController.add(new PaymentBill(
+                    genarateID(),
+                    cmbPatientID.getValue().toString(),
+                    Double.parseDouble(txtTotalAmount.getText()),
+                    cmbStatus.getValue().toString(),
+                    txtInvoiceName.getText(),
+                    dtpDate.getValue()
+            ));
+            if (isAdded) new Alert(Alert.AlertType.INFORMATION, "Added Successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
 
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+        }
+        reloadForm();
     }
 
     @FXML
