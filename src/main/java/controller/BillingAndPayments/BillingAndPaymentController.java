@@ -3,10 +3,7 @@ package controller.BillingAndPayments;
 import db.DBConnection;
 import model.PaymentBill;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class BillingAndPaymentController implements BillingAndPaymentServices{
@@ -46,13 +43,38 @@ public class BillingAndPaymentController implements BillingAndPaymentServices{
     }
 
     @Override
-    public boolean delete(String id) {
-        return false;
+    public boolean delete(String id) throws SQLException {
+        String SQL = "DELETE FROM billing WHERE bill_id=?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+        preparedStatement.setString(1,id);
+        int affectedrows = preparedStatement.executeUpdate();
+        return affectedrows>0;
     }
 
     @Override
-    public PaymentBill search(String id) {
-        return null;
+    public PaymentBill search(String id) throws SQLException {
+        String SQL = "SELECT * FROM billing WHERE bill_id=?,";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        preparedStatement.setString(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()){
+
+            java.sql.Date sqlDate = resultSet.getDate(6);
+
+            return new PaymentBill(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getDouble(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    sqlDate!=null? sqlDate.toLocalDate():null
+            );
+        }
+        else return null;
     }
 
     @Override
