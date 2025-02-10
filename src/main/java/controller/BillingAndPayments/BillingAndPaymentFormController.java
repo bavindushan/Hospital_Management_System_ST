@@ -163,12 +163,42 @@ public class BillingAndPaymentFormController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-
+        try {
+            PaymentBill search = billingAndPaymentController.search(txtId.getText());
+            if (search!=null){
+                txtId.setText(search.getId());
+                cmbPatientID.setValue(search.getPatientID());
+                txtTotalAmount.setText(search.getTotal().toString());
+                cmbStatus.setValue(search.getStatus());
+                txtInvoiceName.setText(search.getInvoiceName());
+                dtpDate.setValue(search.getDate());
+            }
+            else new Alert(Alert.AlertType.ERROR, "Not Found!").show();
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+        }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        try {
+            boolean isUpdate = billingAndPaymentController.update(new PaymentBill(
+                    genarateID(),
+                    cmbPatientID.getValue().toString(),
+                    Double.parseDouble(txtTotalAmount.getText()),
+                    cmbStatus.getValue().toString(),
+                    txtInvoiceName.getText(),
+                    dtpDate.getValue()
+            ));
+            if (isUpdate) new Alert(Alert.AlertType.INFORMATION, "Update Successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
 
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+        }
+        reloadForm();
     }
 
 

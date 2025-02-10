@@ -56,7 +56,7 @@ public class BillingAndPaymentController implements BillingAndPaymentServices{
 
     @Override
     public PaymentBill search(String id) throws SQLException {
-        String SQL = "SELECT * FROM billing WHERE bill_id=?,";
+        String SQL = "SELECT * FROM billing WHERE bill_id=?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         preparedStatement.setString(1,id);
