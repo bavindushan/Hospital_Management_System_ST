@@ -7,11 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
 import model.Doctor;
@@ -153,17 +149,52 @@ public class AppointmentFormController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
-        appointmentController.addAppointment(new Appointment(
-                genarateID(),
-                cmbPatientID.getValue().toString(),
+        if (cmbPatientID.getValue() == null ||
+                cmbDoctorID.getValue() == null ||
+                dtpDate.getValue() == null ||
+                cmbTime.getValue() == null ||
+                cmbStatus.getValue() == null) {
 
-        ));
+            new Alert(Alert.AlertType.WARNING, "Please fill in all fields before adding an appointment.").show();
+            return;
+        }
+        try {
+            boolean isAdded = appointmentController.addAppointment(new Appointment(
+                    genarateID(),
+                    cmbPatientID.getValue().toString(),
+                    cmbDoctorID.getValue().toString(),
+                    dtpDate.getValue(),
+                    cmbTime.getValue().toString(),
+                    cmbStatus.getValue().toString()
+            ));
+
+            if (isAdded) new Alert(Alert.AlertType.INFORMATION, "Added successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessfully!").show();
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
 
         reloadForm();
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        if (cmbPatientID.getValue() == null ||
+                cmbDoctorID.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Please fill in all fields before adding an appointment.").show();
+            return;
+        }
+        try {
+            boolean isDelete = appointmentController.deleteAppointment(txtId.getText(), cmbDoctorID.getValue().toString());
+            if (isDelete) new Alert(Alert.AlertType.INFORMATION, "Delete Successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Ünsuccessful!").show();
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur! "+ e.getMessage()).show();
+        }
+
         reloadForm();
     }
 
