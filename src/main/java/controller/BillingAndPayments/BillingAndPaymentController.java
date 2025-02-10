@@ -4,6 +4,7 @@ import db.DBConnection;
 import model.PaymentBill;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillingAndPaymentController implements BillingAndPaymentServices{
@@ -79,11 +80,39 @@ public class BillingAndPaymentController implements BillingAndPaymentServices{
 
     @Override
     public List<PaymentBill> getAll() {
-        return List.of();
+        List<PaymentBill> list = new ArrayList<>();
+        String SQL = "SELECT * FROM billing";
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+
+            while(resultSet.next()){
+                java.sql.Date sqlDate = resultSet.getDate(6);
+                PaymentBill paymentBill = new PaymentBill(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getDouble(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        sqlDate!=null? sqlDate.toLocalDate():null
+                );
+                list.add(paymentBill);
+            }
+            return list;
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public String getLastId() {
-        return "";
+        List<PaymentBill> all = getAll();
+        if (all.isEmpty()) return null;
+
+        PaymentBill paymentBill = all.get(all.size() - 1);
+        return paymentBill.getId();
     }
 }
