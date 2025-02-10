@@ -1,5 +1,7 @@
 package controller.BillingAndPayments;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,8 +10,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.PaymentBill;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BillingAndPaymentFormController implements Initializable {
@@ -53,11 +58,28 @@ public class BillingAndPaymentFormController implements Initializable {
     @FXML
     private TextField txtTotalAmount;
 
+    BillingAndPaymentController billingAndPaymentController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        billingAndPaymentController = new BillingAndPaymentController();
+        loadTable();
     }
+    private void loadTable(){
 
+        clmID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clmPationID.setCellValueFactory(new PropertyValueFactory<>("patientID"));
+        clmTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        clmStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        clmInvoiceName.setCellValueFactory(new PropertyValueFactory<>("invoiceName"));
+        clmDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        List<PaymentBill> all = billingAndPaymentController.getAll();
+        ObservableList<PaymentBill> observableList = FXCollections.observableArrayList();
+
+        all.forEach(paymentBill -> observableList.add(paymentBill));
+        tblBillsandPayment.setItems(observableList);
+    }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
