@@ -65,6 +65,8 @@ public class BillingAndPaymentFormController implements Initializable {
         billingAndPaymentController = new BillingAndPaymentController();
         loadTable();
         txtId.setText(genarateID());
+        loadStatus();
+
     }
     private void loadTable(){
 
@@ -89,6 +91,12 @@ public class BillingAndPaymentFormController implements Initializable {
         int newnumber = numericPart+1;
 
         return String.format("B%03d",newnumber);
+    }
+    private void loadStatus(){
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.add("Paid");
+        observableList.add("Unpaid");
+        cmbStatus.setItems(observableList);
     }
 
     @FXML
