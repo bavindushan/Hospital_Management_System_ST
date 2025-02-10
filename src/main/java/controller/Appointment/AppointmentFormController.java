@@ -143,30 +143,43 @@ public class AppointmentFormController implements Initializable {
         observableList.add("Completed");
         cmbStatus.setItems(observableList);
     }
+    private void reloadForm(){
+        loadTable();
+        loadTime();
+        loadStatus();
+        loadPatientsID();
+        loadDoctorsID();
+    }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        appointmentController.addAppointment(new Appointment(
+                genarateID(),
+                cmbPatientID.getValue().toString(),
 
+        ));
+
+        reloadForm();
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-
+        reloadForm();
     }
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
-
+        reloadForm();
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-
+        reloadForm();
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-
+        reloadForm();
     }
 
 
