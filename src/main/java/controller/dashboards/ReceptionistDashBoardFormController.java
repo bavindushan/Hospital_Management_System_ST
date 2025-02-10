@@ -25,8 +25,12 @@ public class ReceptionistDashBoardFormController {
     }
 
     @FXML
-    void btnBillingandPaymentsOnAction(ActionEvent event) {
-
+    void btnBillingandPaymentsOnAction(ActionEvent event) throws IOException {
+        URL resource = this.getClass().getResource("/view/BillingAndPayments.fxml");
+        assert resource != null;
+        Parent load = FXMLLoader.load(resource);
+        ancpReceptionistDashBoard.getChildren().clear();
+        ancpReceptionistDashBoard.getChildren().add(load);
     }
 
     @FXML

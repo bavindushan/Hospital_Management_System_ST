@@ -1,5 +1,6 @@
 package controller.BillingAndPayments;
 
+import controller.Patient.PatientController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,9 +12,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Patient;
 import model.PaymentBill;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -66,7 +69,20 @@ public class BillingAndPaymentFormController implements Initializable {
         loadTable();
         txtId.setText(genarateID());
         loadStatus();
+        loadPatientID();
 
+    }
+    private void loadPatientID(){
+        PatientController patientController = new PatientController();
+        try {
+            List<Patient> patientList = patientController.getAll();
+            ObservableList<String> observableList = FXCollections.observableArrayList();
+
+            patientList.forEach(patient -> observableList.add(patient.getID()));
+            cmbPatientID.setItems(observableList);
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
     }
     private void loadTable(){
 
@@ -78,6 +94,10 @@ public class BillingAndPaymentFormController implements Initializable {
         clmDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         List<PaymentBill> all = billingAndPaymentController.getAll();
+        if (all == null) {
+            System.out.println("Error: getAll() returned null!");
+            return;
+        }
         ObservableList<PaymentBill> observableList = FXCollections.observableArrayList();
 
         all.forEach(paymentBill -> observableList.add(paymentBill));

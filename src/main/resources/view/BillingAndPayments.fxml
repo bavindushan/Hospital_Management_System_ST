@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.BillingAndPayments.BillingAndPaymentFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="474.0" prefWidth="684.0" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BillingAndPayments.BillingAndPaymentFormController">
+   <children>
+      <TextField fx:id="txtId" layoutX="161.0" layoutY="101.0" prefHeight="24.0" prefWidth="93.0" promptText="ID" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <Button layoutX="184.0" layoutY="219.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="75.0" styleClass="button-delete" stylesheets="@../css/adminStyle.css" text="Delete" />
+      <Button layoutX="286.0" layoutY="219.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="button-update" stylesheets="@../css/adminStyle.css" text="Update" />
+      <Button layoutX="389.0" layoutY="219.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
+      <Button layoutX="488.0" layoutY="219.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="36.0" prefWidth="75.0" styleClass="button-add" stylesheets="@../css/adminStyle.css" text="Add" />
+      <ComboBox fx:id="cmbPatientID" layoutX="313.0" layoutY="99.0" prefHeight="27.0" prefWidth="120.0" promptText="patient ID" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <Button layoutX="611.0" layoutY="224.0" mnemonicParsing="false" onAction="#btnReloadOnAction" prefHeight="27.0" prefWidth="41.0" styleClass="button-update" stylesheets="@../css/doctor.css">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+               <image>
+                  <Image url="@../img/loop-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="176.0" layoutY="26.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Bills &amp; Payments Managment" />
+      <TextField fx:id="txtTotalAmount" layoutX="497.0" layoutY="101.0" prefHeight="24.0" prefWidth="120.0" promptText="Total amount" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="cmbStatus" layoutX="122.0" layoutY="148.0" prefHeight="27.0" prefWidth="120.0" promptText="status" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <TextField fx:id="txtInvoiceName" layoutX="287.0" layoutY="151.0" prefHeight="24.0" prefWidth="120.0" promptText="invoice name" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <DatePicker fx:id="dtpDate" layoutX="458.0" layoutY="150.0" promptText="date" styleClass="combo-box" stylesheets="@../css/doctor.css" />
+      <TableView fx:id="tblBillsandPayment" layoutY="274.0" prefHeight="200.0" prefWidth="684.0">
+        <columns>
+          <TableColumn fx:id="clmID" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="clmPationID" prefWidth="92.6666488647461" text="pation_id" />
+            <TableColumn fx:id="clmTotal" prefWidth="144.66664123535156" text="Total" />
+            <TableColumn fx:id="clmStatus" prefWidth="88.6666259765625" text="status" />
+            <TableColumn fx:id="clmInvoiceName" prefWidth="144.66665649414062" text="invoice name" />
+            <TableColumn fx:id="clmDate" prefWidth="138.66668701171875" text="date" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>
