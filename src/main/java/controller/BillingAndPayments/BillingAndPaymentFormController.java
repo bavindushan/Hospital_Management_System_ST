@@ -119,6 +119,8 @@ public class BillingAndPaymentFormController implements Initializable {
         loadPatientID();
         loadStatus();
         txtId.setText(genarateID());
+        txtInvoiceName.setText("");
+        txtTotalAmount.setText("");
     }
 
     @FXML
