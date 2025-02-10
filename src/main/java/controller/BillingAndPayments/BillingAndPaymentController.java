@@ -28,8 +28,21 @@ public class BillingAndPaymentController implements BillingAndPaymentServices{
     }
 
     @Override
-    public boolean update(PaymentBill paymentBill) {
-        return false;
+    public boolean update(PaymentBill paymentBill) throws SQLException {
+        String SQL = "UPDATE billing SET patient_id=?,total_amount=?,payment_status=?,invoice_pdf=?,generated_date=? WHERE bill_id=?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+        preparedStatement.setString(1, paymentBill.getPatientID());
+        preparedStatement.setDouble(2,paymentBill.getTotal());
+        preparedStatement.setString(3, paymentBill.getStatus());
+        preparedStatement.setString(4, paymentBill.getInvoiceName());
+        preparedStatement.setDate(5, Date.valueOf(paymentBill.getDate()));
+
+        preparedStatement.setString(6, paymentBill.getId());
+
+        int affectedRows = preparedStatement.executeUpdate();
+        return affectedRows>0;
     }
 
     @Override
