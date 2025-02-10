@@ -118,6 +118,12 @@ public class BillingAndPaymentFormController implements Initializable {
         observableList.add("Unpaid");
         cmbStatus.setItems(observableList);
     }
+    private void reloadForm(){
+        loadTable();
+        loadPatientID();
+        loadStatus();
+        txtId.setText(genarateID());
+    }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
@@ -131,7 +137,7 @@ public class BillingAndPaymentFormController implements Initializable {
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
-
+        reloadForm();
     }
 
     @FXML
