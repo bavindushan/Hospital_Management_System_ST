@@ -141,6 +141,7 @@ public class AppointmentFormController implements Initializable {
         cmbStatus.setItems(observableList);
     }
     private void reloadForm(){
+        txtId.setText(genarateID());
         loadTable();
         loadTime();
         loadStatus();
@@ -201,6 +202,7 @@ public class AppointmentFormController implements Initializable {
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
+
         reloadForm();
     }
 
@@ -228,13 +230,27 @@ public class AppointmentFormController implements Initializable {
         } catch (SQLException e) {
             System.out.println("An error occur!"+e.getMessage());
             new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+            reloadForm();
         }
 
-        reloadForm();
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        if (dtpDate.getValue() == null ||
+                cmbTime.getValue() == null ||
+                cmbStatus.getValue() == null) {
+
+            new Alert(Alert.AlertType.WARNING, "Please fill in all fields before updating an appointment.").show();
+            return;
+        }
+        try {
+            boolean isUpdate = appointmentController.UpdateAppointment(txtId.getText(), dtpDate.getValue(), cmbTime.getValue().toString(), cmbStatus.getValue().toString());
+            if (isUpdate) new Alert(Alert.AlertType.INFORMATION, "Update Successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
         reloadForm();
     }
 
