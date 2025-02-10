@@ -180,9 +180,9 @@ public class AppointmentFormController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        if (cmbPatientID.getValue() == null ||
+        if (txtId.getText() == null ||
                 cmbDoctorID.getValue() == null) {
-            new Alert(Alert.AlertType.WARNING, "Please fill in all fields before adding an appointment.").show();
+            new Alert(Alert.AlertType.WARNING, "Please fill in all fields before deleting an appointment.").show();
             return;
         }
         try {

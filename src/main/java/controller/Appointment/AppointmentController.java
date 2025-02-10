@@ -89,7 +89,7 @@ public class AppointmentController implements AppointmentServices{
 
             boolean affectedrows = preparedStatement.executeUpdate()>0;
             if (affectedrows){
-                boolean isDoctorupdate = new DoctorController().updateDoctorAvailability(doctorID, "Notavailable");
+                boolean isDoctorupdate = new DoctorController().updateDoctorAvailability(doctorID, "Available");
                 if (isDoctorupdate){
                     connection.commit();
                     return true;
