@@ -79,6 +79,18 @@ public class AppointmentController implements AppointmentServices{
     }
 
     @Override
+    public boolean UpdateStatus(String id,String status) throws SQLException {
+        String SQL = "UPDATE appointments SET status=? WHERE appointment_id=? ";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        preparedStatement.setString(1,status);
+        preparedStatement.setString(2,id);
+
+        int affectedrows = preparedStatement.executeUpdate();
+        return affectedrows>0;
+    }
+
+    @Override
     public boolean deleteAppointment(String ID,String doctorID) throws SQLException {
         String SQL = "DELETE FROM appointments WHERE appointment_id = ?";
         Connection connection = DBConnection.getInstance().getConnection();
