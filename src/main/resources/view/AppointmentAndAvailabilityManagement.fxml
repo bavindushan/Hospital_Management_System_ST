@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.AppointmentAndAvailability.AppointmentAndAvailabilityFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="474.0" prefWidth="684.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentAndAvailability.AppointmentAndAvailabilityFormController">
+   <children>
+      <TextField fx:id="txtId" editable="false" layoutX="150.0" layoutY="132.0" promptText="ID" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="186.0" layoutY="24.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Appointments Managment" />
+      <Button layoutX="482.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
+      <Button layoutX="596.0" layoutY="198.0" mnemonicParsing="false" onAction="#btnReloadOnAction" prefHeight="27.0" prefWidth="41.0" styleClass="button-update" stylesheets="@../css/doctor.css">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+               <image>
+                  <Image url="@../img/loop-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TableView fx:id="tblAppointments" layoutY="274.0" prefHeight="200.0" prefWidth="684.0">
+        <columns>
+          <TableColumn fx:id="clmID" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="clmPatientID" prefWidth="94.66661834716797" text="patient_id" />
+            <TableColumn fx:id="clmDoctorID" prefWidth="119.33335876464844" text="doctor_id" />
+            <TableColumn fx:id="clmDate" prefWidth="132.6666259765625" text="date" />
+            <TableColumn fx:id="clmTime" prefWidth="135.33334350585938" text="time" />
+            <TableColumn fx:id="clmSatus" prefWidth="126.6666259765625" text="status" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="cmbStatus" layoutX="392.0" layoutY="132.0" prefWidth="150.0" promptText="status" />
+   </children>
 </AnchorPane>
