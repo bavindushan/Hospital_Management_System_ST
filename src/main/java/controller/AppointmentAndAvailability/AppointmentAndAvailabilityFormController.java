@@ -66,6 +66,10 @@ public class AppointmentAndAvailabilityFormController implements Initializable {
         all.forEach(appointment -> observableList.add(appointment));
         tblAppointments.setItems(observableList);
     }
+    private void reloadForm(){
+        loadTable();
+        txtId.setText("");
+    }
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
