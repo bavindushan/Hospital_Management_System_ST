@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.Prescription.PrescriptionManagementFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="474.0" prefWidth="684.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Prescription.PrescriptionManagementFormController">
+   <children>
+      <TextField fx:id="txtId" layoutX="83.0" layoutY="72.0" promptText="prescription_id" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="208.0" layoutY="15.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Prescription Managment" />
+      <TextField fx:id="txtDosage" layoutX="208.0" layoutY="112.0" prefHeight="24.0" prefWidth="101.0" promptText="dosage" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <Button layoutX="150.0" layoutY="199.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="24.0" prefWidth="75.0" styleClass="button-delete" stylesheets="@../css/adminStyle.css" text="Delete" />
+      <Button layoutX="252.0" layoutY="199.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="button-update" stylesheets="@../css/adminStyle.css" text="Update" />
+      <Button layoutX="355.0" layoutY="199.0" mnemonicParsing="false" onAction="#btnSearchOnAction" styleClass="button-search" stylesheets="@../css/adminStyle.css" text="Search" />
+      <Button layoutX="454.0" layoutY="199.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="36.0" prefWidth="75.0" styleClass="button-add" stylesheets="@../css/adminStyle.css" text="Add" />
+      <Button layoutX="596.0" layoutY="218.0" mnemonicParsing="false" onAction="#btnReloadOnAction" prefHeight="27.0" prefWidth="41.0" styleClass="button-update" stylesheets="@../css/doctor.css">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" styleClass="button">
+               <image>
+                  <Image url="@../img/loop-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TableView fx:id="tblprescriptions" layoutY="274.0" prefHeight="200.0" prefWidth="684.0">
+        <columns>
+          <TableColumn fx:id="clmid" prefWidth="55.33334219455719" text="id" />
+          <TableColumn fx:id="clmpatientId" prefWidth="76.00002670288086" text="patient_id" />
+            <TableColumn fx:id="clmdoctorId" prefWidth="65.33334350585938" text="doctor_id" />
+            <TableColumn fx:id="clmdosage" prefWidth="85.99998474121094" text="dosage" />
+            <TableColumn fx:id="clmduration" prefWidth="85.33331298828125" text="duration" />
+            <TableColumn fx:id="clmmedicaldetails" prefWidth="106.0" text="medical_details" />
+            <TableColumn fx:id="clmadditionalnote" prefWidth="207.99996948242188" text="additional_note" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="cmbpatientId" layoutX="273.0" layoutY="72.0" prefWidth="150.0" promptText="patient_id" />
+      <ComboBox fx:id="cmbdoctorId" layoutX="448.0" layoutY="72.0" prefWidth="150.0" promptText="doctor_id" />
+      <TextField fx:id="txtDuration" layoutX="341.0" layoutY="112.0" prefHeight="24.0" prefWidth="115.0" promptText="duration" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtMedicalDetails" layoutX="81.0" layoutY="147.0" promptText="medicine_details" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtAdditionalNotes" layoutX="275.0" layoutY="147.0" prefHeight="24.0" prefWidth="389.0" promptText="additional_notes" styleClass="text-box" stylesheets="@../css/adminStyle.css">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
+   </children>
 </AnchorPane>
