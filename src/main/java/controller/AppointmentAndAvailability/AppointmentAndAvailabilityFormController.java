@@ -49,7 +49,15 @@ public class AppointmentAndAvailabilityFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appointmentController = new AppointmentController();
         loadTable();
+        loadStatus();
+    }
+    private void loadStatus(){
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.add("Scheduled");
+        observableList.add("Completed");
+        observableList.add("Cancelled");
 
+        cmbStatus.setItems(observableList);
     }
     private void loadTable(){
 
@@ -69,6 +77,7 @@ public class AppointmentAndAvailabilityFormController implements Initializable {
     private void reloadForm(){
         loadTable();
         txtId.setText("");
+        cmbStatus.setValue("");
     }
 
     @FXML
@@ -87,17 +96,31 @@ public class AppointmentAndAvailabilityFormController implements Initializable {
             }else {
                 tblAppointments.getItems().clear();
                 new Alert(Alert.AlertType.ERROR, "Not found!").show();
+                reloadForm();
             }
         } catch (SQLException e) {
             System.out.println("A error couur"+e.getMessage());
             new Alert(Alert.AlertType.ERROR, "A error couur"+e.getMessage()).show();
+            reloadForm();
         }
 
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        try {
+            if(!txtId.getText().isEmpty() && cmbStatus.getValue()!=null) {
+                boolean isUpdate = appointmentController.UpdateStatus(txtId.getText(), cmbStatus.getValue().toString());
+                if (isUpdate) new Alert(Alert.AlertType.INFORMATION, "Updated!").show();
+                else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
 
+            }else new Alert(Alert.AlertType.ERROR, "Fill all inputs!").show();
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occurred! " + e.getMessage()).show();
+        }
+        reloadForm();
     }
 
 

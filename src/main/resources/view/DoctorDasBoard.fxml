@@ -7,11 +7,10 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboards.DoctorDashBoardFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6da373" height="474.0" layoutX="2.0" layoutY="2.0" opacity="0.17" stroke="#090909" strokeType="INSIDE" strokeWidth="2.0" styleClass="menu" width="226.0" />
-      <Label layoutX="6.0" layoutY="28.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Doctor Dash Board" />
+      <Label layoutX="6.0" layoutY="28.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Doctor Dashboard" />
       <Button layoutX="6.0" layoutY="117.0" mnemonicParsing="false" onAction="#btnAppointmentAndAvailabilityOnAction" prefHeight="41.0" prefWidth="214.0" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="Appointments &amp; Avilability">
          <font>
             <Font size="17.0" />

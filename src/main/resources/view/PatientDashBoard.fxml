@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.dashboards.PatientDashBoardFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/doctor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboards.PatientDashBoardFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6da373" height="474.0" layoutY="1.0" opacity="0.17" stroke="#090909" strokeType="INSIDE" strokeWidth="2.0" styleClass="menu" width="226.0" />
+      <Label layoutX="4.0" layoutY="27.0" styleClass="title-text" stylesheets="@../css/adminStyle.css" text="Patient Dashboard" />
+      <Button layoutX="16.0" layoutY="116.0" mnemonicParsing="false" onAction="#btnViewAppointmentOnAction" prefHeight="41.0" prefWidth="191.0" styleClass="menu-bar" stylesheets="@../css/adminStyle.css" text="View Appointments">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Line endX="100.0" layoutX="113.0" layoutY="82.0" startX="-100.0" />
+      <AnchorPane fx:id="ancpPation" layoutX="226.0" layoutY="1.0" prefHeight="474.0" prefWidth="684.0" />
+   </children>
 </AnchorPane>
