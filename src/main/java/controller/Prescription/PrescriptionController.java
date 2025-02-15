@@ -3,10 +3,8 @@ package controller.Prescription;
 import db.DBConnection;
 import model.Prescription;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PrescriptionController implements PrescriptionServices{
@@ -70,13 +68,50 @@ public class PrescriptionController implements PrescriptionServices{
     }
 
     @Override
-    public Prescription search(String id) {
+    public Prescription search(String id) throws SQLException {
+        String SQL = "SELECT * FROM prescription WHERE prescription_id=?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        preparedStatement.setString(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()){
+            return new Prescription(resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7)
+                    );
+        }
         return null;
     }
 
     @Override
     public List<Prescription> getAll() {
-        return List.of();
+        List<Prescription> list = new ArrayList<>();
+        String SQL = "SELECT * FROM prescription";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+
+            while(resultSet.next()){
+                Prescription prescription = new Prescription(resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7)
+                );
+                list.add(prescription);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+        }
+        return null;
     }
 
     @Override

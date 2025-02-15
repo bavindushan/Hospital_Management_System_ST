@@ -9,7 +9,7 @@ public interface PrescriptionServices {
     boolean add(Prescription prescription) throws SQLException;
     boolean update(Prescription prescription) throws SQLException;
     boolean delete(String id) throws SQLException;
-    Prescription search(String id);
+    Prescription search(String id) throws SQLException;
     List<Prescription> getAll();
     String getLastId();
 }
