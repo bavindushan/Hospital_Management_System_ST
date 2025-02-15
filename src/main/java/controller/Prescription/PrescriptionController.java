@@ -116,6 +116,9 @@ public class PrescriptionController implements PrescriptionServices{
 
     @Override
     public String getLastId() {
-        return "";
+        List<Prescription> all = getAll();
+
+        Prescription prescription = all.get(all.size() - 1);
+        return prescription.getId();
     }
 }
