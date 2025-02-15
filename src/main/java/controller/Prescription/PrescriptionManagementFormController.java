@@ -10,34 +10,34 @@ import javafx.scene.control.TextField;
 public class PrescriptionManagementFormController {
 
     @FXML
-    private TableColumn<?, ?> clmadditionalnote;
+    private TableColumn clmadditionalnote;
 
     @FXML
-    private TableColumn<?, ?> clmdoctorId;
+    private TableColumn clmdoctorId;
 
     @FXML
-    private TableColumn<?, ?> clmdosage;
+    private TableColumn clmdosage;
 
     @FXML
-    private TableColumn<?, ?> clmduration;
+    private TableColumn clmduration;
 
     @FXML
-    private TableColumn<?, ?> clmid;
+    private TableColumn clmid;
 
     @FXML
-    private TableColumn<?, ?> clmmedicaldetails;
+    private TableColumn clmmedicaldetails;
 
     @FXML
-    private TableColumn<?, ?> clmpatientId;
+    private TableColumn clmpatientId;
 
     @FXML
-    private ComboBox<?> cmbdoctorId;
+    private ComboBox cmbdoctorId;
 
     @FXML
-    private ComboBox<?> cmbpatientId;
+    private ComboBox cmbpatientId;
 
     @FXML
-    private TableView<?> tblprescriptions;
+    private TableView tblprescriptions;
 
     @FXML
     private TextField txtAdditionalNotes;
