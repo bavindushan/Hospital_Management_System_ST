@@ -58,8 +58,15 @@ public class PrescriptionController implements PrescriptionServices{
     }
 
     @Override
-    public boolean delete(String id) {
-        return false;
+    public boolean delete(String id) throws SQLException {
+        String SQL = "DELETE FROM prescription WHERE prescription_id=?";
+        Connection connection = DBConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+        preparedStatement.setString(1,id);
+        int affectedrows = preparedStatement.executeUpdate();
+
+        return affectedrows>0;
     }
 
     @Override

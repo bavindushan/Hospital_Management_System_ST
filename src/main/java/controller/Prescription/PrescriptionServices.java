@@ -8,7 +8,7 @@ import java.util.List;
 public interface PrescriptionServices {
     boolean add(Prescription prescription) throws SQLException;
     boolean update(Prescription prescription) throws SQLException;
-    boolean delete(String id);
+    boolean delete(String id) throws SQLException;
     Prescription search(String id);
     List<Prescription> getAll();
     String getLastId();
