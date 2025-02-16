@@ -1,13 +1,22 @@
 package controller.Prescription;
 
+import controller.Patient.PatientController;
+import controller.doctor.DoctorController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import model.Doctor;
+import model.Patient;
 
-public class PrescriptionManagementFormController {
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class PrescriptionManagementFormController implements Initializable {
 
     @FXML
     private TableColumn clmadditionalnote;
@@ -53,6 +62,42 @@ public class PrescriptionManagementFormController {
 
     @FXML
     private TextField txtMedicalDetails;
+
+    PrescriptionController prescriptionController;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        prescriptionController = new PrescriptionController();
+        loadPatientsID();
+        loadDoctorID();
+    }
+    private void loadDoctorID(){
+        DoctorController doctorController = new DoctorController();
+        try {
+            List<Doctor> doctorList = doctorController.getAll();
+            ObservableList<String> observableList = FXCollections.observableArrayList();
+
+            doctorList.forEach(doctor -> observableList.add(doctor.getId()));
+            cmbdoctorId.setItems(observableList);
+
+        } catch (SQLException e) {
+            System.out.println("An error occur"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur"+e.getMessage()).show();
+        }
+    }
+    private void loadPatientsID(){
+        PatientController patientController = new PatientController();
+        try {
+            List<Patient> patientList = patientController.getAll();
+            ObservableList<String> observableList = FXCollections.observableArrayList();
+
+            patientList.forEach(patient -> observableList.add(patient.getID()));
+            cmbpatientId.setItems(observableList);
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+        }
+    }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {

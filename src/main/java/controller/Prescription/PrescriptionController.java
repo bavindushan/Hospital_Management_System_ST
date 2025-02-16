@@ -42,7 +42,7 @@ public class PrescriptionController implements PrescriptionServices{
         preparedStatement.setString(4,prescription.getDuration());
         preparedStatement.setString(5,prescription.getMedicine_details());
 
-        //null handling in additional notes
+        //null handling in "additional notes"
         if (prescription.getAdditional_notes() != null) {
             preparedStatement.setString(6, prescription.getAdditional_notes());
         } else {
