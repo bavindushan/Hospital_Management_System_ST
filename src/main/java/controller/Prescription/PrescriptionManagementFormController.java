@@ -73,6 +73,26 @@ public class PrescriptionManagementFormController implements Initializable {
         loadPatientsID();
         loadDoctorID();
         loadTable();
+        txtId.setText(genarateID());
+    }
+    private void reloadForm(){
+        loadTable();
+        cmbpatientId.setValue("");
+        cmbdoctorId.setValue("");
+        txtDosage.setText("");
+        txtDuration.setText("");
+        txtMedicalDetails.setText("");
+        txtAdditionalNotes.setText("");
+        txtId.setText(genarateID());
+    }
+    private String genarateID(){
+        String lastId = prescriptionController.getLastId();
+        if (lastId==null) return "PRE001";
+
+        int numericPart = Integer.parseInt(lastId.substring(3));
+        int newNumber = numericPart+1;
+
+        return String.format("PRE%03d",newNumber);
     }
     private void loadTable(){
         clmid.setCellValueFactory(new PropertyValueFactory<>("id"));
