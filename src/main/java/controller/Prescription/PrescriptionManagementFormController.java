@@ -8,8 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Doctor;
 import model.Patient;
+import model.Prescription;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -70,6 +72,22 @@ public class PrescriptionManagementFormController implements Initializable {
         prescriptionController = new PrescriptionController();
         loadPatientsID();
         loadDoctorID();
+        loadTable();
+    }
+    private void loadTable(){
+        clmid.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clmpatientId.setCellValueFactory(new PropertyValueFactory<>("patient_id"));
+        clmdoctorId.setCellValueFactory(new PropertyValueFactory<>("doctor_id"));
+        clmdosage.setCellValueFactory(new PropertyValueFactory<>("dosage"));
+        clmduration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        clmmedicaldetails.setCellValueFactory(new PropertyValueFactory<>("medicine_details"));
+        clmadditionalnote.setCellValueFactory(new PropertyValueFactory<>("additional_notes"));
+
+        List<Prescription> all = prescriptionController.getAll();
+        ObservableList<Prescription> observableList = FXCollections.observableArrayList();
+
+        all.forEach(prescription -> observableList.add(prescription));
+        tblprescriptions.setItems(observableList);
     }
     private void loadDoctorID(){
         DoctorController doctorController = new DoctorController();
