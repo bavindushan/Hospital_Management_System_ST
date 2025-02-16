@@ -171,10 +171,12 @@ public class PrescriptionManagementFormController implements Initializable {
             boolean isDelete = prescriptionController.delete(txtId.getText());
             if (isDelete) new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
             else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
+            reloadForm();
 
         } catch (SQLException e) {
             System.out.println("An error occur!"+e.getMessage());
             new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+            reloadForm();
         }
     }
 
@@ -185,7 +187,21 @@ public class PrescriptionManagementFormController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        try {
+            Prescription prescription = prescriptionController.search(txtId.getText());
+            tblprescriptions.setItems(FXCollections.observableArrayList(prescription));
 
+            cmbpatientId.setValue(prescription.getPatient_id());
+            cmbdoctorId.setValue(prescription.getDoctor_id());
+            txtDosage.setText(prescription.getDosage());
+            txtDuration.setText(prescription.getDuration());
+            txtMedicalDetails.setText(prescription.getMedicine_details());
+            txtAdditionalNotes.setText(prescription.getAdditional_notes());
+
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+        }
     }
 
     @FXML
@@ -196,8 +212,8 @@ public class PrescriptionManagementFormController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Please fill all fields! ").show();
                 return;
             }
-            boolean isAdd = prescriptionController.update(new Prescription(
-                    genarateID(),
+            boolean isUpdate = prescriptionController.update(new Prescription(
+                    txtId.getText(),
                     cmbpatientId.getValue().toString(),
                     cmbdoctorId.getValue().toString(),
                     txtDosage.getText(),
@@ -205,7 +221,7 @@ public class PrescriptionManagementFormController implements Initializable {
                     txtMedicalDetails.getText(),
                     txtAdditionalNotes.getText()
             ));
-            if (isAdd) new Alert(Alert.AlertType.INFORMATION, "Update Successful!").show();
+            if (isUpdate) new Alert(Alert.AlertType.INFORMATION, "Update Successful!").show();
             else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
             reloadForm();
 

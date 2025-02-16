@@ -52,6 +52,7 @@ public class PrescriptionController implements PrescriptionServices{
         preparedStatement.setString(7,prescription.getId());
 
         int affectedrows = preparedStatement.executeUpdate();
+        //System.out.println("Affectedrows"+affectedrows);
         return affectedrows>0;
     }
 
