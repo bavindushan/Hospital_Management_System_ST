@@ -167,7 +167,15 @@ public class PrescriptionManagementFormController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        try {
+            boolean isDelete = prescriptionController.delete(txtId.getText());
+            if (isDelete) new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
 
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+        }
     }
 
     @FXML
