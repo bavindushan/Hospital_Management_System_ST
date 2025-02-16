@@ -139,7 +139,30 @@ public class PrescriptionManagementFormController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        try {
+            if (txtDuration.getText()==null&&txtDosage.getText()==null&&txtMedicalDetails.getText()==null&&
+                    cmbpatientId.getValue().toString()==null&&cmbdoctorId.getValue().toString()==null) {
+                new Alert(Alert.AlertType.ERROR, "Please fill all fields! ").show();
+                return;
+            }
+            boolean isAdd = prescriptionController.add(new Prescription(
+                    genarateID(),
+                    cmbpatientId.getValue().toString(),
+                    cmbdoctorId.getValue().toString(),
+                    txtDosage.getText(),
+                    txtDuration.getText(),
+                    txtMedicalDetails.getText(),
+                    txtAdditionalNotes.getText()
+            ));
+            if (isAdd) new Alert(Alert.AlertType.INFORMATION, "Added Successful!").show();
+            else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
+            reloadForm();
 
+        } catch (SQLException e) {
+            System.out.println("An error occur!"+e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "An error occur!"+e.getMessage()).show();
+            reloadForm();
+        }
     }
 
     @FXML
@@ -149,7 +172,7 @@ public class PrescriptionManagementFormController implements Initializable {
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
-
+        reloadForm();
     }
 
     @FXML
