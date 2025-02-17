@@ -1,7 +1,7 @@
 package controller.Prescription;
 
-import controller.Patient.PatientController;
-import controller.doctor.DoctorController;
+import service.custom.impl.PatientBoImpl;
+import service.custom.impl.DoctorBoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Doctor;
 import model.Patient;
 import model.Prescription;
+import service.custom.impl.PrescriptionBoImpl;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -65,11 +66,11 @@ public class PrescriptionManagementFormController implements Initializable {
     @FXML
     private TextField txtMedicalDetails;
 
-    PrescriptionController prescriptionController;
+    PrescriptionBoImpl prescriptionBoImpl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        prescriptionController = new PrescriptionController();
+        prescriptionBoImpl = new PrescriptionBoImpl();
         loadPatientsID();
         loadDoctorID();
         loadTable();
@@ -86,7 +87,7 @@ public class PrescriptionManagementFormController implements Initializable {
         txtId.setText(genarateID());
     }
     private String genarateID(){
-        String lastId = prescriptionController.getLastId();
+        String lastId = prescriptionBoImpl.getLastId();
         if (lastId==null) return "PRE001";
 
         int numericPart = Integer.parseInt(lastId.substring(3));
@@ -103,16 +104,16 @@ public class PrescriptionManagementFormController implements Initializable {
         clmmedicaldetails.setCellValueFactory(new PropertyValueFactory<>("medicine_details"));
         clmadditionalnote.setCellValueFactory(new PropertyValueFactory<>("additional_notes"));
 
-        List<Prescription> all = prescriptionController.getAll();
+        List<Prescription> all = prescriptionBoImpl.getAll();
         ObservableList<Prescription> observableList = FXCollections.observableArrayList();
 
         all.forEach(prescription -> observableList.add(prescription));
         tblprescriptions.setItems(observableList);
     }
     private void loadDoctorID(){
-        DoctorController doctorController = new DoctorController();
+        DoctorBoImpl doctorBoImpl = new DoctorBoImpl();
         try {
-            List<Doctor> doctorList = doctorController.getAll();
+            List<Doctor> doctorList = doctorBoImpl.getAll();
             ObservableList<String> observableList = FXCollections.observableArrayList();
 
             doctorList.forEach(doctor -> observableList.add(doctor.getId()));
@@ -124,9 +125,9 @@ public class PrescriptionManagementFormController implements Initializable {
         }
     }
     private void loadPatientsID(){
-        PatientController patientController = new PatientController();
+        PatientBoImpl patientBoImpl = new PatientBoImpl();
         try {
-            List<Patient> patientList = patientController.getAll();
+            List<Patient> patientList = patientBoImpl.getAll();
             ObservableList<String> observableList = FXCollections.observableArrayList();
 
             patientList.forEach(patient -> observableList.add(patient.getID()));
@@ -145,7 +146,7 @@ public class PrescriptionManagementFormController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Please fill all fields! ").show();
                 return;
             }
-            boolean isAdd = prescriptionController.add(new Prescription(
+            boolean isAdd = prescriptionBoImpl.add(new Prescription(
                     genarateID(),
                     cmbpatientId.getValue().toString(),
                     cmbdoctorId.getValue().toString(),
@@ -168,7 +169,7 @@ public class PrescriptionManagementFormController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            boolean isDelete = prescriptionController.delete(txtId.getText());
+            boolean isDelete = prescriptionBoImpl.delete(txtId.getText());
             if (isDelete) new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
             else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
             reloadForm();
@@ -188,7 +189,7 @@ public class PrescriptionManagementFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            Prescription prescription = prescriptionController.search(txtId.getText());
+            Prescription prescription = prescriptionBoImpl.search(txtId.getText());
             tblprescriptions.setItems(FXCollections.observableArrayList(prescription));
 
             cmbpatientId.setValue(prescription.getPatient_id());
@@ -212,7 +213,7 @@ public class PrescriptionManagementFormController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Please fill all fields! ").show();
                 return;
             }
-            boolean isUpdate = prescriptionController.update(new Prescription(
+            boolean isUpdate = prescriptionBoImpl.update(new Prescription(
                     txtId.getText(),
                     cmbpatientId.getValue().toString(),
                     cmbdoctorId.getValue().toString(),

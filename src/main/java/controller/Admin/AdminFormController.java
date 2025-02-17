@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Admin;
 import org.jasypt.util.text.BasicTextEncryptor;
+import service.custom.AdminBo;
+import service.custom.impl.AdminBoImpl;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -47,18 +49,18 @@ public class AdminFormController implements Initializable {
     @FXML
     private TextField txtPassword;
 
-    AdminController adminController;
+    AdminBo adminBoImpl;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        adminController = new AdminController();
+        adminBoImpl = new AdminBoImpl();
         txtId.setText(genarateAdminID());
         loadTable();
     }
 
     private String genarateAdminID(){
-        String lastAdminID = adminController.getLastAdminID();
+        String lastAdminID = adminBoImpl.getLastAdminID();
         if (lastAdminID==null){
             return "A001";
         }
@@ -90,7 +92,7 @@ public class AdminFormController implements Initializable {
             basicTextEncryptor.setPassword(key);
             String encryptPassword = basicTextEncryptor.encrypt(txtPassword.getText());
 
-            boolean b = adminController.addAdmin(new Admin(genarateAdminID(),encryptPassword, txtName.getText(), txtEmail.getText()));
+            boolean b = adminBoImpl.addAdmin(new Admin(genarateAdminID(),encryptPassword, txtName.getText(), txtEmail.getText()));
             
             if (b)  new Alert(Alert.AlertType.INFORMATION, "Admin added successful!!").show();
             else new Alert(Alert.AlertType.ERROR, "Admin not add!!").show();
@@ -106,7 +108,7 @@ public class AdminFormController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            boolean b = adminController.deleteAdmin(txtEmail.getText());
+            boolean b = adminBoImpl.deleteAdmin(txtEmail.getText());
             if (b) new Alert(Alert.AlertType.INFORMATION,"Admin deleted!").show();
             else new Alert(Alert.AlertType.ERROR,"Admin not delete!").show();
 
@@ -126,7 +128,7 @@ public class AdminFormController implements Initializable {
             BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
             basicTextEncryptor.setPassword(key);
 
-            Admin admin = adminController.searchAdmin(txtEmail.getText());
+            Admin admin = adminBoImpl.searchAdmin(txtEmail.getText());
             txtId.setText(admin.getAdminID());
             txtEmail.setText(admin.getAdminEmail());
             txtName.setText(admin.getAdminName());
@@ -156,7 +158,7 @@ public class AdminFormController implements Initializable {
             basicTextEncryptor.setPassword(key);
             String encryptedPassword = basicTextEncryptor.encrypt(txtPassword.getText());
 
-            boolean b = adminController.updateAdmin(new Admin(txtId.getText(),encryptedPassword, txtName.getText(), txtEmail.getText()));
+            boolean b = adminBoImpl.updateAdmin(new Admin(txtId.getText(),encryptedPassword, txtName.getText(), txtEmail.getText()));
             if (b) new Alert(Alert.AlertType.INFORMATION,"Admin update successful!").show();
             else new Alert(Alert.AlertType.ERROR, "Admin not update!").show();
 
@@ -174,7 +176,7 @@ public class AdminFormController implements Initializable {
         clmEmail.setCellValueFactory(new PropertyValueFactory<>("adminEmail"));
 
         ObservableList<Admin> adminObservbleList = FXCollections.observableArrayList();
-        List<Admin> adminList = adminController.getAllAdmin();
+        List<Admin> adminList = adminBoImpl.getAllAdmin();
         adminList.forEach(admin -> {
             adminObservbleList.add(admin);
         });

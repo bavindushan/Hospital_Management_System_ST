@@ -1,7 +1,7 @@
 package controller.Schedule;
 
-import controller.Staff.StaffController;
-import controller.doctor.DoctorController;
+import service.custom.impl.StaffBoImpl;
+import service.custom.impl.DoctorBoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Doctor;
 import model.Schedule;
 import model.Staff;
+import service.custom.impl.ScheduleBoImpl;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -47,11 +48,11 @@ public class ScheduleFormController implements Initializable {
     @FXML
     private TextField txtId;
 
-    ScheduleController scheduleController;
+    ScheduleBoImpl scheduleBoImpl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        scheduleController = new ScheduleController();
+        scheduleBoImpl = new ScheduleBoImpl();
         loadDoctorId();
         loadStaffId();
         loadScheduleList();
@@ -65,14 +66,14 @@ public class ScheduleFormController implements Initializable {
         clmStaffID.setCellValueFactory(new PropertyValueFactory<>("staffID"));
         clmScheduleDetails.setCellValueFactory(new PropertyValueFactory<>("scheduleDetails"));
 
-        List<Schedule> all = scheduleController.getAll();
+        List<Schedule> all = scheduleBoImpl.getAll();
         ObservableList<Schedule> observableList = FXCollections.observableArrayList();
 
         all.forEach(schedule -> observableList.add(schedule));
         tblScheduleManagemenet.setItems(observableList);
     }
     private String genarateID(){
-        String lastID = scheduleController.getLastID();
+        String lastID = scheduleBoImpl.getLastID();
         if (lastID==null) return "S001";
 
         int numericPart = Integer.parseInt(lastID.substring(1));
@@ -90,8 +91,8 @@ public class ScheduleFormController implements Initializable {
         cmbSchedulesList.setItems(observableList);
     }
     private void loadStaffId(){
-        StaffController staffController = new StaffController();
-        List<Staff> all = staffController.getAll();
+        StaffBoImpl staffBoImpl = new StaffBoImpl();
+        List<Staff> all = staffBoImpl.getAll();
         ObservableList<String> observableList = FXCollections.observableArrayList();
 
         all.forEach(staff -> observableList.add(staff.getStaffID()));
@@ -99,9 +100,9 @@ public class ScheduleFormController implements Initializable {
         cmbStaffID.setItems(observableList);
     }
     private void loadDoctorId(){
-        DoctorController doctorController = new DoctorController();
+        DoctorBoImpl doctorBoImpl = new DoctorBoImpl();
         try {
-            List<Doctor> doctorList = doctorController.getAll();
+            List<Doctor> doctorList = doctorBoImpl.getAll();
             ObservableList<String> observableList = FXCollections.observableArrayList();
 
             doctorList.forEach(doctor -> observableList.add(doctor.getId()));
@@ -115,7 +116,7 @@ public class ScheduleFormController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            boolean isAdded = scheduleController.assignSchedule(new Schedule(
+            boolean isAdded = scheduleBoImpl.assignSchedule(new Schedule(
                     genarateID(),
                     cmbDoctorID.getValue().toString(),
                     cmbStaffID.getValue().toString(),
@@ -133,7 +134,7 @@ public class ScheduleFormController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            boolean isDelete = scheduleController.deleteSchedule(txtId.getText());
+            boolean isDelete = scheduleBoImpl.deleteSchedule(txtId.getText());
             if (isDelete) new Alert(Alert.AlertType.INFORMATION,"Deleted!").show();
             else new Alert(Alert.AlertType.ERROR,"Not delete!").show();
 
@@ -158,7 +159,7 @@ public class ScheduleFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            Schedule schedule = scheduleController.searchSchedule(txtId.getText());
+            Schedule schedule = scheduleBoImpl.searchSchedule(txtId.getText());
             //set form
             txtId.setText(schedule.getId());
             cmbDoctorID.setItems(FXCollections.observableArrayList(schedule.getDoctorID()));
@@ -177,7 +178,7 @@ public class ScheduleFormController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         try {
-            boolean isUpdate = scheduleController.updateSchedule(new Schedule(
+            boolean isUpdate = scheduleBoImpl.updateSchedule(new Schedule(
                     txtId.getText(),
                     cmbDoctorID.getValue().toString(),
                     cmbStaffID.getValue().toString(),

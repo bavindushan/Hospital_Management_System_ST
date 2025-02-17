@@ -1,13 +1,14 @@
-package controller.BillingAndPayments;
+package service.custom.impl;
 
 import db.DBConnection;
 import model.PaymentBill;
+import service.custom.BillingAndPaymentBo;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillingAndPaymentController implements BillingAndPaymentServices{
+public class BillingAndPaymentBoImpl implements BillingAndPaymentBo {
     @Override
     public boolean add(PaymentBill paymentBill) throws SQLException {
         String SQL = "INSERT INTO billing (bill_id,patient_id,total_amount,payment_status,invoice_pdf,generated_date) VALUES (?,?,?,?,?,?)";

@@ -1,15 +1,14 @@
-package controller.Admin;
+package service.custom.impl;
 
 import db.DBConnection;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import model.Admin;
+import service.custom.AdminBo;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminController implements AdminServices{
+public class AdminBoImpl implements AdminBo {
     @Override
     public boolean addAdmin(Admin admin) throws SQLException {
         String SQL = "INSERT INTO admin (admin_id,password,name,email) VALUES (?,?,?,?)";

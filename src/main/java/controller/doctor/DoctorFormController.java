@@ -9,10 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Doctor;
 import org.jasypt.util.text.BasicTextEncryptor;
+import service.custom.impl.DoctorBoImpl;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -71,13 +71,13 @@ public class DoctorFormController implements Initializable {
     @FXML
     private TextField txtTelNo;
 
-    DoctorController doctorController;
+    DoctorBoImpl doctorBoImpl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadSpeciality();
         loadQualifications();
-        doctorController = new DoctorController();
+        doctorBoImpl = new DoctorBoImpl();
         loadTable();
         txtId.setText(genarateDoctorID());
     }
@@ -112,7 +112,7 @@ public class DoctorFormController implements Initializable {
 
         ObservableList<Doctor> observableList = FXCollections.observableArrayList();
         try {
-            List<Doctor> doctorList = doctorController.getAll();
+            List<Doctor> doctorList = doctorBoImpl.getAll();
             doctorList.forEach(doctor -> {
                 observableList.add(doctor);
             });
@@ -124,7 +124,7 @@ public class DoctorFormController implements Initializable {
 
     private String genarateDoctorID(){
         try {
-            String lastID = doctorController.getLastID();
+            String lastID = doctorBoImpl.getLastID();
 
             if (lastID == null) return "D001";
 
@@ -173,7 +173,7 @@ public class DoctorFormController implements Initializable {
             basicTextEncryptor.setPassword(key);
             String encryptedPassword = basicTextEncryptor.encrypt(txtPassword.getText());
 
-            boolean isAdded = doctorController.addDoctor(new Doctor(
+            boolean isAdded = doctorBoImpl.addDoctor(new Doctor(
                     txtId.getText(),
                     txtName.getText(),
                     cmbSpeciality.getValue().toString(),
@@ -215,7 +215,7 @@ public class DoctorFormController implements Initializable {
 //            return false;
 //        }
         try {
-            boolean isDeleted = doctorController.deleteDoctor(txtEmail.getText());
+            boolean isDeleted = doctorBoImpl.deleteDoctor(txtEmail.getText());
             if ((isDeleted)) new Alert(Alert.AlertType.INFORMATION, "Doctor Deleted Successfully!").show();
             else new Alert(Alert.AlertType.ERROR, "Unsuccessfull!").show();
 
@@ -230,7 +230,7 @@ public class DoctorFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            Doctor doctor = doctorController.searchDoctor(txtEmail.getText());
+            Doctor doctor = doctorBoImpl.searchDoctor(txtEmail.getText());
             if (doctor!=null){
                 txtId.setText(doctor.getId());
                 txtEmail.setText(doctor.getEmail());
@@ -283,7 +283,7 @@ public class DoctorFormController implements Initializable {
             basicTextEncryptor.setPassword(key);
             String encryptedPassword = basicTextEncryptor.encrypt(txtPassword.getText());
 
-            boolean isAdded = doctorController.updateDoctor(new Doctor(
+            boolean isAdded = doctorBoImpl.updateDoctor(new Doctor(
                     txtId.getText(),
                     txtName.getText(),
                     cmbSpeciality.getValue().toString(),

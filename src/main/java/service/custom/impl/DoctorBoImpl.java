@@ -1,14 +1,15 @@
-package controller.doctor;
+package service.custom.impl;
 
 
 import db.DBConnection;
 import model.Doctor;
+import service.custom.DoctorBo;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorController implements DoctorServices{
+public class DoctorBoImpl implements DoctorBo {
 
     @Override
     public boolean addDoctor(Doctor doctor) throws SQLException {

@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Patient;
+import service.custom.impl.PatientBoImpl;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -55,11 +56,11 @@ public class PatientFormController implements Initializable {
     @FXML
     private TextField txtTelNo;
 
-    PatientController patientController;
+    PatientBoImpl patientBoImpl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        patientController = new PatientController();
+        patientBoImpl = new PatientBoImpl();
         loadGender();
         loadMedicalHistory();
         loadTable();
@@ -76,7 +77,7 @@ public class PatientFormController implements Initializable {
             clmMedicalHistory.setCellValueFactory(new PropertyValueFactory<>("MedicalHistory"));
 
             ObservableList<Patient> observableList = FXCollections.observableArrayList();
-            List<Patient> patientList = patientController.getAll();
+            List<Patient> patientList = patientBoImpl.getAll();
 
             patientList.forEach(patient -> observableList.add(patient));
 
@@ -112,7 +113,7 @@ public class PatientFormController implements Initializable {
     }
     private String genaratePatientId(){
         try {
-            String lastID = patientController.getLastID();
+            String lastID = patientBoImpl.getLastID();
             if (lastID==null) return "P001";
 
             int numericPart = Integer.parseInt(lastID.substring(1));
@@ -147,7 +148,7 @@ public class PatientFormController implements Initializable {
                 return;
             }
 
-            boolean isAdd = patientController.addPatient(new Patient(
+            boolean isAdd = patientBoImpl.addPatient(new Patient(
                     txtId.getText(),
                     txtName.getText(),
                     txtAge.getText(),
@@ -171,7 +172,7 @@ public class PatientFormController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            boolean isDelete = patientController.deletePatient(txtTelNo.getText());
+            boolean isDelete = patientBoImpl.deletePatient(txtTelNo.getText());
             if (isDelete) new Alert(Alert.AlertType.INFORMATION,"Successful!");
             else new Alert(Alert.AlertType.ERROR,"Unsuccessful!");
 
@@ -186,7 +187,7 @@ public class PatientFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            Patient patient = patientController.searchPatient(txtTelNo.getText());
+            Patient patient = patientBoImpl.searchPatient(txtTelNo.getText());
 
             txtId.setText(patient.getID());
             txtName.setText(patient.getName());
@@ -216,7 +217,7 @@ public class PatientFormController implements Initializable {
         }
 
         try {
-            boolean isUpdate = patientController.updatePatient(new Patient(
+            boolean isUpdate = patientBoImpl.updatePatient(new Patient(
                     txtId.getText(),
                     txtName.getText(),
                     txtAge.getText(),

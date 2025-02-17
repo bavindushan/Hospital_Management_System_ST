@@ -1,16 +1,16 @@
-package controller.Appointment;
+package service.custom.impl;
 
-import controller.doctor.DoctorController;
 import db.DBConnection;
 import javafx.scene.control.Alert;
 import model.Appointment;
+import service.custom.AppointmentBo;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppointmentController implements AppointmentServices{
+public class AppointmentBoImpl implements AppointmentBo {
     @Override
     public boolean addAppointment(Appointment appointment) throws SQLException {
         String checkSQL = "SELECT COUNT(*) FROM appointments WHERE doctor_id = ? AND appointment_date = ? AND time = ?";
@@ -47,7 +47,7 @@ public class AppointmentController implements AppointmentServices{
 
                 boolean appointmentAdded = preparedStatement.executeUpdate() > 0;
                 if (appointmentAdded){
-                    boolean isDoctorUnavailable = new DoctorController().updateDoctorAvailability(appointment.getDoctorID(), "Unavailable");
+                    boolean isDoctorUnavailable = new DoctorBoImpl().updateDoctorAvailability(appointment.getDoctorID(), "Unavailable");
                     if (isDoctorUnavailable) {
                         connection.commit();
                         return true;
@@ -101,7 +101,7 @@ public class AppointmentController implements AppointmentServices{
 
             boolean affectedrows = preparedStatement.executeUpdate()>0;
             if (affectedrows){
-                boolean isDoctorupdate = new DoctorController().updateDoctorAvailability(doctorID, "Available");
+                boolean isDoctorupdate = new DoctorBoImpl().updateDoctorAvailability(doctorID, "Available");
                 if (isDoctorupdate){
                     connection.commit();
                     return true;

@@ -1,13 +1,14 @@
-package controller.Room;
+package service.custom.impl;
 
 import db.DBConnection;
 import model.assignRoom;
+import service.custom.RoomBo;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomController implements RoomServices{
+public class RoomBoImpl implements RoomBo {
     @Override
     public boolean addRoom(assignRoom assignRoom) throws SQLException {
         // Insert a new room into roommanagement

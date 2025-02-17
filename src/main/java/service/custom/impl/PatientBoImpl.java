@@ -1,7 +1,8 @@
-package controller.Patient;
+package service.custom.impl;
 
 import db.DBConnection;
 import model.Patient;
+import service.custom.PatientBo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientController implements PatientServices {
+public class PatientBoImpl implements PatientBo {
 
     @Override
     public boolean addPatient(Patient patient) throws SQLException {

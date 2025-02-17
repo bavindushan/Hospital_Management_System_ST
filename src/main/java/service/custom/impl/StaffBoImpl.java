@@ -1,4 +1,4 @@
-package controller.Staff;
+package service.custom.impl;
 
 import db.DBConnection;
 import model.Staff;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffController {
+public class StaffBoImpl {
 
     public List<Staff> getAll(){
         List<Staff> list = new ArrayList<>();

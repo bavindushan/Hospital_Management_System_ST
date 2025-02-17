@@ -1,6 +1,6 @@
 package controller.PatientAppointmentView;
 
-import controller.Appointment.AppointmentController;
+import service.custom.impl.AppointmentBoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,12 +44,12 @@ public class PatientAppointmentViewFormController implements Initializable {
     @FXML
     private TextField txtId;
 
-    AppointmentController appointmentController;
+    AppointmentBoImpl appointmentBoImpl;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        appointmentController = new AppointmentController();
+        appointmentBoImpl = new AppointmentBoImpl();
         loadTable();
     }
     private void loadTable(){
@@ -61,7 +61,7 @@ public class PatientAppointmentViewFormController implements Initializable {
         clmTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         clmSatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        List<Appointment> all = appointmentController.getAll();
+        List<Appointment> all = appointmentBoImpl.getAll();
         ObservableList<Appointment> observableList = FXCollections.observableArrayList();
 
         all.forEach(appointment -> observableList.add(appointment));
@@ -81,7 +81,7 @@ public class PatientAppointmentViewFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            Appointment appointment = appointmentController.searchAppointment(txtId.getText());
+            Appointment appointment = appointmentBoImpl.searchAppointment(txtId.getText());
 
             if (appointment!=null){
                 ObservableList<Appointment> observableList = FXCollections.observableArrayList(appointment);

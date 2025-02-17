@@ -1,6 +1,6 @@
 package controller.BillingAndPayments;
 
-import controller.Patient.PatientController;
+import service.custom.impl.PatientBoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Patient;
 import model.PaymentBill;
+import service.custom.impl.BillingAndPaymentBoImpl;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -57,11 +58,11 @@ public class BillingAndPaymentFormController implements Initializable {
     @FXML
     private TextField txtTotalAmount;
 
-    BillingAndPaymentController billingAndPaymentController;
+    BillingAndPaymentBoImpl billingAndPaymentBoImpl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        billingAndPaymentController = new BillingAndPaymentController();
+        billingAndPaymentBoImpl = new BillingAndPaymentBoImpl();
         loadTable();
         txtId.setText(genarateID());
         loadStatus();
@@ -69,9 +70,9 @@ public class BillingAndPaymentFormController implements Initializable {
 
     }
     private void loadPatientID(){
-        PatientController patientController = new PatientController();
+        PatientBoImpl patientBoImpl = new PatientBoImpl();
         try {
-            List<Patient> patientList = patientController.getAll();
+            List<Patient> patientList = patientBoImpl.getAll();
             ObservableList<String> observableList = FXCollections.observableArrayList();
 
             patientList.forEach(patient -> observableList.add(patient.getID()));
@@ -89,7 +90,7 @@ public class BillingAndPaymentFormController implements Initializable {
         clmInvoiceName.setCellValueFactory(new PropertyValueFactory<>("invoiceName"));
         clmDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        List<PaymentBill> all = billingAndPaymentController.getAll();
+        List<PaymentBill> all = billingAndPaymentBoImpl.getAll();
         if (all == null) {
             System.out.println("Error: getAll() returned null!");
             return;
@@ -100,7 +101,7 @@ public class BillingAndPaymentFormController implements Initializable {
         tblBillsandPayment.setItems(observableList);
     }
     private String genarateID(){
-        String lastId = billingAndPaymentController.getLastId();
+        String lastId = billingAndPaymentBoImpl.getLastId();
         if (lastId==null) return "B001";
 
         int numericPart = Integer.parseInt(lastId.substring(1));
@@ -126,7 +127,7 @@ public class BillingAndPaymentFormController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            boolean isAdded = billingAndPaymentController.add(new PaymentBill(
+            boolean isAdded = billingAndPaymentBoImpl.add(new PaymentBill(
                     genarateID(),
                     cmbPatientID.getValue().toString(),
                     Double.parseDouble(txtTotalAmount.getText()),
@@ -147,7 +148,7 @@ public class BillingAndPaymentFormController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         try {
-            boolean isDelete = billingAndPaymentController.delete(txtId.getText());
+            boolean isDelete = billingAndPaymentBoImpl.delete(txtId.getText());
             if (isDelete) new Alert(Alert.AlertType.INFORMATION, "Deleted!").show();
             else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
 
@@ -166,7 +167,7 @@ public class BillingAndPaymentFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            PaymentBill search = billingAndPaymentController.search(txtId.getText());
+            PaymentBill search = billingAndPaymentBoImpl.search(txtId.getText());
             if (search!=null){
                 txtId.setText(search.getId());
                 cmbPatientID.setValue(search.getPatientID());
@@ -185,7 +186,7 @@ public class BillingAndPaymentFormController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         try {
-            boolean isUpdate = billingAndPaymentController.update(new PaymentBill(
+            boolean isUpdate = billingAndPaymentBoImpl.update(new PaymentBill(
                     genarateID(),
                     cmbPatientID.getValue().toString(),
                     Double.parseDouble(txtTotalAmount.getText()),

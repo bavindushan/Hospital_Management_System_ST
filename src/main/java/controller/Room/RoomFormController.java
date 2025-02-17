@@ -1,6 +1,6 @@
 package controller.Room;
 
-import controller.Patient.PatientController;
+import service.custom.impl.PatientBoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Patient;
 import model.assignRoom;
+import service.custom.impl.RoomBoImpl;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -51,11 +52,11 @@ public class RoomFormController implements Initializable {
     @FXML
     private TextField txtId;
 
-    RoomController roomController;
+    RoomBoImpl roomBoImpl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        roomController = new RoomController();
+        roomBoImpl = new RoomBoImpl();
         loadTable();
         loadPatientID();
         loadRoomTypes();
@@ -70,7 +71,7 @@ public class RoomFormController implements Initializable {
     }
     private String availableBedCount(String roomType){
         try {
-            if (roomType!=null) return String.valueOf(roomController.availableBedCount(roomType));
+            if (roomType!=null) return String.valueOf(roomBoImpl.availableBedCount(roomType));
             else return "0";
         } catch (SQLException e) {
             System.out.println("An error occur!"+e.getMessage());
@@ -79,7 +80,7 @@ public class RoomFormController implements Initializable {
     }
     private String genarateID(){
         try {
-            String lastId = roomController.lastID();
+            String lastId = roomBoImpl.lastID();
             if (lastId == null) return "RM001";
 
             int numericPart = Integer.parseInt(lastId.substring(2));
@@ -103,9 +104,9 @@ public class RoomFormController implements Initializable {
     }
     private void loadPatientID(){
         try {
-            PatientController patientController = new PatientController();
+            PatientBoImpl patientBoImpl = new PatientBoImpl();
 
-            List<Patient> patientList = patientController.getAll();
+            List<Patient> patientList = patientBoImpl.getAll();
             ObservableList<String> observableList = FXCollections.observableArrayList();
             patientList.forEach(patient -> observableList.add(patient.getID()));
 
@@ -122,7 +123,7 @@ public class RoomFormController implements Initializable {
             clmPatientID.setCellValueFactory(new PropertyValueFactory<>("patientId"));
             clmRoomType.setCellValueFactory(new PropertyValueFactory<>("type"));
 
-            List<assignRoom> list = roomController.getAll();
+            List<assignRoom> list = roomBoImpl.getAll();
             ObservableList<assignRoom> observableList = FXCollections.observableArrayList();
 
             list.forEach(assignRoom -> observableList.add(assignRoom));
@@ -136,7 +137,7 @@ public class RoomFormController implements Initializable {
     @FXML
     void btnAddOnAction(ActionEvent event) {
         try {
-            boolean isAdd = roomController.addRoom(new assignRoom(
+            boolean isAdd = roomBoImpl.addRoom(new assignRoom(
                     genarateID(),
                     cmbPatientID.getValue().toString(),
                     cmbRoomType.getValue().toString()
@@ -162,7 +163,7 @@ public class RoomFormController implements Initializable {
             cmbRoomType.valueProperty().addListener((observableValue, oldValue, newValue) -> {
                 if (oldValue==null) new Alert(Alert.AlertType.ERROR, "Please select room type!").show();
             });
-            boolean isDelete = roomController.deleteRom(txtId.getText(), cmbRoomType.getValue().toString());
+            boolean isDelete = roomBoImpl.deleteRom(txtId.getText(), cmbRoomType.getValue().toString());
             if (isDelete) new Alert(Alert.AlertType.INFORMATION,"Delete successful!").show();
             else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
         } catch (SQLException e) {
@@ -185,7 +186,7 @@ public class RoomFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            assignRoom assignRoom = roomController.searchRom(txtId.getText());
+            assignRoom assignRoom = roomBoImpl.searchRom(txtId.getText());
             //set values for texts boxes
             txtId.setText(assignRoom.getId());
             cmbPatientID.setItems(FXCollections.observableArrayList(assignRoom.getPatientId()));
@@ -204,7 +205,7 @@ public class RoomFormController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         try {
-            boolean isUpdate = roomController.updateRoom(new assignRoom(
+            boolean isUpdate = roomBoImpl.updateRoom(new assignRoom(
                     txtId.getText(),
                     cmbPatientID.getValue().toString(),
                     cmbRoomType.getValue().toString()

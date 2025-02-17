@@ -1,11 +1,11 @@
-package controller.Room;
+package service.custom;
 
 import model.assignRoom;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface RoomServices {
+public interface RoomBo {
     boolean addRoom(assignRoom assignRoom) throws SQLException;
     boolean updateRoom(assignRoom assignRoom) throws SQLException;
     boolean deleteRom(String id,String roomType) throws SQLException;

@@ -1,11 +1,11 @@
-package controller.Patient;
+package service.custom;
 
 import model.Patient;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface PatientServices {
+public interface PatientBo {
     boolean addPatient(Patient patient) throws SQLException;
     Patient searchPatient(String TelNo) throws SQLException;
     boolean updatePatient(Patient patient) throws SQLException;

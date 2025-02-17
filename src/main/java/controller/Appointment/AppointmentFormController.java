@@ -1,7 +1,7 @@
 package controller.Appointment;
 
-import controller.Patient.PatientController;
-import controller.doctor.DoctorController;
+import service.custom.impl.PatientBoImpl;
+import service.custom.impl.DoctorBoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
 import model.Doctor;
 import model.Patient;
+import service.custom.impl.AppointmentBoImpl;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -59,11 +60,11 @@ public class AppointmentFormController implements Initializable {
 
     @FXML
     private TextField txtId;
-    private AppointmentController appointmentController;
+    private AppointmentBoImpl appointmentBoImpl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        appointmentController = new AppointmentController();
+        appointmentBoImpl = new AppointmentBoImpl();
         loadTime();
         loadPatientsID();
         loadDoctorsID();
@@ -72,7 +73,7 @@ public class AppointmentFormController implements Initializable {
         loadTable();
     }
     private String genarateID(){
-        String lastID = appointmentController.getLastID();
+        String lastID = appointmentBoImpl.getLastID();
         if (lastID==null) return "AP000";
 
         int numericPart = Integer.parseInt(lastID.substring(2));
@@ -88,7 +89,7 @@ public class AppointmentFormController implements Initializable {
         clmTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         clmStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        List<Appointment> all = appointmentController.getAll();
+        List<Appointment> all = appointmentBoImpl.getAll();
         ObservableList<Appointment> observableList = FXCollections.observableArrayList();
 
         all.forEach(appointment -> observableList.add(appointment));
@@ -108,9 +109,9 @@ public class AppointmentFormController implements Initializable {
         cmbTime.setItems(observableList);
     }
     private void loadPatientsID(){
-        PatientController patientController = new PatientController();
+        PatientBoImpl patientBoImpl = new PatientBoImpl();
         try {
-            List<Patient> patientList = patientController.getAll();
+            List<Patient> patientList = patientBoImpl.getAll();
             ObservableList<String> obsPatientsID = FXCollections.observableArrayList();
 
             patientList.forEach(patient -> obsPatientsID.add(patient.getID()));
@@ -121,9 +122,9 @@ public class AppointmentFormController implements Initializable {
         }
     }
     private void loadDoctorsID(){
-        DoctorController doctorController = new DoctorController();
+        DoctorBoImpl doctorBoImpl = new DoctorBoImpl();
         try {
-            List<Doctor> doctorList = doctorController.getAll();
+            List<Doctor> doctorList = doctorBoImpl.getAll();
             ObservableList<String> obsDoctorID = FXCollections.observableArrayList();
 
             doctorList.forEach(doctor -> obsDoctorID.add(doctor.getId()));
@@ -161,7 +162,7 @@ public class AppointmentFormController implements Initializable {
             return;
         }
         try {
-            boolean isAdded = appointmentController.addAppointment(new Appointment(
+            boolean isAdded = appointmentBoImpl.addAppointment(new Appointment(
                     genarateID(),
                     cmbPatientID.getValue().toString(),
                     cmbDoctorID.getValue().toString(),
@@ -188,7 +189,7 @@ public class AppointmentFormController implements Initializable {
             return;
         }
         try {
-            boolean isDelete = appointmentController.deleteAppointment(txtId.getText(), cmbDoctorID.getValue().toString());
+            boolean isDelete = appointmentBoImpl.deleteAppointment(txtId.getText(), cmbDoctorID.getValue().toString());
             if (isDelete) new Alert(Alert.AlertType.INFORMATION, "Delete Successful!").show();
             else new Alert(Alert.AlertType.ERROR, "Ünsuccessful!").show();
 
@@ -209,7 +210,7 @@ public class AppointmentFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            Appointment appointment = appointmentController.searchAppointment(txtId.getText());
+            Appointment appointment = appointmentBoImpl.searchAppointment(txtId.getText());
             if (appointment!=null){
                 new Alert(Alert.AlertType.INFORMATION, "Appointment Found!").show();
 
@@ -245,7 +246,7 @@ public class AppointmentFormController implements Initializable {
             return;
         }
         try {
-            boolean isUpdate = appointmentController.UpdateAppointment(txtId.getText(), dtpDate.getValue(), cmbTime.getValue().toString(), cmbStatus.getValue().toString());
+            boolean isUpdate = appointmentBoImpl.UpdateAppointment(txtId.getText(), dtpDate.getValue(), cmbTime.getValue().toString(), cmbStatus.getValue().toString());
             if (isUpdate) new Alert(Alert.AlertType.INFORMATION, "Update Successful!").show();
             else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
         } catch (SQLException e) {

@@ -1,6 +1,6 @@
 package controller.AppointmentAndAvailability;
 
-import controller.Appointment.AppointmentController;
+import service.custom.impl.AppointmentBoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,11 +43,11 @@ public class AppointmentAndAvailabilityFormController implements Initializable {
 
     @FXML
     private TextField txtId;
-    AppointmentController appointmentController;
+    AppointmentBoImpl appointmentBoImpl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        appointmentController = new AppointmentController();
+        appointmentBoImpl = new AppointmentBoImpl();
         loadTable();
         loadStatus();
     }
@@ -68,7 +68,7 @@ public class AppointmentAndAvailabilityFormController implements Initializable {
         clmTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         clmSatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        List<Appointment> all = appointmentController.getAll();
+        List<Appointment> all = appointmentBoImpl.getAll();
         ObservableList<Appointment> observableList = FXCollections.observableArrayList();
 
         all.forEach(appointment -> observableList.add(appointment));
@@ -88,7 +88,7 @@ public class AppointmentAndAvailabilityFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
         try {
-            Appointment appointment = appointmentController.searchAppointment(txtId.getText());
+            Appointment appointment = appointmentBoImpl.searchAppointment(txtId.getText());
 
             if (appointment!=null){
                 ObservableList<Appointment> observableList = FXCollections.observableArrayList(appointment);
@@ -110,7 +110,7 @@ public class AppointmentAndAvailabilityFormController implements Initializable {
     void btnUpdateOnAction(ActionEvent event) {
         try {
             if(!txtId.getText().isEmpty() && cmbStatus.getValue()!=null) {
-                boolean isUpdate = appointmentController.UpdateStatus(txtId.getText(), cmbStatus.getValue().toString());
+                boolean isUpdate = appointmentBoImpl.UpdateStatus(txtId.getText(), cmbStatus.getValue().toString());
                 if (isUpdate) new Alert(Alert.AlertType.INFORMATION, "Updated!").show();
                 else new Alert(Alert.AlertType.ERROR, "Unsuccessful!").show();
 

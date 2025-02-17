@@ -1,11 +1,11 @@
-package controller.Schedule;
+package service.custom;
 
 import model.Schedule;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface ScheduleServices {
+public interface ScheduleBo {
     boolean assignSchedule(Schedule schedule) throws SQLException;
     boolean deleteSchedule(String id) throws SQLException;
     Schedule searchSchedule(String id) throws SQLException;

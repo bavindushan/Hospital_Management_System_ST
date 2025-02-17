@@ -1,18 +1,15 @@
-package controller.Report;
+package service.custom.impl;
 
 import db.DBConnection;
 import model.Report;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
+import service.custom.ReportBo;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ReportController implements ReportServices{
+public class ReportBoImpl implements ReportBo {
     @Override
     public boolean add(Report report) throws SQLException {
         String SQL = "INSERT INTO reports(report_id,admin_id,report_type,generated_date,exported_format) VALUES(?,?,?,?,?)";

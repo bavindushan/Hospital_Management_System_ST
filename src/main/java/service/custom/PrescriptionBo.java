@@ -1,11 +1,11 @@
-package controller.Prescription;
+package service.custom;
 
 import model.Prescription;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface PrescriptionServices {
+public interface PrescriptionBo {
     boolean add(Prescription prescription) throws SQLException;
     boolean update(Prescription prescription) throws SQLException;
     boolean delete(String id) throws SQLException;

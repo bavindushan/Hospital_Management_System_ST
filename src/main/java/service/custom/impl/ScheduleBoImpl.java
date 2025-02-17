@@ -1,13 +1,14 @@
-package controller.Schedule;
+package service.custom.impl;
 
 import db.DBConnection;
 import model.Schedule;
+import service.custom.ScheduleBo;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScheduleController implements ScheduleServices{
+public class ScheduleBoImpl implements ScheduleBo {
     @Override
     public boolean assignSchedule(Schedule schedule) throws SQLException {
         String SQL = "INSERT INTO schedules (schedule_id,doctor_id,staff_id,schedule_details) VALUES (?,?,?,?)";

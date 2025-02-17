@@ -1,13 +1,14 @@
-package controller.Prescription;
+package service.custom.impl;
 
 import db.DBConnection;
 import model.Prescription;
+import service.custom.PrescriptionBo;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrescriptionController implements PrescriptionServices{
+public class PrescriptionBoImpl implements PrescriptionBo {
     @Override
     public boolean add(Prescription prescription) throws SQLException {
         String SQL = "INSERT INTO prescription(prescription_id,patient_id,doctor_id,dosage,duration,medicine_details,additional_notes) VALUES(?,?,?,?,?,?,?)";

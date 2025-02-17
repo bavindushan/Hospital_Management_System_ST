@@ -1,4 +1,4 @@
-package controller.Appointment;
+package service.custom;
 
 import model.Appointment;
 
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface AppointmentServices {
+public interface AppointmentBo {
     boolean addAppointment(Appointment appointment) throws SQLException;
     boolean UpdateAppointment(String id,LocalDate date, String time,String status) throws SQLException;
     boolean UpdateStatus(String id,String status) throws SQLException;
