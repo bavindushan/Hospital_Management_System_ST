@@ -2,6 +2,10 @@ package controller.Report;
 
 import db.DBConnection;
 import model.Report;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -23,8 +27,4 @@ public class ReportController implements ReportServices{
         return affectedRows>0;
     }
 
-    @Override
-    public boolean genarateReport() {
-        return false;
-    }
 }
