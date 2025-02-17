@@ -85,7 +85,6 @@ public class AdminFormController implements Initializable {
             }
 
             //password encryption
-
             String key = "#E&Cr!Pt$";
             BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
             basicTextEncryptor.setPassword(key);

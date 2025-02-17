@@ -51,8 +51,13 @@ public class AdminDashBoardFormController {
     }
 
     @FXML
-    void btnReportAndAnalyticsOnAction(ActionEvent event) {
+    void btnReportAndAnalyticsOnAction(ActionEvent event) throws IOException {
+        URL resource = this.getClass().getResource("/view/ReportManagement.fxml");
+        assert resource != null;
+        Parent load = FXMLLoader.load(resource);
 
+        ancpAdminDashBoard.getChildren().clear();
+        ancpAdminDashBoard.getChildren().add(load);
     }
 
     @FXML
