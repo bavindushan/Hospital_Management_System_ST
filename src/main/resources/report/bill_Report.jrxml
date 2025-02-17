@@ -1,0 +1,126 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="bill_Report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2ef6a58f-a568-4072-a887-cfa82908edb5">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="hospitalmanagement_billing"/>
+	<query language="SQL"><![CDATA[SELECT * FROM billing]]></query>
+	<field name="bill_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="bill_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="billing"/>
+	</field>
+	<field name="patient_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patient_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="patient_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="billing"/>
+	</field>
+	<field name="total_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="billing"/>
+	</field>
+	<field name="payment_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="payment_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="payment_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="billing"/>
+	</field>
+	<field name="invoice_pdf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="invoice_pdf"/>
+		<property name="com.jaspersoft.studio.field.label" value="invoice_pdf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="billing"/>
+	</field>
+	<field name="generated_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="generated_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="generated_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="billing"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="81" splitType="Stretch">
+		<element kind="staticText" uuid="c6f98dae-1ecd-4819-bd5c-427ea6f8f8a1" x="123" y="11" width="314" height="39" fontSize="25.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Medix(pvt) Ltd.Hospital]]></text>
+		</element>
+		<element kind="textField" uuid="485cfdba-5856-4c15-8de5-642e00020fa6" x="481" y="6" width="90" height="24" pattern="MMMMM dd, yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="f851d341-90d0-4ad1-b593-57b1949cacc2" x="481" y="33" width="90" height="22" pattern="HH:mm">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="staticText" uuid="0b240f2d-2646-4dac-a014-01342c8024c7" x="444" y="8" width="34" height="22">
+			<text><![CDATA[Date :]]></text>
+		</element>
+		<element kind="staticText" uuid="d316c54a-c19b-4fa0-9111-76da350d9a07" x="445" y="34" width="30" height="22">
+			<text><![CDATA[Time :]]></text>
+		</element>
+		<element kind="staticText" uuid="b2674e1c-e22f-4361-9372-fbe667fbf8f0" x="210" y="55" width="142" height="15">
+			<text><![CDATA[MediX (PVT) Ltd, Colombo 7.]]></text>
+		</element>
+		<element kind="image" uuid="dbd44c9d-1b22-4e2c-aa76-60380b493462" x="42" y="3" width="60" height="75">
+			<expression><![CDATA["C:/Users/Bavindu Shan/OneDrive/ICD(icet)/Standalone Application Development/Hospital_Management_System/Hospital_Management_System_ST/src/main/resources/img/Logo.png"]]></expression>
+		</element>
+	</title>
+	<pageHeader height="43" splitType="Stretch">
+		<element kind="staticText" uuid="fc415956-d6c5-4878-8f81-d1ba437bd199" x="199" y="6" width="160" height="30" fontSize="19.0" bold="true">
+			<text><![CDATA[Billing Summary]]></text>
+		</element>
+	</pageHeader>
+	<columnHeader height="34" splitType="Stretch">
+		<element kind="staticText" uuid="3dd607fa-30d8-4f77-a69e-390cc5e7b925" x="-1" y="0" width="60" height="30">
+			<text><![CDATA[bill_id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="889d0f67-6800-4aab-b898-85f6e80ded5f"/>
+		</element>
+		<element kind="staticText" uuid="728b32ce-2621-4450-836e-a25a74f2622e" x="76" y="0" width="76" height="30">
+			<text><![CDATA[patient_id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="199b0d82-6a49-4ec2-bf35-5d14ff841c8f"/>
+		</element>
+		<element kind="staticText" uuid="08143fea-eec9-4198-a8be-2b7d53dc3a01" x="174" y="0" width="100" height="30">
+			<text><![CDATA[total_amount]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4dfb6f9-e1cf-4919-b876-dfe03cd0ad55"/>
+		</element>
+		<element kind="staticText" uuid="8f52d4bb-2097-4756-a568-ee7abe5e437b" x="294" y="0" width="78" height="30">
+			<text><![CDATA[payment_status]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a763617-d0a6-4ab7-b31b-9f2d7a54c803"/>
+		</element>
+		<element kind="staticText" uuid="6d447c2c-4cc7-4853-9bca-6126a08af9b1" x="388" y="0" width="80" height="30">
+			<text><![CDATA[invoice_pdf]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="534ed6ef-c134-475f-bbe3-1c4ef3c88305"/>
+		</element>
+		<element kind="staticText" uuid="996d41f2-a142-43c2-9122-f400f5e3a1d0" x="472" y="0" width="100" height="30">
+			<text><![CDATA[generated_date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="593b6604-d6a8-476d-a626-f713c5d6b538"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<element kind="textField" uuid="aa3737dd-7be4-4093-b2d6-a2deafeeea19" x="-4" y="1" width="60" height="30">
+				<expression><![CDATA[$F{bill_id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="889d0f67-6800-4aab-b898-85f6e80ded5f"/>
+			</element>
+			<element kind="textField" uuid="fc290425-2c54-4e4b-b8d6-ef81d55bcc52" x="72" y="1" width="76" height="30">
+				<expression><![CDATA[$F{patient_id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="199b0d82-6a49-4ec2-bf35-5d14ff841c8f"/>
+			</element>
+			<element kind="textField" uuid="a74edcd2-7418-47b0-b965-6b4182f697de" x="171" y="2" width="100" height="30">
+				<expression><![CDATA[$F{total_amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4dfb6f9-e1cf-4919-b876-dfe03cd0ad55"/>
+			</element>
+			<element kind="textField" uuid="153b4d94-8a5c-4684-bd7c-ad587cd6e46a" x="291" y="2" width="78" height="30">
+				<expression><![CDATA[$F{payment_status}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a763617-d0a6-4ab7-b31b-9f2d7a54c803"/>
+			</element>
+			<element kind="textField" uuid="bcd6d5c9-4c07-43d4-a5e7-4916a12cb1d4" x="385" y="2" width="80" height="30">
+				<expression><![CDATA[$F{invoice_pdf}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="534ed6ef-c134-475f-bbe3-1c4ef3c88305"/>
+			</element>
+			<element kind="textField" uuid="9e5f0677-36e0-403e-89e9-21d429b41fad" x="469" y="3" width="100" height="30">
+				<expression><![CDATA[$F{generated_date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="593b6604-d6a8-476d-a626-f713c5d6b538"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch">
+		<element kind="staticText" uuid="98eac70b-9f80-4dab-8989-eab8422e9760" x="215" y="7" width="138" height="30" fontSize="19.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Thank you !]]></text>
+		</element>
+	</summary>
+</jasperReport>

@@ -6,5 +6,5 @@ import java.sql.SQLException;
 
 public interface ReportServices {
     boolean add(Report report) throws SQLException;
-    boolean genarateReport(String type);
+    boolean genarateReport();
 }

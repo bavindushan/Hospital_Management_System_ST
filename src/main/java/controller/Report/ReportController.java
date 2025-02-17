@@ -4,6 +4,7 @@ import db.DBConnection;
 import model.Report;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -16,12 +17,14 @@ public class ReportController implements ReportServices{
         preparedStatement.setString(1,report.getId());
         preparedStatement.setString(2,report.getAdminId());
         preparedStatement.setString(3,report.getType());
-        preparedStatement.setDate(4,report.getDate());
+        preparedStatement.setDate(4, Date.valueOf(report.getDate()));
         preparedStatement.setString(5,report.getFormat());
+        int affectedRows = preparedStatement.executeUpdate();
+        return affectedRows>0;
     }
 
     @Override
-    public boolean genarateReport(String type) {
+    public boolean genarateReport() {
         return false;
     }
 }
