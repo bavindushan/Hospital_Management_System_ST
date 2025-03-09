@@ -4,10 +4,9 @@ import db.DBConnection;
 import model.Report;
 import service.custom.ReportBo;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReportBoImpl implements ReportBo {
     @Override
@@ -22,6 +21,42 @@ public class ReportBoImpl implements ReportBo {
         preparedStatement.setString(5,report.getFormat());
         int affectedRows = preparedStatement.executeUpdate();
         return affectedRows>0;
+    }
+
+    @Override
+    public List<Report> getAll() throws SQLException {
+        List<Report> list = new ArrayList<>();
+        String SQL = "SELECT * FROM reports";
+        Connection connection = DBConnection.getInstance().getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+
+        while(resultSet.next()){
+            Report report = new Report(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getDate(4).toLocalDate(),
+                    resultSet.getString(5)
+            );
+            list.add(report);
+        }
+        return list;
+    }
+
+    @Override
+    public String getLastId() {
+        String SQL = "SELECT report_id FROM reports ORDER BY report_id DESC LIMIT 1;";
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            ResultSet resultSet = connection.createStatement().executeQuery(SQL);
+            if (resultSet.next()){
+                return resultSet.getString(1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching last report ID: " + e.getMessage(), e);
+        }
+        return null;
     }
 
 }
