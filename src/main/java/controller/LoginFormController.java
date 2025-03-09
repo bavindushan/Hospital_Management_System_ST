@@ -53,6 +53,7 @@ public class LoginFormController implements Initializable {
     }
     @FXML
     void btnLoginOnAction(ActionEvent event) {
+
         switch (cmbUserTypes.getValue().toString()) {
             case "Admin":
                 System.out.println("Admin");
@@ -91,6 +92,14 @@ public class LoginFormController implements Initializable {
         }
     }
     private void searchAdmin() throws SQLException, IOException {
+        if (cmbUserTypes.getValue() == null ||
+                txtEmail.getText().trim().isEmpty() ||
+                txtPassword.getText().trim().isEmpty()) {
+
+            new Alert(Alert.AlertType.WARNING, "All Fields Should Be Filled!").show();
+            return;
+        }
+
         System.out.println("searchAdmin Method call");
         String SQL = "SELECT * FROM admin WHERE email="+"'"+txtEmail.getText()+"'";
         Connection connection = DBConnection.getInstance().getConnection();
@@ -120,6 +129,14 @@ public class LoginFormController implements Initializable {
         }else new Alert(Alert.AlertType.ERROR, "User Not Found!").show();
     }
     private void searchReceptionist() throws SQLException, IOException {
+        if (cmbUserTypes.getValue() == null ||
+                txtEmail.getText().trim().isEmpty() ||
+                txtPassword.getText().trim().isEmpty()) {
+
+            new Alert(Alert.AlertType.WARNING, "All Fields Should Be Filled!").show();
+            return;
+        }
+
         System.out.println("searchAdmin Method call");
         String SQL = "SELECT * FROM staff WHERE role = 'Receptionist' AND email="+"'"+txtEmail.getText()+"'";
         Connection connection = DBConnection.getInstance().getConnection();
@@ -143,6 +160,14 @@ public class LoginFormController implements Initializable {
         }else new Alert(Alert.AlertType.ERROR,"Receptionist not available!").show();
     }
     private void searchDoctor() throws SQLException, IOException {
+        if (cmbUserTypes.getValue() == null ||
+                txtEmail.getText().trim().isEmpty() ||
+                txtPassword.getText().trim().isEmpty()) {
+
+            new Alert(Alert.AlertType.WARNING, "All Fields Should Be Filled!").show();
+            return;
+        }
+
         String SQL = " SELECT * FROM doctor WHERE email="+"'"+txtEmail.getText()+"'";
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery(SQL);
