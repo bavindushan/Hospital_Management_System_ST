@@ -68,18 +68,17 @@ public class ReportFormController implements Initializable {
         loadTable();
     }
     private void loadTable(){
+        clmId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clmAdminId.setCellValueFactory(new PropertyValueFactory<>("adminId"));
+        clmType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        clmDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        clmFormat.setCellValueFactory(new PropertyValueFactory<>("format"));
+
         try {
-            clmId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            clmAdminId.setCellValueFactory(new PropertyValueFactory<>("admin_id"));
-            clmType.setCellValueFactory(new PropertyValueFactory<>("report_type"));
-            clmDate.setCellValueFactory(new PropertyValueFactory<>("generated_date"));
-            clmFormat.setCellValueFactory(new PropertyValueFactory<>("exported_format"));
-
             List<Report> all = reportBo.getAll();
-            ObservableList<Report> observableList = FXCollections.observableArrayList();
-
-            all.forEach(report -> observableList.add(report));
+            ObservableList<Report> observableList = FXCollections.observableArrayList(all);
             tblReports.setItems(observableList);
+
         } catch (SQLException e) {
             System.out.println("An Error Occur!"+e.getMessage());
         }
