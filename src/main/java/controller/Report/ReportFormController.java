@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Admin;
 import model.Report;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
@@ -66,6 +67,29 @@ public class ReportFormController implements Initializable {
         adminBo = new AdminBoImpl();
         reportBo  = new ReportBoImpl();
         loadTable();
+        loadAdminId();
+        loadFormat();
+        txtId.setText(generateID());
+    }
+    private String generateID(){
+        String lastId = reportBo.getLastId();
+
+        if (lastId==null) return "R001";
+
+        int numericPart = Integer.parseInt(lastId.substring(1));
+        int newNumber = numericPart+1;
+
+        return String.format("R%03d",newNumber);
+    }
+    private void loadFormat(){
+        cmbFormat.setValue("PDF");
+    }
+    private void loadAdminId(){
+        List<Admin> adminList = adminBo.getAllAdmin();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+
+        adminList.forEach(admin -> observableList.add(admin.getAdminID()));
+        cmbDoctorID.setItems(observableList);
     }
     private void loadTable(){
         clmId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -87,6 +111,8 @@ public class ReportFormController implements Initializable {
     @FXML
     void btnGenarateReportOnAction(ActionEvent event) {
 
+        if (txtId.getText().isEmpty()||cmbDoctorID.getValue()==null||dtpDate.getValue()==null) return;
+
         try {
             JasperDesign design = JRXmlLoader.load("src/main/resources/report/bill_Report.jrxml");
 
@@ -103,16 +129,26 @@ public class ReportFormController implements Initializable {
 
             new Alert(Alert.AlertType.INFORMATION, "Download Complete in to your download file!").show();
 
-//            JasperViewer.viewReport(jasperPrint,false//exitOnClose);  // if you want to view, then use this
 
+            reportBo.add(new Report(
+                    txtId.getText(),
+                    cmbDoctorID.getValue().toString(),
+                    "Billing Summary",
+                    dtpDate.getValue(),
+                    "PDF"
+            ));
         } catch (JRException | SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("An Error occur!"+e.getMessage());
+
+        }finally {
+            loadTable();
         }
     }
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
-
+        loadAdminId();
+        loadTable();
     }
 
 }
